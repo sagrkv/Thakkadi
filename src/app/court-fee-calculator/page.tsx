@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import CalculatorShell from '@/components/court-fee/CalculatorShell';
 import RefundCalculator from '@/components/court-fee/RefundCalculator';
 import Disclaimer from '@/components/shared/Disclaimer';
@@ -43,6 +44,11 @@ export default function CourtFeeCalculatorPage() {
               1958 Act
             </span>
           </div>
+        </div>
+        <div className="mt-3">
+          <Link href="/court-fee-calculator/rules" className="rules-link rules-link-teal">
+            {'\u{1F4CB}'} View All Rules
+          </Link>
         </div>
       </div>
 

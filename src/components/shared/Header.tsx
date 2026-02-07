@@ -14,16 +14,14 @@ export default function Header() {
 
   return (
     <header className="site-header no-print">
-      <div className="max-w-5xl mx-auto px-4 py-4 relative z-10">
+      <div className="max-w-5xl mx-auto px-4 py-5 relative z-10">
         <div className="flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-3 text-decoration-none">
-            <div className="header-logo" aria-hidden="true">
-              <span>{'\u2696'}</span>
-            </div>
+          <Link href="/" className="flex items-center gap-3.5 text-decoration-none">
+            <span className="header-logo" aria-hidden="true">{'\u2696'}</span>
             <div>
               <h1
-                className="text-white text-lg sm:text-xl font-bold leading-tight"
-                style={{ fontFamily: 'var(--font-display)', letterSpacing: '-0.01em' }}
+                className="text-white text-2xl sm:text-3xl font-bold leading-tight"
+                style={{ fontFamily: 'var(--font-display)', letterSpacing: '-0.015em' }}
               >
                 Thakkadi
               </h1>
@@ -41,7 +39,15 @@ export default function Header() {
               <Link
                 key={item.href}
                 href={item.href}
-                className={`nav-link ${pathname === item.href ? 'active' : ''}`}
+                className={`nav-link ${
+                  item.href === '/'
+                    ? pathname === '/'
+                      ? 'active'
+                      : ''
+                    : pathname.startsWith(item.href)
+                      ? 'active'
+                      : ''
+                }`}
                 aria-label={item.label}
               >
                 <span className="hidden sm:inline" aria-hidden="true">{item.label}</span>

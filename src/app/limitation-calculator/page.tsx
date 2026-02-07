@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
 import InputForm from '@/components/limitation/InputForm';
 import ResultsDisplay from '@/components/limitation/ResultsDisplay';
 import Disclaimer from '@/components/shared/Disclaimer';
@@ -68,6 +69,11 @@ export default function LimitationCalculatorPage() {
             <span className="badge badge-success">Review</span>
             <span className="badge badge-success">SLP</span>
             <span className="badge badge-success">Execution</span>
+          </div>
+          <div className="mt-4">
+            <Link href="/limitation-calculator/rules" className="rules-link">
+              {'\u{1F4CB}'} View All Rules
+            </Link>
           </div>
         </div>
 
