@@ -35,6 +35,11 @@ export default function RootLayout({
           href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Outfit:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
           rel="stylesheet"
         />
+        <script
+          defer
+          src="https://cloud.umami.is/script.js"
+          data-website-id="adc22b09-8042-41e9-9998-6b2ba6452de9"
+        />
       </head>
       <body className="antialiased min-h-screen flex flex-col">
         <Header />

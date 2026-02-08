@@ -57,6 +57,14 @@ export default function CourtFeeCalculatorPage() {
 
       <div className="mt-8">
         <Disclaimer />
+        <div className="mt-3 text-center">
+          <Link
+            href="/feedback?calculator=court-fee"
+            className="feedback-issue-link"
+          >
+            {'\u{1F6A9}'} Report an issue with these rules
+          </Link>
+        </div>
       </div>
     </div>
   );

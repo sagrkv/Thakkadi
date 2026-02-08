@@ -165,6 +165,14 @@ export default function LimitationCalculatorPage() {
 
           <div className="mb-6">
             <Disclaimer />
+            <div className="mt-3 text-center">
+              <Link
+                href="/feedback?calculator=limitation"
+                className="feedback-issue-link"
+              >
+                {'\u{1F6A9}'} Report an issue with these rules
+              </Link>
+            </div>
           </div>
 
           <div className="text-center text-sm" style={{ color: 'var(--color-neutral-500)' }}>

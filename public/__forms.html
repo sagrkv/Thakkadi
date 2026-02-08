@@ -1,0 +1,18 @@
+<!--
+  Hidden form for Netlify's build-time form detection.
+  The actual form is rendered by React in /feedback.
+  This file must exist in public/ so Netlify can discover the form fields.
+-->
+<!DOCTYPE html>
+<html>
+<head><title>Forms</title></head>
+<body>
+  <form name="feedback" netlify netlify-honeypot="bot-field" hidden>
+    <input name="bot-field" />
+    <input name="type" />
+    <input name="calculator" />
+    <textarea name="message"></textarea>
+    <input name="email" />
+  </form>
+</body>
+</html>
