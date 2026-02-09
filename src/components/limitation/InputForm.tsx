@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import type { CaseInput, CaseType, CourtLevel, JudgmentType, CertifiedCopyDates } from '@/types/limitation';
 
 interface InputFormProps {
@@ -14,20 +14,68 @@ const CASE_TYPES: { value: CaseType; label: string; description: string; icon: s
   { value: 'writ', label: 'Writ Petition', description: 'Constitutional remedies under Article 226/32', icon: '\u00A7' },
 ];
 
-const COURT_LEVELS: Record<CaseType, { value: CourtLevel; label: string }[]> = {
+interface CourtOption {
+  value: CourtLevel;
+  label: string;
+  subtitle?: string;
+}
+
+interface CourtGroup {
+  heading: string;
+  courts: CourtOption[];
+}
+
+const COURT_LEVELS: Record<CaseType, CourtGroup[]> = {
   civil: [
-    { value: 'district_court', label: 'District Court' },
-    { value: 'high_court', label: 'High Court' },
-    { value: 'supreme_court', label: 'Supreme Court' },
+    {
+      heading: 'Subordinate Courts',
+      courts: [
+        { value: 'civil_judge_junior', label: 'Civil Judge (Junior Division)', subtitle: 'Handles civil suits up to the lower pecuniary limit' },
+        { value: 'civil_judge_senior', label: 'Civil Judge (Senior Division)', subtitle: 'Handles civil suits up to the higher pecuniary limit' },
+        { value: 'district_court', label: 'District Court', subtitle: 'District Judge / Addl. District Judge' },
+      ],
+    },
+    {
+      heading: 'Special Courts',
+      courts: [
+        { value: 'family_court', label: 'Family Court', subtitle: 'Matrimonial disputes, custody, maintenance' },
+        { value: 'commercial_court', label: 'Commercial Court', subtitle: 'Commercial disputes above Rs. 3 lakh' },
+        { value: 'consumer_district', label: 'District Consumer Commission', subtitle: 'Consumer disputes (District level)' },
+      ],
+    },
+    {
+      heading: 'Higher Courts',
+      courts: [
+        { value: 'high_court', label: 'High Court' },
+        { value: 'supreme_court', label: 'Supreme Court' },
+      ],
+    },
   ],
   criminal: [
-    { value: 'sessions_court', label: 'Sessions Court' },
-    { value: 'high_court', label: 'High Court' },
-    { value: 'supreme_court', label: 'Supreme Court' },
+    {
+      heading: 'Subordinate Courts',
+      courts: [
+        { value: 'jmfc', label: 'JMFC / Metropolitan Magistrate', subtitle: 'Judicial Magistrate First Class; Metropolitan Magistrate in metro cities' },
+        { value: 'cjm', label: 'Chief Judicial Magistrate', subtitle: 'CJM — heads the magistracy at district level' },
+        { value: 'sessions_court', label: 'Sessions Court', subtitle: 'Sessions Judge / Addl. Sessions Judge' },
+      ],
+    },
+    {
+      heading: 'Higher Courts',
+      courts: [
+        { value: 'high_court', label: 'High Court' },
+        { value: 'supreme_court', label: 'Supreme Court' },
+      ],
+    },
   ],
   writ: [
-    { value: 'high_court', label: 'High Court' },
-    { value: 'supreme_court', label: 'Supreme Court' },
+    {
+      heading: 'Courts',
+      courts: [
+        { value: 'high_court', label: 'High Court' },
+        { value: 'supreme_court', label: 'Supreme Court' },
+      ],
+    },
   ],
 };
 
@@ -36,13 +84,7 @@ const JUDGMENT_TYPES: { value: JudgmentType; label: string; description: string 
   { value: 'interim', label: 'Interim Order', description: 'Temporary or interlocutory order' },
 ];
 
-const STEP_LABELS = [
-  { title: 'Case Type', short: 'Type' },
-  { title: 'Court', short: 'Court' },
-  { title: 'Order Type', short: 'Order' },
-  { title: 'Dates', short: 'Dates' },
-  { title: 'Review', short: 'Review' },
-];
+const AUTO_ADVANCE_DELAY_MS = 300;
 
 export default function InputForm({ onSubmit, isLoading }: InputFormProps) {
   const [step, setStep] = useState(1);
@@ -53,6 +95,53 @@ export default function InputForm({ onSubmit, isLoading }: InputFormProps) {
   const [showCertifiedCopy, setShowCertifiedCopy] = useState(false);
   const [certifiedCopy, setCertifiedCopy] = useState<CertifiedCopyDates>({});
   const [errors, setErrors] = useState<Record<string, string>>({});
+
+  // Track whether the user just navigated back (to prevent re-advance on same selection)
+  const navigatedBackRef = useRef(false);
+  const prevCaseTypeRef = useRef<CaseType | ''>('');
+  const prevCourtLevelRef = useRef<CourtLevel | ''>('');
+  const prevJudgmentTypeRef = useRef<JudgmentType | ''>('');
+
+  // Auto-advance for Steps 1-3: selection triggers advance after 300ms visual feedback
+  useEffect(() => {
+    if (caseType && step === 1) {
+      // If navigated back and re-selected the same value, don't auto-advance
+      if (navigatedBackRef.current && caseType === prevCaseTypeRef.current) {
+        navigatedBackRef.current = false;
+        return;
+      }
+      navigatedBackRef.current = false;
+      prevCaseTypeRef.current = caseType;
+      const timer = setTimeout(() => setStep(2), AUTO_ADVANCE_DELAY_MS);
+      return () => clearTimeout(timer);
+    }
+  }, [caseType, step]);
+
+  useEffect(() => {
+    if (courtLevel && step === 2) {
+      if (navigatedBackRef.current && courtLevel === prevCourtLevelRef.current) {
+        navigatedBackRef.current = false;
+        return;
+      }
+      navigatedBackRef.current = false;
+      prevCourtLevelRef.current = courtLevel;
+      const timer = setTimeout(() => setStep(3), AUTO_ADVANCE_DELAY_MS);
+      return () => clearTimeout(timer);
+    }
+  }, [courtLevel, step]);
+
+  useEffect(() => {
+    if (judgmentType && step === 3) {
+      if (navigatedBackRef.current && judgmentType === prevJudgmentTypeRef.current) {
+        navigatedBackRef.current = false;
+        return;
+      }
+      navigatedBackRef.current = false;
+      prevJudgmentTypeRef.current = judgmentType;
+      const timer = setTimeout(() => setStep(4), AUTO_ADVANCE_DELAY_MS);
+      return () => clearTimeout(timer);
+    }
+  }, [judgmentType, step]);
 
   const validateStep = (currentStep: number): boolean => {
     const newErrors: Record<string, string> = {};
@@ -84,6 +173,7 @@ export default function InputForm({ onSubmit, isLoading }: InputFormProps) {
 
   const handleBack = () => {
     if (step > 1) {
+      navigatedBackRef.current = true;
       setStep(step - 1);
     }
   };
@@ -110,62 +200,6 @@ export default function InputForm({ onSubmit, isLoading }: InputFormProps) {
 
   return (
     <div className="card p-6 md:p-8">
-      {/* Step Progress */}
-      <div className="mb-8">
-        <div className="flex justify-between items-center mb-4">
-          {STEP_LABELS.map((label, index) => {
-            const stepNum = index + 1;
-            const isCompleted = stepNum < step;
-            const isActive = stepNum === step;
-
-            return (
-              <div key={stepNum} className="flex flex-col items-center flex-1">
-                <div className="flex items-center w-full">
-                  {index > 0 && (
-                    <div
-                      className="h-0.5 flex-1 transition-colors duration-300"
-                      style={{
-                        background: stepNum <= step
-                          ? 'var(--color-slate-500)'
-                          : 'var(--color-neutral-200)',
-                      }}
-                    />
-                  )}
-                  <div className={`step-indicator ${isCompleted ? 'completed' : isActive ? 'active' : 'pending'}`}>
-                    {isCompleted ? '\u2713' : stepNum}
-                  </div>
-                  {index < STEP_LABELS.length - 1 && (
-                    <div
-                      className="h-0.5 flex-1 transition-colors duration-300"
-                      style={{
-                        background: stepNum < step
-                          ? 'var(--color-slate-500)'
-                          : 'var(--color-neutral-200)',
-                      }}
-                    />
-                  )}
-                </div>
-                <span
-                  className="mt-2 text-xs font-medium hidden md:block"
-                  style={{ color: isActive ? 'var(--color-slate-700)' : 'var(--color-neutral-400)' }}
-                >
-                  {label.title}
-                </span>
-                <span
-                  className="mt-2 text-xs font-medium md:hidden"
-                  style={{ color: isActive ? 'var(--color-slate-700)' : 'var(--color-neutral-400)' }}
-                >
-                  {label.short}
-                </span>
-              </div>
-            );
-          })}
-        </div>
-        <div className="progress-bar">
-          <div className="progress-bar-fill" style={{ width: `${((step - 1) / 4) * 100}%` }} />
-        </div>
-      </div>
-
       {/* Step 1: Case Type */}
       {step === 1 && (
         <div className="animate-fade-in">
@@ -179,6 +213,7 @@ export default function InputForm({ onSubmit, isLoading }: InputFormProps) {
             {CASE_TYPES.map((type, index) => (
               <button
                 key={type.value}
+                aria-pressed={caseType === type.value}
                 onClick={() => { setCaseType(type.value); setCourtLevel(''); setErrors({}); }}
                 className={`selection-card ${caseType === type.value ? 'selected' : ''} stagger-${index + 1}`}
               >
@@ -205,18 +240,42 @@ export default function InputForm({ onSubmit, isLoading }: InputFormProps) {
             </h2>
             <p style={{ color: 'var(--color-neutral-500)' }}>Select the court that delivered the order</p>
           </div>
-          <div className="space-y-4">
-            {COURT_LEVELS[caseType].map((court, index) => (
-              <button
-                key={court.value}
-                onClick={() => { setCourtLevel(court.value); setErrors({}); }}
-                className={`selection-card ${courtLevel === court.value ? 'selected' : ''} stagger-${index + 1}`}
-              >
-                <div className="flex items-center gap-4">
-                  <span className="text-2xl">{'\uD83C\uDFDB'}</span>
-                  <div className="font-semibold text-lg" style={{ color: 'var(--color-slate-800)' }}>{court.label}</div>
+          <div className="space-y-6">
+            {COURT_LEVELS[caseType].map((group) => (
+              <div key={group.heading}>
+                <div
+                  className="flex items-center gap-3 mb-3 px-1"
+                >
+                  <div className="h-px flex-1" style={{ background: 'var(--color-neutral-200)' }} />
+                  <span
+                    className="text-xs font-semibold uppercase tracking-widest"
+                    style={{ color: 'var(--color-neutral-400)' }}
+                  >
+                    {group.heading}
+                  </span>
+                  <div className="h-px flex-1" style={{ background: 'var(--color-neutral-200)' }} />
                 </div>
-              </button>
+                <div className="space-y-3">
+                  {group.courts.map((court) => (
+                    <button
+                      key={court.value}
+                      aria-pressed={courtLevel === court.value}
+                      onClick={() => { setCourtLevel(court.value); setErrors({}); }}
+                      className={`selection-card ${courtLevel === court.value ? 'selected' : ''}`}
+                    >
+                      <div className="flex items-start gap-4">
+                        <span className="text-2xl mt-0.5">{'\uD83C\uDFDB'}</span>
+                        <div className="flex-1 text-left">
+                          <div className="font-semibold text-lg" style={{ color: 'var(--color-slate-800)' }}>{court.label}</div>
+                          {court.subtitle && (
+                            <div className="text-sm mt-0.5" style={{ color: 'var(--color-neutral-500)' }}>{court.subtitle}</div>
+                          )}
+                        </div>
+                      </div>
+                    </button>
+                  ))}
+                </div>
+              </div>
             ))}
           </div>
           {errors.courtLevel && <div className="alert alert-danger mt-4"><span>!!</span><span>{errors.courtLevel}</span></div>}
@@ -236,6 +295,7 @@ export default function InputForm({ onSubmit, isLoading }: InputFormProps) {
             {JUDGMENT_TYPES.map((type, index) => (
               <button
                 key={type.value}
+                aria-pressed={judgmentType === type.value}
                 onClick={() => { setJudgmentType(type.value); setErrors({}); }}
                 className={`selection-card ${judgmentType === type.value ? 'selected' : ''} stagger-${index + 1}`}
               >
@@ -321,7 +381,7 @@ export default function InputForm({ onSubmit, isLoading }: InputFormProps) {
                 </div>
                 <div className="flex justify-between items-center py-3" style={{ borderBottom: '1px solid var(--color-neutral-200)' }}>
                   <span className="flex items-center gap-2" style={{ color: 'var(--color-neutral-500)' }}>{'\uD83C\uDFDB'} Court</span>
-                  <span className="font-semibold" style={{ color: 'var(--color-slate-800)' }}>{caseType && COURT_LEVELS[caseType as CaseType].find((c) => c.value === courtLevel)?.label}</span>
+                  <span className="font-semibold" style={{ color: 'var(--color-slate-800)' }}>{caseType && COURT_LEVELS[caseType as CaseType].flatMap((g) => g.courts).find((c) => c.value === courtLevel)?.label}</span>
                 </div>
                 <div className="flex justify-between items-center py-3" style={{ borderBottom: '1px solid var(--color-neutral-200)' }}>
                   <span className="flex items-center gap-2" style={{ color: 'var(--color-neutral-500)' }}>Order Type</span>
@@ -354,13 +414,13 @@ export default function InputForm({ onSubmit, isLoading }: InputFormProps) {
       {/* Navigation */}
       <div className="mt-10 flex justify-between items-center">
         {step > 1 ? <button onClick={handleBack} className="btn btn-ghost"><span>{'\u2190'}</span><span>Back</span></button> : <div />}
-        {step < 5 ? (
+        {step === 4 ? (
           <button onClick={handleNext} className="btn btn-success"><span>Continue</span><span>{'\u2192'}</span></button>
-        ) : (
+        ) : step === 5 ? (
           <button onClick={handleSubmit} disabled={isLoading} className="btn btn-success disabled:opacity-50 disabled:cursor-not-allowed">
             {isLoading ? <><span className="animate-spin">{'\u23F3'}</span><span>Calculating...</span></> : <><span>Calculate Limitation</span><span>{'\u2192'}</span></>}
           </button>
-        )}
+        ) : null}
       </div>
     </div>
   );
