@@ -8,6 +8,7 @@ import {
   CONFIDENCE_EXPLANATIONS,
 } from '@/data/limitation-rules';
 import type { CaseType, CourtLevel, LimitationRule } from '@/types/limitation';
+import LawReferenceLink from '@/components/ui/LawReferenceLink';
 
 const TABS: { id: CaseType; label: string }[] = [
   { id: 'civil', label: 'Civil' },
@@ -16,8 +17,15 @@ const TABS: { id: CaseType; label: string }[] = [
 ];
 
 const COURT_ORDER: CourtLevel[] = [
+  'civil_judge_junior',
+  'civil_judge_senior',
   'district_court',
+  'jmfc',
+  'cjm',
   'sessions_court',
+  'family_court',
+  'commercial_court',
+  'consumer_district',
   'high_court',
   'supreme_court',
 ];
@@ -201,7 +209,7 @@ function CourtGroup({ court, rules }: { court: CourtLevel; rules: LimitationRule
             </span>
           </td>
           <td>
-            <span className="section-badge">{rule.lawReference}</span>
+            <LawReferenceLink reference={rule.lawReference} />
           </td>
           <td>
             <ConfidenceBadge level={rule.confidenceLevel} />
@@ -239,7 +247,7 @@ function MobileRuleCard({ rule }: { rule: LimitationRule }) {
         </div>
       </div>
       <div className="flex items-center gap-2 flex-wrap mb-2">
-        <span className="section-badge" style={{ fontSize: '0.65rem' }}>{rule.lawReference}</span>
+        <LawReferenceLink reference={rule.lawReference} fontSize="0.65rem" />
         <span className="flex items-center gap-1 text-xs" style={{ color: 'var(--color-neutral-500)' }}>
           Copy Excl: <CopyExclusionIcon allowed={rule.copyExclusionAllowed} />
         </span>

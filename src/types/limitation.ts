@@ -3,8 +3,20 @@
 export type CaseType = "civil" | "criminal" | "writ";
 
 export type CourtLevel =
-  | "district_court"
-  | "sessions_court"
+  // Civil subordinate courts
+  | "civil_judge_junior" // Civil Judge (Junior Division)
+  | "civil_judge_senior" // Civil Judge (Senior Division)
+  | "district_court" // District Judge / Addl. District Judge
+  // Criminal subordinate courts
+  | "jmfc" // Judicial Magistrate First Class / Metropolitan Magistrate
+  | "cjm" // Chief Judicial Magistrate
+  | "sessions_court" // Sessions Court / Addl. Sessions Judge
+  // Special courts
+  | "family_court"
+  | "commercial_court"
+  | "consumer_district" // District Consumer Disputes Redressal Commission
+  | "consumer_state" // State Consumer Commission (appeal destination only)
+  // Higher courts
   | "high_court"
   | "supreme_court";
 

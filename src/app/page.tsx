@@ -59,6 +59,17 @@ export default function HomePage() {
           />
         </div>
 
+        {/* Legal Library Card */}
+        <div className="mt-6">
+          <ToolCard
+            href="/laws"
+            icon={'\u{1F4DC}'}
+            title="Legal Reference Library"
+            description="Browse the verbatim text of every legal provision referenced by our calculators. Verify against official sources."
+            tags={['6 Acts', '~50 Sections', 'Verbatim Text']}
+          />
+        </div>
+
         {/* Info Section */}
         <div className="mt-16 text-center">
           <div

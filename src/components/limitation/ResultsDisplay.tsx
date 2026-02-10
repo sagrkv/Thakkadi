@@ -1,6 +1,7 @@
 'use client';
 
 import type { CalculationResult, LegalOption } from '@/types/limitation';
+import LawReferenceLink from '@/components/ui/LawReferenceLink';
 
 interface ResultsDisplayProps {
   result: CalculationResult;
@@ -143,8 +144,9 @@ const OptionCard = ({ option, index }: { option: LegalOption; index: number }) =
           <span>View Legal Reference</span>
         </summary>
         <div className="mt-3 pl-5 space-y-2" style={{ borderLeft: '2px solid var(--color-slate-200)' }}>
-          <p className="text-sm" style={{ color: 'var(--color-neutral-600)' }}>
-            <span className="font-semibold" style={{ color: 'var(--color-slate-900)' }}>Legal Basis:</span> {option.lawReference}
+          <p className="text-sm flex items-center gap-1.5 flex-wrap" style={{ color: 'var(--color-neutral-600)' }}>
+            <span className="font-semibold" style={{ color: 'var(--color-slate-900)' }}>Legal Basis:</span>
+            <LawReferenceLink reference={option.lawReference} />
           </p>
           {option.section && (
             <p className="text-sm" style={{ color: 'var(--color-neutral-600)' }}>{option.section}</p>

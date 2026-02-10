@@ -10,6 +10,7 @@ export default function Header() {
     { href: '/', label: 'Home', shortLabel: 'Home' },
     { href: '/limitation-calculator', label: 'Limitation Calculator', shortLabel: 'Limitation' },
     { href: '/court-fee-calculator', label: 'Court Fee Calculator', shortLabel: 'Court Fees' },
+    { href: '/laws', label: 'Legal Library', shortLabel: 'Laws' },
   ];
 
   return (

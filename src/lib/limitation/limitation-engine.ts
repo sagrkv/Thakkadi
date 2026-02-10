@@ -141,7 +141,7 @@ function calculateOption(
     action: rule.action,
     actionName: ACTION_NAMES[rule.action] || rule.action,
     description: getActionDescription(rule),
-    forum: COURT_NAMES[rule.toCourt],
+    forum: COURT_NAMES[rule.toCourt] || rule.toCourt,
     forumCourt: rule.toCourt,
     limitationPeriod: formatLimitationPeriod(rule.limitationDays),
     limitationDays: rule.limitationDays,
@@ -161,15 +161,17 @@ function calculateOption(
 }
 
 function getActionDescription(rule: LimitationRule): string {
+  const isCivil = rule.caseType === "civil";
+
   const descriptions: Record<string, string> = {
-    appeal: `File an appeal against the ${rule.fromCourt === "district_court" ? "decree" : "judgment/order"} in the ${COURT_NAMES[rule.toCourt]}.`,
-    review: `File a review petition in the same court (${COURT_NAMES[rule.fromCourt]}) if there is an error apparent on the face of the record.`,
-    revision: `File a revision petition in the ${COURT_NAMES[rule.toCourt]} to examine the legality or propriety of the order.`,
+    appeal: `File an appeal against the ${isCivil ? "decree" : "judgment/order"} in the ${COURT_NAMES[rule.toCourt] || rule.toCourt}.`,
+    review: `File a review petition in the same court (${COURT_NAMES[rule.fromCourt] || rule.fromCourt}) if there is an error apparent on the face of the record.`,
+    revision: `File a revision petition in the ${COURT_NAMES[rule.toCourt] || rule.toCourt} to examine the legality or propriety of the order.`,
     slp: `File a Special Leave Petition in the Supreme Court under Article 136 of the Constitution.`,
-    execution: `File an execution petition to enforce the decree in the ${COURT_NAMES[rule.toCourt]}.`,
+    execution: `File an execution petition to enforce the decree in the ${COURT_NAMES[rule.toCourt] || rule.toCourt}.`,
     curative: `File a curative petition in the Supreme Court as a last resort after review is dismissed.`,
   };
-  return descriptions[rule.action] || `Proceed with ${rule.action} in ${COURT_NAMES[rule.toCourt]}.`;
+  return descriptions[rule.action] || `Proceed with ${rule.action} in ${COURT_NAMES[rule.toCourt] || rule.toCourt}.`;
 }
 
 function formatLimitationPeriod(days: number): string {

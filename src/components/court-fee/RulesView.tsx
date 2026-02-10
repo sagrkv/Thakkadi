@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { AD_VALOREM_SLABS } from '@/lib/court-fee/constants/slabs';
 import { SUIT_GROUPS, SUIT_TYPES } from '@/lib/court-fee/constants/suit-categories';
 import type { FeeMethod, SuitTypeDefinition } from '@/types/court-fee';
+import LawReferenceLink from '@/components/ui/LawReferenceLink';
 
 // ── Helpers ──────────────────────────────────────────────────────────────────
 
@@ -269,7 +270,7 @@ function SuitGroupAccordion({
                       </span>
                     </td>
                     <td>
-                      <span className="section-badge">{st.section}</span>
+                      <LawReferenceLink reference={st.section} actContext="karnataka-court-fees-act-1958" />
                     </td>
                     <td>
                       <span className={`fee-badge ${feeMethodBadgeClass(st.feeMethod)}`}>
@@ -302,9 +303,7 @@ function SuitGroupAccordion({
                   </span>
                 </div>
                 <div className="flex items-center gap-2 mb-1">
-                  <span className="section-badge" style={{ fontSize: '0.65rem' }}>
-                    {st.section}
-                  </span>
+                  <LawReferenceLink reference={st.section} actContext="karnataka-court-fees-act-1958" fontSize="0.65rem" />
                 </div>
                 <p className="text-xs" style={{ color: 'var(--color-ink-400)' }}>
                   {st.valueBasis}
