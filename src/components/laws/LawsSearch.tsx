@@ -35,7 +35,7 @@ export default function LawsSearch() {
           strokeLinecap="round"
           strokeLinejoin="round"
           className="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none"
-          style={{ color: 'var(--color-neutral-400)' }}
+          style={{ color: 'var(--color-text-tertiary)' }}
         >
           <circle cx="11" cy="11" r="8" />
           <line x1="21" y1="21" x2="16.65" y2="16.65" />
@@ -54,8 +54,8 @@ export default function LawsSearch() {
         <div
           className="mt-3 rounded-lg overflow-hidden"
           style={{
-            border: '1px solid var(--color-neutral-200)',
-            background: 'white',
+            border: '1px solid var(--color-border)',
+            background: 'var(--color-surface)',
             boxShadow: 'var(--shadow-md)',
           }}
         >
@@ -67,14 +67,14 @@ export default function LawsSearch() {
                 href={buildSectionUrl(section.id)}
                 className="block px-4 py-3 transition-colors"
                 style={{
-                  borderBottom: '1px solid var(--color-neutral-100)',
+                  borderBottom: '1px solid var(--color-border)',
                   textDecoration: 'none',
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.background = 'var(--color-slate-50)';
+                  e.currentTarget.style.background = 'var(--color-surface-muted)';
                 }}
                 onMouseLeave={(e) => {
-                  e.currentTarget.style.background = 'white';
+                  e.currentTarget.style.background = 'transparent';
                 }}
               >
                 <div className="flex items-center gap-2 mb-0.5">
@@ -83,14 +83,14 @@ export default function LawsSearch() {
                   </span>
                   <span
                     className="text-xs font-semibold"
-                    style={{ color: 'var(--color-slate-800)' }}
+                    style={{ color: 'var(--color-text-primary)' }}
                   >
                     {section.title}
                   </span>
                 </div>
                 <p
                   className="text-xs"
-                  style={{ color: 'var(--color-neutral-500)' }}
+                  style={{ color: 'var(--color-text-tertiary)' }}
                 >
                   {act?.shortName ?? section.actId}
                 </p>
@@ -103,7 +103,7 @@ export default function LawsSearch() {
       {query.trim().length >= 2 && results.length === 0 && (
         <p
           className="mt-3 text-xs text-center py-3"
-          style={{ color: 'var(--color-neutral-500)' }}
+          style={{ color: 'var(--color-text-tertiary)' }}
         >
           No matching provisions found for &ldquo;{query}&rdquo;
         </p>

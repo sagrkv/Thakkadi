@@ -3,6 +3,7 @@
 import type { FeeResult } from '@/types/court-fee';
 import { formatIndianCurrency, formatInWords } from '@/lib/court-fee/utils/format-currency';
 import PrintButton from '@/components/ui/PrintButton';
+import ShareButton from '@/components/shared/ShareButton';
 
 interface ResultDisplayProps {
   readonly result: FeeResult;
@@ -21,7 +22,7 @@ export default function ResultDisplay({
         type="button"
         onClick={onBack}
         className="flex items-center gap-1.5 text-sm mb-4 cursor-pointer hover:opacity-80 transition-opacity no-print"
-        style={{ color: 'var(--color-teal-700)', fontWeight: 600 }}
+        style={{ color: 'var(--color-accent)', fontWeight: 600 }}
       >
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
           <polyline points="15 18 9 12 15 6" />
@@ -34,10 +35,10 @@ export default function ResultDisplay({
         <h1 style={{ fontFamily: 'var(--font-display)', fontSize: '1.25rem', fontWeight: 700 }}>
           Karnataka Court Fee Calculation
         </h1>
-        <p className="text-xs" style={{ color: 'var(--color-ink-500)' }}>
+        <p className="text-xs" style={{ color: 'var(--color-text-secondary)' }}>
           Under the Karnataka Court Fees &amp; Suits Valuation Act, 1958
         </p>
-        <p className="text-xs mt-1" style={{ color: 'var(--color-ink-400)' }}>
+        <p className="text-xs mt-1" style={{ color: 'var(--color-text-tertiary)' }}>
           Generated on {new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' })}
         </p>
       </div>
@@ -49,7 +50,7 @@ export default function ResultDisplay({
             <div className="animate-fee">
               <div className="result-fee-label">Court Fee</div>
               <div className="result-exempt">Exempt</div>
-              <p className="text-sm mt-1" style={{ color: 'var(--color-teal-200)' }}>
+              <p className="text-sm mt-1" style={{ color: 'var(--color-text-secondary)' }}>
                 No court fee is payable
               </p>
             </div>
@@ -58,7 +59,7 @@ export default function ResultDisplay({
               <div className="result-fee-label">Court Fee Payable</div>
               <div className="result-fee">{formatIndianCurrency(result.fee)}</div>
               {result.fee >= 1000 && (
-                <p className="text-sm mt-1" style={{ color: 'var(--color-teal-200)' }}>
+                <p className="text-sm mt-1" style={{ color: 'var(--color-text-secondary)' }}>
                   ({formatInWords(result.fee)})
                 </p>
               )}
@@ -100,7 +101,10 @@ export default function ResultDisplay({
           </svg>
           New Calculation
         </button>
-        <PrintButton />
+        <div className="flex items-center gap-2">
+          <ShareButton title="Court Fee Calculation" text="Check out my court fee calculation on Thakkadi" />
+          <PrintButton />
+        </div>
       </div>
     </div>
   );

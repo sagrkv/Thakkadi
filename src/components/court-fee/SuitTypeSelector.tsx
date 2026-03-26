@@ -26,7 +26,7 @@ export default function SuitTypeSelector({
         type="button"
         onClick={onBack}
         className="flex items-center gap-1.5 text-sm mb-4 cursor-pointer hover:opacity-80 transition-opacity"
-        style={{ color: 'var(--color-teal-700)', fontWeight: 600 }}
+        style={{ color: 'var(--color-accent)', fontWeight: 600 }}
       >
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
           <polyline points="15 18 9 12 15 6" />
@@ -36,11 +36,11 @@ export default function SuitTypeSelector({
 
       <h2
         className="text-lg font-semibold mb-1"
-        style={{ fontFamily: 'var(--font-display)', color: 'var(--color-ink-800)' }}
+        style={{ fontFamily: 'var(--font-display)', color: 'var(--color-text-primary)' }}
       >
         {groupInfo?.label ?? `Group ${group}`}
       </h2>
-      <p className="text-sm mb-4" style={{ color: 'var(--color-ink-400)' }}>
+      <p className="text-sm mb-4" style={{ color: 'var(--color-text-secondary)' }}>
         Select the specific suit type
       </p>
 
@@ -69,12 +69,12 @@ export default function SuitTypeSelector({
               </div>
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2 flex-wrap">
-                  <span className="font-semibold text-sm" style={{ color: 'var(--color-ink-800)' }}>
+                  <span className="font-semibold text-sm" style={{ color: 'var(--color-text-primary)' }}>
                     {st.label}
                   </span>
                   <SectionBadge section={st.section} />
                 </div>
-                <p className="text-xs mt-0.5" style={{ color: 'var(--color-ink-400)' }}>
+                <p className="text-xs mt-0.5" style={{ color: 'var(--color-text-secondary)' }}>
                   {st.valueBasis}
                 </p>
               </div>

@@ -204,10 +204,10 @@ export default function InputForm({ onSubmit, isLoading }: InputFormProps) {
       {step === 1 && (
         <div className="animate-fade-in">
           <div className="text-center mb-8">
-            <h2 className="text-2xl font-extrabold mb-2" style={{ color: 'var(--color-slate-900)', fontFamily: 'var(--font-display)', letterSpacing: '-0.01em' }}>
+            <h2 className="text-2xl font-extrabold mb-2" style={{ color: 'var(--color-text-primary)', fontFamily: 'var(--font-display)', letterSpacing: '-0.01em' }}>
               What type of case is this?
             </h2>
-            <p style={{ color: 'var(--color-neutral-500)' }}>Select the nature of your legal matter</p>
+            <p style={{ color: 'var(--color-text-secondary)' }}>Select the nature of your legal matter</p>
           </div>
           <div className="space-y-4">
             {CASE_TYPES.map((type, index) => (
@@ -220,8 +220,8 @@ export default function InputForm({ onSubmit, isLoading }: InputFormProps) {
                 <div className="flex items-start gap-4">
                   <span className="text-2xl">{type.icon}</span>
                   <div className="flex-1 pr-8">
-                    <div className="font-semibold text-lg" style={{ color: 'var(--color-slate-800)' }}>{type.label}</div>
-                    <div className="text-sm mt-1" style={{ color: 'var(--color-neutral-500)' }}>{type.description}</div>
+                    <div className="font-semibold text-lg" style={{ color: 'var(--color-text-primary)' }}>{type.label}</div>
+                    <div className="text-sm mt-1" style={{ color: 'var(--color-text-secondary)' }}>{type.description}</div>
                   </div>
                 </div>
               </button>
@@ -235,10 +235,10 @@ export default function InputForm({ onSubmit, isLoading }: InputFormProps) {
       {step === 2 && caseType && (
         <div className="animate-fade-in">
           <div className="text-center mb-8">
-            <h2 className="text-2xl font-extrabold mb-2" style={{ color: 'var(--color-slate-900)', fontFamily: 'var(--font-display)', letterSpacing: '-0.01em' }}>
+            <h2 className="text-2xl font-extrabold mb-2" style={{ color: 'var(--color-text-primary)', fontFamily: 'var(--font-display)', letterSpacing: '-0.01em' }}>
               Which court passed the judgment?
             </h2>
-            <p style={{ color: 'var(--color-neutral-500)' }}>Select the court that delivered the order</p>
+            <p style={{ color: 'var(--color-text-secondary)' }}>Select the court that delivered the order</p>
           </div>
           <div className="space-y-6">
             {COURT_LEVELS[caseType].map((group) => (
@@ -246,14 +246,14 @@ export default function InputForm({ onSubmit, isLoading }: InputFormProps) {
                 <div
                   className="flex items-center gap-3 mb-3 px-1"
                 >
-                  <div className="h-px flex-1" style={{ background: 'var(--color-neutral-200)' }} />
+                  <div className="h-px flex-1" style={{ background: 'var(--color-border)' }} />
                   <span
                     className="text-xs font-semibold uppercase tracking-widest"
-                    style={{ color: 'var(--color-neutral-400)' }}
+                    style={{ color: 'var(--color-text-tertiary)' }}
                   >
                     {group.heading}
                   </span>
-                  <div className="h-px flex-1" style={{ background: 'var(--color-neutral-200)' }} />
+                  <div className="h-px flex-1" style={{ background: 'var(--color-border)' }} />
                 </div>
                 <div className="space-y-3">
                   {group.courts.map((court) => (
@@ -266,9 +266,9 @@ export default function InputForm({ onSubmit, isLoading }: InputFormProps) {
                       <div className="flex items-start gap-4">
                         <span className="text-2xl mt-0.5">{'\uD83C\uDFDB'}</span>
                         <div className="flex-1 text-left">
-                          <div className="font-semibold text-lg" style={{ color: 'var(--color-slate-800)' }}>{court.label}</div>
+                          <div className="font-semibold text-lg" style={{ color: 'var(--color-text-primary)' }}>{court.label}</div>
                           {court.subtitle && (
-                            <div className="text-sm mt-0.5" style={{ color: 'var(--color-neutral-500)' }}>{court.subtitle}</div>
+                            <div className="text-sm mt-0.5" style={{ color: 'var(--color-text-secondary)' }}>{court.subtitle}</div>
                           )}
                         </div>
                       </div>
@@ -286,10 +286,10 @@ export default function InputForm({ onSubmit, isLoading }: InputFormProps) {
       {step === 3 && (
         <div className="animate-fade-in">
           <div className="text-center mb-8">
-            <h2 className="text-2xl font-extrabold mb-2" style={{ color: 'var(--color-slate-900)', fontFamily: 'var(--font-display)', letterSpacing: '-0.01em' }}>
+            <h2 className="text-2xl font-extrabold mb-2" style={{ color: 'var(--color-text-primary)', fontFamily: 'var(--font-display)', letterSpacing: '-0.01em' }}>
               What type of order is this?
             </h2>
-            <p style={{ color: 'var(--color-neutral-500)' }}>Is it a final judgment or an interim order?</p>
+            <p style={{ color: 'var(--color-text-secondary)' }}>Is it a final judgment or an interim order?</p>
           </div>
           <div className="space-y-4">
             {JUDGMENT_TYPES.map((type, index) => (
@@ -302,8 +302,8 @@ export default function InputForm({ onSubmit, isLoading }: InputFormProps) {
                 <div className="flex items-start gap-4">
                   <span className="text-2xl">{type.value === 'final' ? '\u2713' : '\u23F8'}</span>
                   <div className="flex-1 pr-8">
-                    <div className="font-semibold text-lg" style={{ color: 'var(--color-slate-800)' }}>{type.label}</div>
-                    <div className="text-sm mt-1" style={{ color: 'var(--color-neutral-500)' }}>{type.description}</div>
+                    <div className="font-semibold text-lg" style={{ color: 'var(--color-text-primary)' }}>{type.label}</div>
+                    <div className="text-sm mt-1" style={{ color: 'var(--color-text-secondary)' }}>{type.description}</div>
                   </div>
                 </div>
               </button>
@@ -317,27 +317,27 @@ export default function InputForm({ onSubmit, isLoading }: InputFormProps) {
       {step === 4 && (
         <div className="animate-fade-in">
           <div className="text-center mb-8">
-            <h2 className="text-2xl font-extrabold mb-2" style={{ color: 'var(--color-slate-900)', fontFamily: 'var(--font-display)', letterSpacing: '-0.01em' }}>
+            <h2 className="text-2xl font-extrabold mb-2" style={{ color: 'var(--color-text-primary)', fontFamily: 'var(--font-display)', letterSpacing: '-0.01em' }}>
               When was the judgment delivered?
             </h2>
-            <p style={{ color: 'var(--color-neutral-500)' }}>Enter the date of the order/judgment</p>
+            <p style={{ color: 'var(--color-text-secondary)' }}>Enter the date of the order/judgment</p>
           </div>
           <div className="max-w-md mx-auto">
             <div className="mb-6">
               <label className="input-label">
-                <span className="flex items-center gap-2">Judgment Date <span style={{ color: 'var(--color-amber-600)' }}>*</span></span>
+                <span className="flex items-center gap-2">Judgment Date <span style={{ color: 'var(--color-accent)' }}>*</span></span>
               </label>
               <input type="date" value={judgmentDate} max={today} onChange={(e) => { setJudgmentDate(e.target.value); setErrors({}); }} className="input" />
-              {errors.judgmentDate && <p className="text-sm mt-2 flex items-center gap-1" style={{ color: 'var(--color-amber-600)' }}>{errors.judgmentDate}</p>}
+              {errors.judgmentDate && <p className="text-sm mt-2 flex items-center gap-1" style={{ color: 'var(--color-accent)' }}>{errors.judgmentDate}</p>}
             </div>
-            <div style={{ borderTop: '1px solid var(--color-neutral-200)', paddingTop: '1.5rem' }}>
-              <button type="button" onClick={() => setShowCertifiedCopy(!showCertifiedCopy)} className="flex items-center gap-2 font-medium transition-colors" style={{ color: 'var(--color-slate-600)' }}>
+            <div style={{ borderTop: '1px solid var(--color-border)', paddingTop: '1.5rem' }}>
+              <button type="button" onClick={() => setShowCertifiedCopy(!showCertifiedCopy)} className="flex items-center gap-2 font-medium transition-colors" style={{ color: 'var(--color-text-secondary)' }}>
                 <span className={`transform transition-transform ${showCertifiedCopy ? 'rotate-90' : ''}`}>{'\u25B6'}</span>
                 <span>Add certified copy dates</span>
                 <span className="badge badge-success text-xs">Optional</span>
               </button>
               {showCertifiedCopy && (
-                <div className="mt-4 p-5 rounded-xl border animate-fade-in-scale" style={{ background: 'var(--color-neutral-50)', borderColor: 'var(--color-neutral-200)' }}>
+                <div className="mt-4 p-5 rounded-xl border animate-fade-in-scale" style={{ background: 'var(--color-surface-muted)', borderColor: 'var(--color-border)' }}>
                   <div className="alert alert-info mb-4">
                     <span>i</span>
                     <span className="text-sm">Time taken to obtain certified copy may be excluded from limitation period (Section 12(2), Limitation Act)</span>
@@ -367,35 +367,35 @@ export default function InputForm({ onSubmit, isLoading }: InputFormProps) {
       {step === 5 && (
         <div className="animate-fade-in">
           <div className="text-center mb-8">
-            <h2 className="text-2xl font-extrabold mb-2" style={{ color: 'var(--color-slate-900)', fontFamily: 'var(--font-display)', letterSpacing: '-0.01em' }}>
+            <h2 className="text-2xl font-extrabold mb-2" style={{ color: 'var(--color-text-primary)', fontFamily: 'var(--font-display)', letterSpacing: '-0.01em' }}>
               Review Your Information
             </h2>
-            <p style={{ color: 'var(--color-neutral-500)' }}>Please verify the details before calculating</p>
+            <p style={{ color: 'var(--color-text-secondary)' }}>Please verify the details before calculating</p>
           </div>
           <div className="max-w-lg mx-auto">
-            <div className="rounded-xl p-6 border" style={{ background: 'linear-gradient(to bottom right, var(--color-slate-50), var(--color-neutral-50))', borderColor: 'var(--color-slate-200)' }}>
+            <div className="rounded-xl p-6 border" style={{ background: 'var(--color-surface-muted)', borderColor: 'var(--color-border)' }}>
               <div className="space-y-4">
-                <div className="flex justify-between items-center py-3" style={{ borderBottom: '1px solid var(--color-neutral-200)' }}>
-                  <span className="flex items-center gap-2" style={{ color: 'var(--color-neutral-500)' }}>{'\u2696'} Case Type</span>
-                  <span className="font-semibold" style={{ color: 'var(--color-slate-800)' }}>{CASE_TYPES.find((t) => t.value === caseType)?.label}</span>
+                <div className="flex justify-between items-center py-3" style={{ borderBottom: '1px solid var(--color-border)' }}>
+                  <span className="flex items-center gap-2" style={{ color: 'var(--color-text-secondary)' }}>{'\u2696'} Case Type</span>
+                  <span className="font-semibold" style={{ color: 'var(--color-text-primary)' }}>{CASE_TYPES.find((t) => t.value === caseType)?.label}</span>
                 </div>
-                <div className="flex justify-between items-center py-3" style={{ borderBottom: '1px solid var(--color-neutral-200)' }}>
-                  <span className="flex items-center gap-2" style={{ color: 'var(--color-neutral-500)' }}>{'\uD83C\uDFDB'} Court</span>
-                  <span className="font-semibold" style={{ color: 'var(--color-slate-800)' }}>{caseType && COURT_LEVELS[caseType as CaseType].flatMap((g) => g.courts).find((c) => c.value === courtLevel)?.label}</span>
+                <div className="flex justify-between items-center py-3" style={{ borderBottom: '1px solid var(--color-border)' }}>
+                  <span className="flex items-center gap-2" style={{ color: 'var(--color-text-secondary)' }}>{'\uD83C\uDFDB'} Court</span>
+                  <span className="font-semibold" style={{ color: 'var(--color-text-primary)' }}>{caseType && COURT_LEVELS[caseType as CaseType].flatMap((g) => g.courts).find((c) => c.value === courtLevel)?.label}</span>
                 </div>
-                <div className="flex justify-between items-center py-3" style={{ borderBottom: '1px solid var(--color-neutral-200)' }}>
-                  <span className="flex items-center gap-2" style={{ color: 'var(--color-neutral-500)' }}>Order Type</span>
-                  <span className="font-semibold" style={{ color: 'var(--color-slate-800)' }}>{JUDGMENT_TYPES.find((t) => t.value === judgmentType)?.label}</span>
+                <div className="flex justify-between items-center py-3" style={{ borderBottom: '1px solid var(--color-border)' }}>
+                  <span className="flex items-center gap-2" style={{ color: 'var(--color-text-secondary)' }}>Order Type</span>
+                  <span className="font-semibold" style={{ color: 'var(--color-text-primary)' }}>{JUDGMENT_TYPES.find((t) => t.value === judgmentType)?.label}</span>
                 </div>
                 <div className="flex justify-between items-center py-3">
-                  <span className="flex items-center gap-2" style={{ color: 'var(--color-neutral-500)' }}>Judgment Date</span>
-                  <span className="font-semibold" style={{ color: 'var(--color-slate-800)' }}>{judgmentDate && new Date(judgmentDate).toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' })}</span>
+                  <span className="flex items-center gap-2" style={{ color: 'var(--color-text-secondary)' }}>Judgment Date</span>
+                  <span className="font-semibold" style={{ color: 'var(--color-text-primary)' }}>{judgmentDate && new Date(judgmentDate).toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' })}</span>
                 </div>
                 {showCertifiedCopy && certifiedCopy.appliedDate && (
-                  <div className="pt-4 mt-2" style={{ borderTop: '2px dashed var(--color-neutral-300)' }}>
-                    <p className="text-sm font-medium mb-3" style={{ color: 'var(--color-neutral-600)' }}>Certified Copy Details:</p>
-                    {certifiedCopy.appliedDate && <div className="flex justify-between text-sm py-1"><span style={{ color: 'var(--color-neutral-500)' }}>Applied:</span><span className="font-medium">{new Date(certifiedCopy.appliedDate).toLocaleDateString('en-IN')}</span></div>}
-                    {certifiedCopy.receivedDate && <div className="flex justify-between text-sm py-1"><span style={{ color: 'var(--color-neutral-500)' }}>Received:</span><span className="font-medium">{new Date(certifiedCopy.receivedDate).toLocaleDateString('en-IN')}</span></div>}
+                  <div className="pt-4 mt-2" style={{ borderTop: '2px dashed var(--color-border)' }}>
+                    <p className="text-sm font-medium mb-3" style={{ color: 'var(--color-text-secondary)' }}>Certified Copy Details:</p>
+                    {certifiedCopy.appliedDate && <div className="flex justify-between text-sm py-1"><span style={{ color: 'var(--color-text-secondary)' }}>Applied:</span><span className="font-medium">{new Date(certifiedCopy.appliedDate).toLocaleDateString('en-IN')}</span></div>}
+                    {certifiedCopy.receivedDate && <div className="flex justify-between text-sm py-1"><span style={{ color: 'var(--color-text-secondary)' }}>Received:</span><span className="font-medium">{new Date(certifiedCopy.receivedDate).toLocaleDateString('en-IN')}</span></div>}
                   </div>
                 )}
               </div>

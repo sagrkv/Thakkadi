@@ -61,7 +61,7 @@ function CopyExclusionIcon({ allowed }: { allowed: boolean }) {
   return allowed ? (
     <span
       className="inline-flex items-center justify-center w-5 h-5 rounded-full text-xs"
-      style={{ background: '#d1fae5', color: '#047857' }}
+      style={{ background: 'color-mix(in srgb, var(--color-success) 15%, transparent)', color: 'var(--color-success)' }}
       title="Copy exclusion allowed"
     >
       {'\u2713'}
@@ -69,7 +69,7 @@ function CopyExclusionIcon({ allowed }: { allowed: boolean }) {
   ) : (
     <span
       className="inline-flex items-center justify-center w-5 h-5 rounded-full text-xs"
-      style={{ background: '#ffe4e6', color: '#e11d48' }}
+      style={{ background: 'color-mix(in srgb, var(--color-error) 15%, transparent)', color: 'var(--color-error)' }}
       title="Copy exclusion not applicable"
     >
       {'\u2717'}
@@ -87,7 +87,7 @@ function ExpandableNotes({ rule }: { rule: LimitationRule }) {
       <button
         onClick={() => setOpen(!open)}
         className="text-xs font-medium flex items-center gap-1"
-        style={{ color: 'var(--color-slate-500)', background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}
+        style={{ color: 'var(--color-text-tertiary)', background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}
       >
         <span
           style={{
@@ -105,15 +105,15 @@ function ExpandableNotes({ rule }: { rule: LimitationRule }) {
         <div
           className="mt-1 text-xs rounded p-2"
           style={{
-            background: 'var(--color-neutral-50)',
-            color: 'var(--color-ink-600)',
-            border: '1px solid var(--color-neutral-200)',
+            background: 'var(--color-surface-muted)',
+            color: 'var(--color-text-secondary)',
+            border: '1px solid var(--color-border)',
             lineHeight: 1.5,
           }}
         >
           {rule.additionalNotes && <p className="mb-1">{rule.additionalNotes}</p>}
           {rule.applicableJudgmentTypes?.length > 0 && (
-            <p style={{ color: 'var(--color-neutral-500)' }}>
+            <p style={{ color: 'var(--color-text-tertiary)' }}>
               Applies to: {rule.applicableJudgmentTypes.join(', ')} judgments
             </p>
           )}
@@ -168,11 +168,11 @@ function RulesTable({ rules }: { rules: LimitationRule[] }) {
           <div key={court} className="mb-6">
             <h3
               className="text-sm font-bold mb-3 flex items-center gap-2"
-              style={{ color: 'var(--color-slate-800)' }}
+              style={{ color: 'var(--color-text-primary)' }}
             >
               <span
                 className="w-2 h-2 rounded-full"
-                style={{ background: 'var(--color-slate-500)' }}
+                style={{ background: 'var(--color-accent)' }}
               />
               From {COURT_NAMES[court]}
             </h3>
@@ -197,14 +197,14 @@ function CourtGroup({ court, rules }: { court: CourtLevel; rules: LimitationRule
       {rules.map((rule) => (
         <tr key={rule.id}>
           <td>
-            <span className="font-semibold" style={{ color: 'var(--color-slate-800)' }}>
+            <span className="font-semibold" style={{ color: 'var(--color-text-primary)' }}>
               {ACTION_NAMES[rule.action]}
             </span>
             <ExpandableNotes rule={rule} />
           </td>
           <td>{COURT_NAMES[rule.toCourt]}</td>
           <td>
-            <span className="font-mono font-semibold" style={{ color: 'var(--color-slate-900)' }}>
+            <span className="font-mono font-semibold" style={{ color: 'var(--color-text-primary)' }}>
               {formatPeriod(rule.limitationDays)}
             </span>
           </td>
@@ -227,28 +227,28 @@ function MobileRuleCard({ rule }: { rule: LimitationRule }) {
   return (
     <div className="rules-mobile-card">
       <div className="flex items-start justify-between gap-2 mb-2">
-        <span className="font-semibold text-sm" style={{ color: 'var(--color-slate-800)' }}>
+        <span className="font-semibold text-sm" style={{ color: 'var(--color-text-primary)' }}>
           {ACTION_NAMES[rule.action]}
         </span>
         <ConfidenceBadge level={rule.confidenceLevel} />
       </div>
       <div className="grid grid-cols-2 gap-2 text-xs mb-2">
         <div>
-          <span style={{ color: 'var(--color-neutral-500)' }}>To Court</span>
-          <p className="font-medium" style={{ color: 'var(--color-ink-700)' }}>
+          <span style={{ color: 'var(--color-text-tertiary)' }}>To Court</span>
+          <p className="font-medium" style={{ color: 'var(--color-text-primary)' }}>
             {COURT_NAMES[rule.toCourt]}
           </p>
         </div>
         <div>
-          <span style={{ color: 'var(--color-neutral-500)' }}>Period</span>
-          <p className="font-mono font-semibold" style={{ color: 'var(--color-slate-900)' }}>
+          <span style={{ color: 'var(--color-text-tertiary)' }}>Period</span>
+          <p className="font-mono font-semibold" style={{ color: 'var(--color-text-primary)' }}>
             {formatPeriod(rule.limitationDays)}
           </p>
         </div>
       </div>
       <div className="flex items-center gap-2 flex-wrap mb-2">
         <LawReferenceLink reference={rule.lawReference} fontSize="0.65rem" />
-        <span className="flex items-center gap-1 text-xs" style={{ color: 'var(--color-neutral-500)' }}>
+        <span className="flex items-center gap-1 text-xs" style={{ color: 'var(--color-text-tertiary)' }}>
           Copy Excl: <CopyExclusionIcon allowed={rule.copyExclusionAllowed} />
         </span>
       </div>
@@ -275,18 +275,18 @@ export default function LimitationRulesView() {
       <div
         className="flex items-center gap-3 mb-5 p-3 rounded-lg"
         style={{
-          background: 'linear-gradient(135deg, var(--color-slate-50), var(--color-neutral-100))',
-          border: '1px solid var(--color-neutral-200)',
+          background: 'var(--color-surface-muted)',
+          border: '1px solid var(--color-border)',
         }}
       >
-        <span className="text-sm font-semibold" style={{ color: 'var(--color-slate-700)' }}>
+        <span className="text-sm font-semibold" style={{ color: 'var(--color-accent)' }}>
           {TOTAL_RULES} rules total
         </span>
-        <span style={{ color: 'var(--color-neutral-300)' }}>|</span>
+        <span style={{ color: 'var(--color-text-tertiary)' }}>|</span>
         <div className="flex gap-2 text-xs">
-          <span style={{ color: 'var(--color-slate-600)' }}>Civil: {TAB_COUNTS.civil}</span>
-          <span style={{ color: 'var(--color-slate-600)' }}>Criminal: {TAB_COUNTS.criminal}</span>
-          <span style={{ color: 'var(--color-slate-600)' }}>Writ: {TAB_COUNTS.writ}</span>
+          <span style={{ color: 'var(--color-text-secondary)' }}>Civil: {TAB_COUNTS.civil}</span>
+          <span style={{ color: 'var(--color-text-secondary)' }}>Criminal: {TAB_COUNTS.criminal}</span>
+          <span style={{ color: 'var(--color-text-secondary)' }}>Writ: {TAB_COUNTS.writ}</span>
         </div>
       </div>
 

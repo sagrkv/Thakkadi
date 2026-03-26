@@ -59,12 +59,8 @@ const GROUP_ICONS: Record<string, string> = {
 
 // ── Slab Row Gradient ─────────────────────────────────────────────────────────
 
-function slabRowBg(index: number, total: number): string {
-  const t = total > 1 ? index / (total - 1) : 0;
-  const r = Math.round(239 - t * 30);
-  const g = Math.round(254 - t * 18);
-  const b = Math.round(250 - t * 14);
-  return `rgb(${r}, ${g}, ${b})`;
+function slabRowBg(_index: number, _total: number): string {
+  return 'transparent';
 }
 
 // ── Section 1: Slab Table ────────────────────────────────────────────────────
@@ -74,13 +70,13 @@ function SlabTableSection() {
     <section className="mb-10">
       <h2
         className="text-lg font-bold mb-1 flex items-center gap-2"
-        style={{ fontFamily: 'var(--font-display)', color: 'var(--color-slate-900)' }}
+        style={{ fontFamily: 'var(--font-display)', color: 'var(--color-text-primary)' }}
       >
         <span
           className="w-7 h-7 rounded-md flex items-center justify-center text-xs"
           style={{
-            background: 'linear-gradient(135deg, var(--color-teal-600), var(--color-teal-700))',
-            color: 'white',
+            background: 'var(--color-accent)',
+            color: 'var(--color-bg)',
           }}
         >
           {'\u20B9'}
@@ -89,7 +85,7 @@ function SlabTableSection() {
       </h2>
       <p
         className="text-sm mb-4"
-        style={{ color: 'var(--color-neutral-500)' }}
+        style={{ color: 'var(--color-text-secondary)' }}
       >
         Schedule I, Article 1 — Karnataka Court Fees &amp; Suits Valuation Act, 1958
       </p>
@@ -110,7 +106,7 @@ function SlabTableSection() {
             {AD_VALOREM_SLABS.map((slab, i) => (
               <tr key={slab.number} style={{ background: slabRowBg(i, AD_VALOREM_SLABS.length) }}>
                 <td>
-                  <span className="font-mono font-semibold" style={{ color: 'var(--color-teal-800)' }}>
+                  <span className="font-mono font-semibold" style={{ color: 'var(--color-accent)' }}>
                     {slab.label}
                   </span>
                 </td>
@@ -120,7 +116,7 @@ function SlabTableSection() {
                 <td>
                   <span
                     className="font-mono font-bold"
-                    style={{ color: 'var(--color-teal-700)' }}
+                    style={{ color: 'var(--color-accent)' }}
                   >
                     {formatRate(slab.rate)}
                   </span>
@@ -128,7 +124,7 @@ function SlabTableSection() {
                 <td className="font-mono">
                   {slab.baseFee > 0 ? formatCurrency(slab.baseFee) : '—'}
                 </td>
-                <td className="text-xs" style={{ color: 'var(--color-ink-500)' }}>
+                <td className="text-xs" style={{ color: 'var(--color-text-secondary)' }}>
                   {slab.baseFee > 0
                     ? `${formatCurrency(slab.baseFee)} + ${formatRate(slab.rate)} \u00D7 (value \u2212 ${formatCurrency(slab.threshold)})`
                     : `${formatRate(slab.rate)} \u00D7 value`}
@@ -146,34 +142,34 @@ function SlabTableSection() {
             key={slab.number}
             className="rules-mobile-card"
             style={{
-              borderLeftColor: 'var(--color-teal-400)',
+              borderLeftColor: 'var(--color-accent)',
               background: slabRowBg(i, AD_VALOREM_SLABS.length),
             }}
           >
             <div className="flex items-center justify-between mb-2">
               <span
                 className="font-mono font-bold text-sm"
-                style={{ color: 'var(--color-teal-800)' }}
+                style={{ color: 'var(--color-accent)' }}
               >
                 Slab {slab.label}
               </span>
               <span
                 className="font-mono font-bold text-sm"
-                style={{ color: 'var(--color-teal-700)' }}
+                style={{ color: 'var(--color-accent)' }}
               >
                 {formatRate(slab.rate)}
               </span>
             </div>
-            <div className="text-xs mb-1" style={{ color: 'var(--color-ink-600)' }}>
+            <div className="text-xs mb-1" style={{ color: 'var(--color-text-secondary)' }}>
               <span className="font-mono">{formatRange(slab.min, slab.max)}</span>
             </div>
             {slab.baseFee > 0 && (
-              <div className="text-xs" style={{ color: 'var(--color-ink-500)' }}>
+              <div className="text-xs" style={{ color: 'var(--color-text-secondary)' }}>
                 Base: Rs. {formatCurrency(slab.baseFee)} + {formatRate(slab.rate)} {'\u00D7'} (value {'\u2212'} {formatCurrency(slab.threshold)})
               </div>
             )}
             {slab.baseFee === 0 && (
-              <div className="text-xs" style={{ color: 'var(--color-ink-500)' }}>
+              <div className="text-xs" style={{ color: 'var(--color-text-secondary)' }}>
                 {formatRate(slab.rate)} {'\u00D7'} value
               </div>
             )}
@@ -215,8 +211,8 @@ function SuitGroupAccordion({
         <span
           className="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0"
           style={{
-            background: open ? 'var(--color-teal-600)' : 'var(--color-teal-50)',
-            color: open ? 'white' : 'var(--color-teal-700)',
+            background: open ? 'var(--color-accent)' : 'var(--color-surface-muted)',
+            color: open ? 'var(--color-bg)' : 'var(--color-accent)',
             fontSize: '1rem',
             transition: 'all 0.15s ease',
           }}
@@ -227,21 +223,21 @@ function SuitGroupAccordion({
           <div className="flex items-center gap-2">
             <span
               className="font-bold text-sm"
-              style={{ color: 'var(--color-ink-800)' }}
+              style={{ color: 'var(--color-text-primary)' }}
             >
               Group {groupId}: {label}
             </span>
             <span
               className="text-xs font-medium px-1.5 py-0.5 rounded"
               style={{
-                background: 'var(--color-neutral-100)',
-                color: 'var(--color-neutral-600)',
+                background: 'rgba(212, 175, 55, 0.1)',
+                color: 'var(--color-text-secondary)',
               }}
             >
               {suitTypes.length}
             </span>
           </div>
-          <p className="text-xs truncate" style={{ color: 'var(--color-ink-400)' }}>
+          <p className="text-xs truncate" style={{ color: 'var(--color-text-tertiary)' }}>
             {description}
           </p>
         </div>
@@ -265,7 +261,7 @@ function SuitGroupAccordion({
                 {suitTypes.map((st) => (
                   <tr key={st.id}>
                     <td>
-                      <span className="font-semibold" style={{ color: 'var(--color-slate-800)' }}>
+                      <span className="font-semibold" style={{ color: 'var(--color-text-primary)' }}>
                         {st.label}
                       </span>
                     </td>
@@ -277,7 +273,7 @@ function SuitGroupAccordion({
                         {feeMethodLabel(st.feeMethod)}
                       </span>
                     </td>
-                    <td className="text-xs" style={{ color: 'var(--color-ink-500)' }}>
+                    <td className="text-xs" style={{ color: 'var(--color-text-secondary)' }}>
                       {st.valueBasis}
                     </td>
                   </tr>
@@ -292,10 +288,10 @@ function SuitGroupAccordion({
               <div
                 key={st.id}
                 className="rules-mobile-card"
-                style={{ borderLeftColor: 'var(--color-teal-300)' }}
+                style={{ borderLeftColor: 'var(--color-accent)' }}
               >
                 <div className="flex items-start justify-between gap-2 mb-1.5">
-                  <span className="font-semibold text-sm" style={{ color: 'var(--color-slate-800)' }}>
+                  <span className="font-semibold text-sm" style={{ color: 'var(--color-text-primary)' }}>
                     {st.label}
                   </span>
                   <span className={`fee-badge ${feeMethodBadgeClass(st.feeMethod)}`}>
@@ -305,7 +301,7 @@ function SuitGroupAccordion({
                 <div className="flex items-center gap-2 mb-1">
                   <LawReferenceLink reference={st.section} actContext="karnataka-court-fees-act-1958" fontSize="0.65rem" />
                 </div>
-                <p className="text-xs" style={{ color: 'var(--color-ink-400)' }}>
+                <p className="text-xs" style={{ color: 'var(--color-text-tertiary)' }}>
                   {st.valueBasis}
                 </p>
               </div>
@@ -326,13 +322,13 @@ function SuitTypesSection() {
     <section>
       <h2
         className="text-lg font-bold mb-1 flex items-center gap-2"
-        style={{ fontFamily: 'var(--font-display)', color: 'var(--color-slate-900)' }}
+        style={{ fontFamily: 'var(--font-display)', color: 'var(--color-text-primary)' }}
       >
         <span
           className="w-7 h-7 rounded-md flex items-center justify-center text-xs"
           style={{
-            background: 'linear-gradient(135deg, var(--color-slate-700), var(--color-slate-800))',
-            color: 'white',
+            background: 'var(--color-accent)',
+            color: 'var(--color-bg)',
           }}
         >
           {'\u2696'}
@@ -341,7 +337,7 @@ function SuitTypesSection() {
       </h2>
       <p
         className="text-sm mb-4"
-        style={{ color: 'var(--color-neutral-500)' }}
+        style={{ color: 'var(--color-text-secondary)' }}
       >
         {SUIT_TYPES.length} suit types across {SUIT_GROUPS.length} categories
       </p>
@@ -373,19 +369,18 @@ export default function CourtFeeRulesView() {
       <div
         className="flex items-center gap-3 mb-6 p-3 rounded-lg flex-wrap"
         style={{
-          background: 'linear-gradient(135deg, var(--color-teal-50), var(--color-neutral-100))',
-          border: '1px solid var(--color-teal-200)',
+          background: 'var(--color-surface-muted)',
         }}
       >
-        <span className="text-sm font-semibold" style={{ color: 'var(--color-teal-800)' }}>
+        <span className="text-sm font-semibold" style={{ color: 'var(--color-accent)' }}>
           {AD_VALOREM_SLABS.length} fee slabs
         </span>
-        <span style={{ color: 'var(--color-neutral-300)' }}>|</span>
-        <span className="text-sm font-semibold" style={{ color: 'var(--color-slate-700)' }}>
+        <span style={{ color: 'var(--color-text-tertiary)' }}>|</span>
+        <span className="text-sm font-semibold" style={{ color: 'var(--color-accent)' }}>
           {SUIT_TYPES.length} suit types
         </span>
-        <span style={{ color: 'var(--color-neutral-300)' }}>|</span>
-        <span className="text-sm" style={{ color: 'var(--color-neutral-500)' }}>
+        <span style={{ color: 'var(--color-text-tertiary)' }}>|</span>
+        <span className="text-sm" style={{ color: 'var(--color-text-secondary)' }}>
           {SUIT_GROUPS.length} categories
         </span>
       </div>

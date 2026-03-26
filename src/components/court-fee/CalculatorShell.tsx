@@ -4,6 +4,8 @@ import { useReducer, useCallback } from 'react';
 import type { CalculatorState, CalculatorAction, SuitGroup } from '@/types/court-fee';
 import { getSuitTypeById, SUIT_GROUPS } from '@/lib/court-fee/constants/suit-categories';
 import { calculateCourtFee } from '@/lib/court-fee/fee-engine/calculator';
+import { useUrlSync } from '@/lib/url-params/use-url-sync';
+import { courtFeeParamsSchema } from '@/lib/url-params/schemas';
 
 import CategorySelector from './CategorySelector';
 import SuitTypeSelector from './SuitTypeSelector';
@@ -74,6 +76,7 @@ function reducer(state: CalculatorState, action: CalculatorAction): CalculatorSt
 
 export default function CalculatorShell() {
   const [state, dispatch] = useReducer(reducer, initialState);
+  const { updateUrl } = useUrlSync(courtFeeParamsSchema);
 
   const handleCalculate = useCallback(() => {
     if (!state.selectedSuitTypeId) return;
@@ -84,13 +87,21 @@ export default function CalculatorShell() {
         values: state.inputValues,
       });
       dispatch({ type: 'CALCULATE', result });
+
+      updateUrl({
+        g: state.selectedGroup ?? undefined,
+        s: state.selectedSuitTypeId ?? undefined,
+        v: Object.keys(state.inputValues).length > 0
+          ? JSON.stringify(state.inputValues)
+          : undefined,
+      });
     } catch (err) {
       dispatch({
         type: 'SET_ERROR',
         error: err instanceof Error ? err.message : 'Calculation failed',
       });
     }
-  }, [state.selectedSuitTypeId, state.inputValues]);
+  }, [state.selectedSuitTypeId, state.inputValues, state.selectedGroup, updateUrl]);
 
   const suitType = state.selectedSuitTypeId
     ? getSuitTypeById(state.selectedSuitTypeId)
@@ -103,11 +114,12 @@ export default function CalculatorShell() {
   return (
     <div>
       {/* Breadcrumb */}
-      <div className="breadcrumb no-print">
+      <nav className="breadcrumb no-print" role="navigation" aria-label="Calculator steps">
         <button
           type="button"
           className={`breadcrumb-item ${state.step === 'category' ? 'breadcrumb-active' : ''}`}
           onClick={() => dispatch({ type: 'RESET' })}
+          aria-current={state.step === 'category' ? 'step' : undefined}
         >
           Categories
         </button>
@@ -121,6 +133,7 @@ export default function CalculatorShell() {
                 type: 'SELECT_GROUP',
                 group: state.selectedGroup as SuitGroup,
               })}
+              aria-current={state.step === 'suit_type' ? 'step' : undefined}
             >
               {groupInfo?.label ?? `Group ${state.selectedGroup}`}
             </button>
@@ -129,49 +142,60 @@ export default function CalculatorShell() {
         {suitType && state.step !== 'suit_type' && (
           <>
             <span className="breadcrumb-sep">/</span>
-            <span className={`breadcrumb-item ${state.step === 'input' || state.step === 'result' ? 'breadcrumb-active' : ''}`}>
+            <span
+              className={`breadcrumb-item ${state.step === 'input' || state.step === 'result' ? 'breadcrumb-active' : ''}`}
+              aria-current={state.step === 'input' || state.step === 'result' ? 'step' : undefined}
+            >
               {suitType.label}
             </span>
           </>
         )}
-      </div>
+      </nav>
 
       {/* Step content */}
       {state.step === 'category' && (
-        <CategorySelector
-          selectedGroup={state.selectedGroup}
-          onSelect={(group) => dispatch({ type: 'SELECT_GROUP', group })}
-        />
+        <div role="region" aria-label="Select category">
+          <CategorySelector
+            selectedGroup={state.selectedGroup}
+            onSelect={(group) => dispatch({ type: 'SELECT_GROUP', group })}
+          />
+        </div>
       )}
 
       {state.step === 'suit_type' && state.selectedGroup && (
-        <SuitTypeSelector
-          group={state.selectedGroup}
-          selectedSuitTypeId={state.selectedSuitTypeId}
-          onSelect={(id) => dispatch({ type: 'SELECT_SUIT_TYPE', suitTypeId: id })}
-          onBack={() => dispatch({ type: 'GO_BACK' })}
-        />
+        <div role="region" aria-label="Select suit type">
+          <SuitTypeSelector
+            group={state.selectedGroup}
+            selectedSuitTypeId={state.selectedSuitTypeId}
+            onSelect={(id) => dispatch({ type: 'SELECT_SUIT_TYPE', suitTypeId: id })}
+            onBack={() => dispatch({ type: 'GO_BACK' })}
+          />
+        </div>
       )}
 
       {state.step === 'input' && suitType && (
-        <ValueInputForm
-          suitType={suitType}
-          values={state.inputValues}
-          onChangeField={(field, value) =>
-            dispatch({ type: 'SET_INPUT', field, value })
-          }
-          onCalculate={handleCalculate}
-          onBack={() => dispatch({ type: 'GO_BACK' })}
-          error={state.error}
-        />
+        <div role="region" aria-label="Enter values">
+          <ValueInputForm
+            suitType={suitType}
+            values={state.inputValues}
+            onChangeField={(field, value) =>
+              dispatch({ type: 'SET_INPUT', field, value })
+            }
+            onCalculate={handleCalculate}
+            onBack={() => dispatch({ type: 'GO_BACK' })}
+            error={state.error}
+          />
+        </div>
       )}
 
       {state.step === 'result' && state.result && (
-        <ResultDisplay
-          result={state.result}
-          onReset={() => dispatch({ type: 'RESET' })}
-          onBack={() => dispatch({ type: 'GO_BACK' })}
-        />
+        <div role="region" aria-label="Results">
+          <ResultDisplay
+            result={state.result}
+            onReset={() => dispatch({ type: 'RESET' })}
+            onBack={() => dispatch({ type: 'GO_BACK' })}
+          />
+        </div>
       )}
     </div>
   );

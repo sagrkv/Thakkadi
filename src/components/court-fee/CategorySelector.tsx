@@ -28,11 +28,11 @@ export default function CategorySelector({
     <div className="animate-in">
       <h2
         className="text-lg font-semibold mb-1"
-        style={{ fontFamily: 'var(--font-display)', color: 'var(--color-ink-800)' }}
+        style={{ fontFamily: 'var(--font-display)', color: 'var(--color-text-primary)' }}
       >
         Select Suit Category
       </h2>
-      <p className="text-sm mb-4" style={{ color: 'var(--color-ink-400)' }}>
+      <p className="text-sm mb-4" style={{ color: 'var(--color-text-secondary)' }}>
         Choose the type of suit or petition to calculate the court fee
       </p>
 
@@ -53,8 +53,8 @@ export default function CategorySelector({
               <span
                 className="inline-block text-xs font-semibold px-1.5 py-0.5 rounded"
                 style={{
-                  background: 'var(--color-parchment-100)',
-                  color: 'var(--color-ink-500)',
+                  background: 'var(--color-surface-muted)',
+                  color: 'var(--color-text-secondary)',
                 }}
               >
                 Group {group.id}

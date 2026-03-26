@@ -56,7 +56,7 @@ export default function ValueInputForm({
         type="button"
         onClick={onBack}
         className="flex items-center gap-1.5 text-sm mb-4 cursor-pointer hover:opacity-80 transition-opacity"
-        style={{ color: 'var(--color-teal-700)', fontWeight: 600 }}
+        style={{ color: 'var(--color-accent)', fontWeight: 600 }}
       >
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
           <polyline points="15 18 9 12 15 6" />
@@ -68,13 +68,13 @@ export default function ValueInputForm({
         <div className="flex-1">
           <h2
             className="text-lg font-semibold mb-0.5"
-            style={{ fontFamily: 'var(--font-display)', color: 'var(--color-ink-800)' }}
+            style={{ fontFamily: 'var(--font-display)', color: 'var(--color-text-primary)' }}
           >
             {suitType.label}
           </h2>
           <div className="flex items-center gap-2 flex-wrap">
             <SectionBadge section={suitType.section} />
-            <span className="text-xs" style={{ color: 'var(--color-ink-400)' }}>
+            <span className="text-xs" style={{ color: 'var(--color-text-secondary)' }}>
               {suitType.valueBasis}
             </span>
           </div>
@@ -86,25 +86,24 @@ export default function ValueInputForm({
           <div
             className="text-center py-8 rounded-lg mb-4"
             style={{
-              background: 'linear-gradient(135deg, var(--color-parchment-50), var(--color-parchment-100))',
-              border: '1px solid var(--color-parchment-200)',
+              background: 'var(--color-surface-muted)',
             }}
           >
             <div
               className="w-10 h-10 rounded-lg mx-auto mb-3 flex items-center justify-center text-lg"
               style={{
-                background: suitType.feeMethod === 'exempt' ? 'var(--color-teal-50)' : 'var(--color-amber-50)',
-                color: suitType.feeMethod === 'exempt' ? 'var(--color-teal-600)' : 'var(--color-amber-600)',
+                background: suitType.feeMethod === 'exempt' ? 'rgba(45, 90, 61, 0.1)' : 'rgba(212, 175, 55, 0.1)',
+                color: suitType.feeMethod === 'exempt' ? 'var(--color-success)' : 'var(--color-accent)',
               }}
             >
               {suitType.feeMethod === 'exempt' ? '\u2713' : '\u20B9'}
             </div>
-            <p className="text-sm font-semibold" style={{ color: 'var(--color-ink-700)' }}>
+            <p className="text-sm font-semibold" style={{ color: 'var(--color-text-primary)' }}>
               {suitType.feeMethod === 'exempt'
                 ? 'This petition is exempt from court fees.'
                 : `Fixed fee: ${suitType.valueBasis}`}
             </p>
-            <p className="text-xs mt-1.5" style={{ color: 'var(--color-ink-400)' }}>
+            <p className="text-xs mt-1.5" style={{ color: 'var(--color-text-secondary)' }}>
               No additional input required — click below to view details
             </p>
           </div>

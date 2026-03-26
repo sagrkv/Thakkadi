@@ -28,6 +28,7 @@ const CALCULATORS = [
   { value: '', label: 'Select calculator (optional)' },
   { value: 'limitation', label: 'Limitation Calculator' },
   { value: 'court-fee', label: 'Court Fee Calculator' },
+  { value: 'stamp-duty', label: 'Stamp Duty Calculator' },
   { value: 'general', label: 'General / Other' },
 ];
 
@@ -46,7 +47,7 @@ export default function FeedbackForm() {
 
   useEffect(() => {
     const calc = searchParams.get('calculator');
-    if (calc === 'limitation' || calc === 'court-fee') {
+    if (calc === 'limitation' || calc === 'court-fee' || calc === 'stamp-duty') {
       setForm((prev) => ({ ...prev, calculator: calc, type: 'bug' }));
     }
   }, [searchParams]);
@@ -127,11 +128,11 @@ export default function FeedbackForm() {
         <div className="text-5xl mb-4">{'\u2705'}</div>
         <h2
           className="text-xl font-bold mb-2"
-          style={{ fontFamily: 'var(--font-display)', color: 'var(--color-slate-900)' }}
+          style={{ fontFamily: 'var(--font-display)', color: 'var(--color-text-primary)' }}
         >
           Thank you for your feedback
         </h2>
-        <p className="mb-6" style={{ color: 'var(--color-neutral-600)', fontSize: '0.9rem' }}>
+        <p className="mb-6" style={{ color: 'var(--color-text-secondary)', fontSize: '0.9rem' }}>
           Your submission has been received. We review all feedback to improve Thakkadi.
         </p>
         <button onClick={handleReset} className="btn btn-primary">
@@ -218,7 +219,7 @@ export default function FeedbackForm() {
           )}
           <span
             className="text-xs"
-            style={{ color: form.message.length > 1800 ? 'var(--color-error)' : 'var(--color-neutral-400)' }}
+            style={{ color: form.message.length > 1800 ? 'var(--color-error)' : 'var(--color-text-tertiary)' }}
           >
             {form.message.length}/2000
           </span>
@@ -228,7 +229,7 @@ export default function FeedbackForm() {
       {/* Email */}
       <div className="form-group">
         <label htmlFor="feedback-email" className="form-label">
-          Email <span style={{ color: 'var(--color-neutral-400)', fontWeight: 400 }}>(optional)</span>
+          Email <span style={{ color: 'var(--color-text-tertiary)', fontWeight: 400 }}>(optional)</span>
         </label>
         <input
           id="feedback-email"

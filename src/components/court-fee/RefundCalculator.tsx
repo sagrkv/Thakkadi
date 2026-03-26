@@ -33,7 +33,7 @@ export default function RefundCalculator() {
   }, []);
 
   return (
-    <div className="refund-section no-print" style={{ background: 'var(--color-neutral-50)', borderRadius: '0.75rem', padding: '1.5rem', marginTop: '2rem' }}>
+    <div className="refund-section no-print" style={{ background: 'var(--color-surface-muted)', borderRadius: '0.75rem', padding: '1.5rem', marginTop: '2rem' }}>
       <div className="flex items-center gap-2 mb-1">
         <svg
           width="20"
@@ -44,19 +44,19 @@ export default function RefundCalculator() {
           strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"
-          style={{ color: 'var(--color-teal-600)' }}
+          style={{ color: 'var(--color-accent)' }}
         >
           <polyline points="23 4 23 10 17 10" />
           <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10" />
         </svg>
         <h3
           className="text-base font-semibold"
-          style={{ fontFamily: 'var(--font-display)', color: 'var(--color-ink-800)' }}
+          style={{ fontFamily: 'var(--font-display)', color: 'var(--color-text-primary)' }}
         >
           Refund Estimator
         </h3>
       </div>
-      <p className="text-xs mb-4" style={{ color: 'var(--color-ink-400)' }}>
+      <p className="text-xs mb-4" style={{ color: 'var(--color-text-secondary)' }}>
         Estimate court fee refund based on applicable scenario
       </p>
 
@@ -119,19 +119,19 @@ export default function RefundCalculator() {
           <div
             className="mt-4 p-4 rounded-lg animate-in"
             style={{
-              background: 'var(--color-teal-50)',
-              border: '1px solid var(--color-teal-200)',
+              background: 'rgba(45, 90, 61, 0.15)',
+              border: '1px solid rgba(45, 90, 61, 0.3)',
             }}
           >
             <div className="flex items-center justify-between mb-2">
-              <span className="text-sm font-medium" style={{ color: 'var(--color-ink-600)' }}>
+              <span className="text-sm font-medium" style={{ color: 'var(--color-text-secondary)' }}>
                 Estimated Refund
               </span>
               <span className="refund-badge">
                 {formatIndianCurrency(result.refundAmount)}
               </span>
             </div>
-            <div className="text-xs space-y-1" style={{ color: 'var(--color-ink-500)' }}>
+            <div className="text-xs space-y-1" style={{ color: 'var(--color-text-secondary)' }}>
               <p>Refund: {result.refundPercentage}% of fees paid</p>
               <p>{result.description}</p>
               <p className="italic">Basis: {result.legalBasis}</p>

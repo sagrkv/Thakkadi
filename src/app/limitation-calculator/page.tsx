@@ -1,12 +1,14 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, Suspense } from 'react';
 import Link from 'next/link';
 import InputForm from '@/components/limitation/InputForm';
 import ResultsDisplay from '@/components/limitation/ResultsDisplay';
 import Disclaimer from '@/components/shared/Disclaimer';
 import type { CaseInput, CalculationResult, LegalOption } from '@/types/limitation';
 import { calculateLimitation, getResultsSummary } from '@/lib/limitation/limitation-engine';
+import { useUrlSync } from '@/lib/url-params/use-url-sync';
+import { limitationParamsSchema } from '@/lib/url-params/schemas';
 
 interface CalculationResponse {
   result: CalculationResult;
@@ -19,7 +21,8 @@ interface CalculationResponse {
   };
 }
 
-export default function LimitationCalculatorPage() {
+function LimitationCalculatorInner() {
+  const { updateUrl } = useUrlSync(limitationParamsSchema);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [data, setData] = useState<CalculationResponse | null>(null);
@@ -32,6 +35,15 @@ export default function LimitationCalculatorPage() {
       const result = calculateLimitation(input);
       const summary = getResultsSummary(result);
       setData({ result, summary });
+
+      updateUrl({
+        ct: input.caseType,
+        cl: input.courtLevel,
+        jt: input.judgmentType,
+        jd: input.judgmentDate,
+        ca: input.certifiedCopy?.appliedDate,
+        cr: input.certifiedCopy?.receivedDate,
+      });
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Calculation failed');
     } finally {
@@ -42,6 +54,7 @@ export default function LimitationCalculatorPage() {
   const handleReset = () => {
     setData(null);
     setError(null);
+    updateUrl({ ct: undefined, cl: undefined, jt: undefined, jd: undefined, ca: undefined, cr: undefined });
   };
 
   return (
@@ -50,18 +63,18 @@ export default function LimitationCalculatorPage() {
         {/* Header */}
         <div className="text-center mb-10 animate-fade-in">
           <div
-            className="inline-flex items-center justify-center w-16 h-16 rounded-2xl text-white text-3xl mb-4 shadow-lg"
-            style={{ background: 'linear-gradient(to bottom right, var(--color-slate-600), var(--color-slate-700))' }}
+            className="inline-flex items-center justify-center w-16 h-16 rounded-2xl text-3xl mb-4 shadow-lg"
+            style={{ background: 'var(--color-surface-muted)', color: 'var(--color-accent)' }}
           >
             {'\u2696'}
           </div>
           <h1
             className="text-4xl md:text-5xl font-bold mb-3"
-            style={{ color: 'var(--color-slate-900)', fontFamily: 'var(--font-display)', letterSpacing: '-0.02em' }}
+            style={{ color: 'var(--color-text-primary)', fontFamily: 'var(--font-display)', letterSpacing: '-0.02em' }}
           >
             India Limitation Calculator
           </h1>
-          <p className="text-lg max-w-xl mx-auto" style={{ color: 'var(--color-neutral-600)' }}>
+          <p className="text-lg max-w-xl mx-auto" style={{ color: 'var(--color-text-secondary)' }}>
             Post-Judgment Legal Options Tool for India
           </p>
           <div className="flex flex-wrap justify-center gap-2 mt-4">
@@ -76,6 +89,25 @@ export default function LimitationCalculatorPage() {
             </Link>
           </div>
         </div>
+
+        {/* Intro */}
+        <details className="intro-section no-print">
+          <summary>About this tool</summary>
+          <div className="intro-content">
+            <p>
+              This calculator computes post-judgment limitation periods under the Limitation Act, 1963 and related
+              procedural laws. Enter your case type, court level, judgment type, and judgment date to see all available
+              legal remedies — appeals, review petitions, Special Leave Petitions (SLP), curative petitions, and
+              execution timelines — with their exact deadlines.
+            </p>
+            <p>
+              The engine covers 42 limitation rules across 11 court levels, from the Civil Judge (Junior Division) to
+              the Supreme Court of India. It accounts for certified copy exclusion under Section 12, holiday adjustment
+              under Section 4, and special limitation periods for Family Courts, Commercial Courts, and Consumer Forums.
+              All calculations are deterministic and run entirely in your browser — no data is sent to any server.
+            </p>
+          </div>
+        </details>
 
         {/* Error Display */}
         {error && (
@@ -108,56 +140,56 @@ export default function LimitationCalculatorPage() {
         {/* How it works + Disclaimer */}
         <footer className="mt-12 animate-fade-in" style={{ animationDelay: '0.3s', animationFillMode: 'both' }}>
           <div className="card p-6 mb-6">
-            <h3 className="font-bold mb-4 flex items-center gap-2" style={{ color: 'var(--color-slate-900)' }}>
+            <h3 className="font-bold mb-4 flex items-center gap-2" style={{ color: 'var(--color-text-primary)' }}>
               <span>How This Tool Works</span>
             </h3>
             <div className="grid md:grid-cols-2 gap-4">
               <div className="flex items-start gap-3">
                 <div
                   className="w-8 h-8 rounded-lg flex items-center justify-center font-bold text-sm flex-shrink-0"
-                  style={{ background: 'var(--color-slate-100)', color: 'var(--color-slate-600)' }}
+                  style={{ background: 'var(--color-surface-muted)', color: 'var(--color-accent)' }}
                 >
                   1
                 </div>
                 <div>
-                  <p className="font-medium" style={{ color: 'var(--color-slate-900)' }}>Rule-Based Calculations</p>
-                  <p className="text-sm" style={{ color: 'var(--color-neutral-500)' }}>Uses the Limitation Act, 1963 and procedural laws</p>
+                  <p className="font-medium" style={{ color: 'var(--color-text-primary)' }}>Rule-Based Calculations</p>
+                  <p className="text-sm" style={{ color: 'var(--color-text-secondary)' }}>Uses the Limitation Act, 1963 and procedural laws</p>
                 </div>
               </div>
               <div className="flex items-start gap-3">
                 <div
                   className="w-8 h-8 rounded-lg flex items-center justify-center font-bold text-sm flex-shrink-0"
-                  style={{ background: 'var(--color-slate-100)', color: 'var(--color-slate-600)' }}
+                  style={{ background: 'var(--color-surface-muted)', color: 'var(--color-accent)' }}
                 >
                   2
                 </div>
                 <div>
-                  <p className="font-medium" style={{ color: 'var(--color-slate-900)' }}>Deterministic Engine</p>
-                  <p className="text-sm" style={{ color: 'var(--color-neutral-500)' }}>No AI/ML in date calculations — fully predictable</p>
+                  <p className="font-medium" style={{ color: 'var(--color-text-primary)' }}>Deterministic Engine</p>
+                  <p className="text-sm" style={{ color: 'var(--color-text-secondary)' }}>No AI/ML in date calculations — fully predictable</p>
                 </div>
               </div>
               <div className="flex items-start gap-3">
                 <div
                   className="w-8 h-8 rounded-lg flex items-center justify-center font-bold text-sm flex-shrink-0"
-                  style={{ background: 'var(--color-slate-100)', color: 'var(--color-slate-600)' }}
+                  style={{ background: 'var(--color-surface-muted)', color: 'var(--color-accent)' }}
                 >
                   3
                 </div>
                 <div>
-                  <p className="font-medium" style={{ color: 'var(--color-slate-900)' }}>Copy Exclusion</p>
-                  <p className="text-sm" style={{ color: 'var(--color-neutral-500)' }}>Accounts for certified copy period (Section 12)</p>
+                  <p className="font-medium" style={{ color: 'var(--color-text-primary)' }}>Copy Exclusion</p>
+                  <p className="text-sm" style={{ color: 'var(--color-text-secondary)' }}>Accounts for certified copy period (Section 12)</p>
                 </div>
               </div>
               <div className="flex items-start gap-3">
                 <div
                   className="w-8 h-8 rounded-lg flex items-center justify-center font-bold text-sm flex-shrink-0"
-                  style={{ background: 'var(--color-slate-100)', color: 'var(--color-slate-600)' }}
+                  style={{ background: 'var(--color-surface-muted)', color: 'var(--color-accent)' }}
                 >
                   4
                 </div>
                 <div>
-                  <p className="font-medium" style={{ color: 'var(--color-slate-900)' }}>Holiday Adjustment</p>
-                  <p className="text-sm" style={{ color: 'var(--color-neutral-500)' }}>Adjusts for court holidays (Section 4)</p>
+                  <p className="font-medium" style={{ color: 'var(--color-text-primary)' }}>Holiday Adjustment</p>
+                  <p className="text-sm" style={{ color: 'var(--color-text-secondary)' }}>Adjusts for court holidays (Section 4)</p>
                 </div>
               </div>
             </div>
@@ -175,16 +207,24 @@ export default function LimitationCalculatorPage() {
             </div>
           </div>
 
-          <div className="text-center text-sm" style={{ color: 'var(--color-neutral-500)' }}>
+          <div className="text-center text-sm" style={{ color: 'var(--color-text-secondary)' }}>
             <p className="mb-2">
               <span className="font-medium">Sources:</span> The Limitation Act, 1963 {'\u2022'} CPC {'\u2022'} CrPC {'\u2022'} Supreme Court Rules
             </p>
-            <p className="text-xs" style={{ color: 'var(--color-neutral-400)' }}>
+            <p className="text-xs" style={{ color: 'var(--color-text-tertiary)' }}>
               For indicative purposes only. This is not legal advice.
             </p>
           </div>
         </footer>
       </div>
     </div>
+  );
+}
+
+export default function LimitationCalculatorPage() {
+  return (
+    <Suspense>
+      <LimitationCalculatorInner />
+    </Suspense>
   );
 }
