@@ -41,6 +41,17 @@ const CRPC_PATTERNS: readonly RegistryEntry[] = [
 ];
 
 /**
+ * Patterns for the BNSS 2023 (replaces CrPC).
+ */
+const BNSS_PATTERNS: readonly RegistryEntry[] = [
+  { pattern: /Section\s+415.*BNSS/i, sectionId: 'bnss-2023/section-415' },
+  { pattern: /Section\s+420.*BNSS/i, sectionId: 'bnss-2023/section-420' },
+  { pattern: /Section\s+438.*BNSS/i, sectionId: 'bnss-2023/section-438' },
+  { pattern: /Section\s+442.*BNSS/i, sectionId: 'bnss-2023/section-442' },
+  { pattern: /Section\s+528.*BNSS/i, sectionId: 'bnss-2023/section-528' },
+];
+
+/**
  * Patterns for the Constitution.
  */
 const CONSTITUTION_PATTERNS: readonly RegistryEntry[] = [
@@ -50,6 +61,27 @@ const CONSTITUTION_PATTERNS: readonly RegistryEntry[] = [
   { pattern: /Article\s+136,?\s*Constitution/i, sectionId: 'constitution/article-136' },
   { pattern: /Art(?:icle)?\.?\s*226/i, sectionId: 'constitution/article-226' },
   { pattern: /Art(?:icle)?\.?\s*227/i, sectionId: 'constitution/article-227' },
+];
+
+/**
+ * Patterns for the Commercial Courts Act.
+ */
+const COMMERCIAL_COURTS_PATTERNS: readonly RegistryEntry[] = [
+  { pattern: /Section\s+13.*Commercial\s*Courts/i, sectionId: 'commercial-courts-act-2015/section-13' },
+];
+
+/**
+ * Patterns for the Consumer Protection Act.
+ */
+const CONSUMER_PROTECTION_PATTERNS: readonly RegistryEntry[] = [
+  { pattern: /Section\s+41.*Consumer\s*Protection/i, sectionId: 'consumer-protection-act-2019/section-41' },
+];
+
+/**
+ * Patterns for the Family Courts Act.
+ */
+const FAMILY_COURTS_PATTERNS: readonly RegistryEntry[] = [
+  { pattern: /Section\s+19.*Family\s*Courts/i, sectionId: 'family-courts-act-1984/section-19' },
 ];
 
 /**
@@ -114,8 +146,12 @@ export const GLOBAL_PATTERNS: readonly RegistryEntry[] = [
   ...SC_RULES_PATTERNS,
   ...LIMITATION_ACT_PATTERNS,
   ...CPC_PATTERNS,
+  ...BNSS_PATTERNS,
   ...CRPC_PATTERNS,
   ...CONSTITUTION_PATTERNS,
+  ...COMMERCIAL_COURTS_PATTERNS,
+  ...CONSUMER_PROTECTION_PATTERNS,
+  ...FAMILY_COURTS_PATTERNS,
 ] as const;
 
 /**

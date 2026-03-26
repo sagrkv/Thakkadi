@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import type { LegalAct } from '@/types/legal-reference';
+import { getDocumentsForAct } from '@/data/laws/documents-manifest';
 
 interface ActCardProps {
   readonly act: LegalAct;
@@ -9,82 +10,94 @@ interface ActCardProps {
 const CATEGORY_STYLES: Record<LegalAct['category'], { label: string; bg: string; color: string; border: string }> = {
   central_act: {
     label: 'Central Act',
-    bg: 'var(--color-slate-50)',
-    color: 'var(--color-slate-700)',
-    border: 'var(--color-slate-200)',
+    bg: 'var(--color-surface-muted)',
+    color: 'var(--color-text-secondary)',
+    border: 'var(--color-border)',
   },
   state_act: {
     label: 'State Act',
-    bg: 'var(--color-teal-50)',
-    color: 'var(--color-teal-700)',
-    border: 'var(--color-teal-200)',
+    bg: 'var(--color-accent-light)',
+    color: 'var(--color-accent)',
+    border: 'var(--color-accent-muted)',
   },
   constitution: {
     label: 'Constitution',
-    bg: 'var(--color-amber-50)',
-    color: 'var(--color-amber-700)',
-    border: 'var(--color-amber-200)',
+    bg: 'var(--color-accent-light)',
+    color: 'var(--color-accent)',
+    border: 'var(--color-accent-muted)',
   },
   court_rules: {
     label: 'Court Rules',
-    bg: 'var(--color-gold-50)',
-    color: 'var(--color-gold-700)',
-    border: 'var(--color-gold-200)',
+    bg: 'var(--color-accent-light)',
+    color: 'var(--color-accent)',
+    border: 'var(--color-accent-muted)',
   },
 };
 
 export default function ActCard({ act, sectionCount }: ActCardProps) {
   const style = CATEGORY_STYLES[act.category];
+  const hasDocuments = getDocumentsForAct(act.id).length > 0;
 
   return (
     <Link
       href={`/laws/${act.id}`}
-      className="tool-card group"
-      style={{ padding: '1.5rem' }}
+      className="library-card group"
     >
-      <div className="flex items-start justify-between mb-3">
-        <span
-          className="text-xs font-bold px-2 py-0.5 rounded"
-          style={{
-            background: style.bg,
-            color: style.color,
-            border: `1px solid ${style.border}`,
-            letterSpacing: '0.03em',
-          }}
-        >
-          {style.label}
-        </span>
+      <div className="flex items-start justify-between mb-2">
+        <div className="flex items-center gap-1.5 flex-wrap">
+          <span
+            className="text-xs font-bold px-2 py-0.5 rounded"
+            style={{
+              background: style.bg,
+              color: style.color,
+              border: `1px solid ${style.border}`,
+              letterSpacing: '0.03em',
+            }}
+          >
+            {style.label}
+          </span>
+          {hasDocuments && (
+            <span
+              className="inline-flex items-center gap-0.5 text-xs font-semibold px-1.5 py-0.5 rounded"
+              style={{
+                background: 'var(--color-surface-muted)',
+                color: 'var(--color-success)',
+                border: '1px solid var(--color-border)',
+              }}
+              title="Local copy archived"
+            >
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+              </svg>
+              Archived
+            </span>
+          )}
+        </div>
         <span
           className="text-xs font-semibold px-1.5 py-0.5 rounded"
           style={{
-            background: 'var(--color-neutral-100)',
-            color: 'var(--color-neutral-600)',
+            background: 'var(--color-accent-light)',
+            color: 'var(--color-accent)',
           }}
         >
           {sectionCount} {sectionCount === 1 ? 'section' : 'sections'}
         </span>
       </div>
       <h3
-        className="text-base font-extrabold mb-1 leading-tight"
+        className="text-base font-extrabold mb-0.5 leading-tight"
         style={{
           fontFamily: 'var(--font-display)',
-          color: 'var(--color-slate-900)',
+          color: 'var(--color-text-primary)',
           letterSpacing: '-0.01em',
         }}
       >
         {act.shortName}
       </h3>
       <p
-        className="text-xs mb-1 font-mono"
-        style={{ color: 'var(--color-neutral-500)' }}
+        className="text-xs font-mono"
+        style={{ color: 'var(--color-text-tertiary)' }}
       >
         {act.fullName}, {act.year}
-      </p>
-      <p
-        className="text-xs mt-2 line-clamp-2"
-        style={{ color: 'var(--color-neutral-600)', lineHeight: '1.5' }}
-      >
-        {act.description}
       </p>
     </Link>
   );

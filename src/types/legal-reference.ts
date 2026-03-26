@@ -1,3 +1,18 @@
+export interface DocumentProvenance {
+  readonly sourceUrl: string;
+  readonly downloadedAt: string;
+  readonly sha256: string;
+  readonly filePath: string;
+  readonly fileSize: number;
+  readonly mimeType: 'application/pdf' | 'text/html';
+}
+
+export interface ActDocument {
+  readonly actId: string;
+  readonly label: string;
+  readonly provenance: DocumentProvenance;
+}
+
 export interface LegalAct {
   readonly id: string;
   readonly shortName: string;
@@ -18,4 +33,6 @@ export interface LegalSection {
   readonly fullText: string;
   readonly summary?: string;
   readonly externalUrl?: string;
+  readonly localDocumentPath?: string;
+  readonly localDocumentPage?: number;
 }

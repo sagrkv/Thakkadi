@@ -1,11 +1,12 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { getActBySlug, getSectionsForAct, getAllActSlugs } from '@/data/laws';
-import { sectionAnchor } from '@/lib/legal-reference/url-builder';
-import { sectionTypeAbbrev } from '@/lib/legal-reference/section-utils';
+import { getActBySlug, getSectionsForAct, getAllActSlugs, getDocumentsForAct } from '@/data/laws';
 import SectionEntry from '@/components/laws/SectionEntry';
+import HashAutoExpand from '@/components/laws/HashAutoExpand';
 import LawsDisclaimer from '@/components/laws/LawsDisclaimer';
+import DocumentLinks from '@/components/laws/DocumentLinks';
+import Breadcrumbs from '@/components/shared/Breadcrumbs';
 
 interface PageProps {
   params: Promise<{ actSlug: string }>;
@@ -21,8 +22,11 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   if (!act) return { title: 'Not Found | Thakkadi' };
 
   return {
-    title: `${act.shortName} | Legal Library | Thakkadi`,
+    title: `${act.shortName} — Legal Library`,
     description: `${act.fullName} — browse verbatim legal text of provisions referenced by Thakkadi calculators.`,
+    alternates: {
+      canonical: `/laws/${actSlug}`,
+    },
   };
 }
 
@@ -32,6 +36,7 @@ export default async function ActPage({ params }: PageProps) {
   if (!act) notFound();
 
   const sections = getSectionsForAct(act.id);
+  const documents = getDocumentsForAct(act.id);
 
   const CATEGORY_LABELS: Record<string, string> = {
     central_act: 'Central Act',
@@ -43,12 +48,13 @@ export default async function ActPage({ params }: PageProps) {
   return (
     <div className="py-10 px-4 md:py-14 md:px-8">
       <div className="max-w-4xl mx-auto">
-        {/* Breadcrumb */}
-        <nav className="breadcrumb mb-6">
-          <Link href="/laws" className="breadcrumb-item">Legal Library</Link>
-          <span className="breadcrumb-sep">{'\u203A'}</span>
-          <span className="breadcrumb-active">{act.shortName}</span>
-        </nav>
+        <Breadcrumbs
+          items={[
+            { label: 'Home', href: '/' },
+            { label: 'Legal Library', href: '/laws' },
+            { label: act.shortName },
+          ]}
+        />
 
         {/* Act Header */}
         <div className="mb-8 animate-fade-in">
@@ -56,15 +62,15 @@ export default async function ActPage({ params }: PageProps) {
             <span
               className="text-xs font-bold px-2 py-0.5 rounded uppercase tracking-wider"
               style={{
-                background: 'var(--color-slate-100)',
-                color: 'var(--color-slate-600)',
+                background: 'var(--color-surface-muted)',
+                color: 'var(--color-text-secondary)',
               }}
             >
               {CATEGORY_LABELS[act.category] ?? act.category}
             </span>
             <span
               className="text-xs font-mono"
-              style={{ color: 'var(--color-neutral-500)' }}
+              style={{ color: 'var(--color-text-tertiary)' }}
             >
               Last verified: {act.lastVerified}
             </span>
@@ -73,7 +79,7 @@ export default async function ActPage({ params }: PageProps) {
             className="text-2xl md:text-3xl font-extrabold mb-1"
             style={{
               fontFamily: 'var(--font-display)',
-              color: 'var(--color-slate-900)',
+              color: 'var(--color-text-primary)',
               letterSpacing: '-0.02em',
             }}
           >
@@ -81,7 +87,7 @@ export default async function ActPage({ params }: PageProps) {
           </h1>
           <p
             className="text-sm mb-4"
-            style={{ color: 'var(--color-neutral-600)', lineHeight: '1.6' }}
+            style={{ color: 'var(--color-text-secondary)', lineHeight: '1.6' }}
           >
             {act.description}
           </p>
@@ -108,50 +114,27 @@ export default async function ActPage({ params }: PageProps) {
               ))}
             </div>
           )}
+
+          {/* Archived documents */}
+          <DocumentLinks documents={documents} />
         </div>
 
-        {/* Table of Contents */}
-        {sections.length > 3 && (
-          <div
-            className="card p-4 mb-8"
-            style={{ background: 'var(--color-neutral-50)' }}
-          >
-            <p
-              className="text-xs font-bold uppercase tracking-wider mb-2"
-              style={{ color: 'var(--color-slate-600)' }}
-            >
-              Contents ({sections.length} provisions)
-            </p>
-            <div className="grid sm:grid-cols-2 gap-x-4 gap-y-1">
-              {sections.map((s) => (
-                <a
-                  key={s.id}
-                  href={`#${sectionAnchor(s.id)}`}
-                  className="text-xs py-1 flex items-center gap-1.5 transition-colors"
-                  style={{
-                    color: 'var(--color-slate-600)',
-                    textDecoration: 'none',
-                  }}
-                >
-                  <span
-                    className="font-mono font-semibold flex-shrink-0"
-                    style={{ color: 'var(--color-gold-600)', minWidth: '3.5rem' }}
-                  >
-                    {sectionTypeAbbrev(s.sectionType)} {s.number}
-                  </span>
-                  <span className="truncate">{s.title}</span>
-                </a>
-              ))}
-            </div>
-          </div>
-        )}
+        {/* Section count header */}
+        <p
+          className="text-xs font-bold uppercase tracking-wider mb-3"
+          style={{ color: 'var(--color-accent)' }}
+        >
+          {sections.length} {sections.length === 1 ? 'provision' : 'provisions'}
+        </p>
 
-        {/* Sections */}
-        <div className="space-y-5">
+        {/* Sections (collapsible — each section IS a TOC entry) */}
+        <div>
           {sections.map((section) => (
             <SectionEntry key={section.id} section={section} />
           ))}
         </div>
+
+        <HashAutoExpand />
 
         {/* Disclaimer */}
         <LawsDisclaimer />

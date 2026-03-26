@@ -14,7 +14,6 @@ export const KARNATAKA_COURT_FEES_SECTIONS: readonly LegalSection[] = [
       'Schedule I — Table of Fees\n\nArticle 1: In suits for money (including suits for damages or compensation, or arrears of maintenance, of annuities or of other sums payable periodically) — ad valorem on the amount claimed.\n\nThe fee shall be computed on the value of the subject matter of the suit as set forth in the plaint, according to the following scale:\n\n(i) Up to Rs. 15,000 — 2.5%\n(ii) Rs. 15,001 to Rs. 30,000 — 3.0% (base Rs. 375)\n(iii) Rs. 30,001 to Rs. 50,000 — 3.5% (base Rs. 825)\n(iv) Rs. 50,001 to Rs. 1,00,000 — 4.0% (base Rs. 1,525)\n(v) Rs. 1,00,001 to Rs. 2,00,000 — 4.5% (base Rs. 3,525)\n(vi) Rs. 2,00,001 to Rs. 3,00,000 — 5.0% (base Rs. 8,025)\n(vii) Rs. 3,00,001 to Rs. 5,00,000 — 5.5% (base Rs. 13,025)\n(viii) Rs. 5,00,001 to Rs. 10,00,000 — 6.0% (base Rs. 24,025)\n(ix) Rs. 10,00,001 to Rs. 15,00,000 — 6.5% (base Rs. 54,025)\n(x) Rs. 15,00,001 to Rs. 20,00,000 — 7.0% (base Rs. 86,525)\n(xi) Rs. 20,00,001 to Rs. 30,00,000 — 7.5% (base Rs. 121,525)\n(xii) Rs. 30,00,001 to Rs. 40,00,000 — 7.5% (base Rs. 202,125)\n(xiii) Rs. 40,00,001 to Rs. 50,00,000 — 7.5% (base Rs. 202,125)\n(xiv) Rs. 50,00,001 to Rs. 75,00,000 — 7.5% (base Rs. 222,125)\n(xv) Rs. 75,00,001 to Rs. 1,00,00,000 — 7.5% (base Rs. 222,125)\n(xvi) Above Rs. 1,00,00,000 — 7.5% (base Rs. 222,125)\n\nNote: As amended by Act 2 of 1993.',
     summary:
       'Prescribes 16 slab-based ad valorem fee rates ranging from 2.5% to 7.5% on the value of subject matter in suits for money.',
-    externalUrl: 'https://kla.kar.nic.in/assembly/acts.htm',
   },
 
   // ── Sections on specific suit types ────────────────────────────────────────
@@ -28,7 +27,6 @@ export const KARNATAKA_COURT_FEES_SECTIONS: readonly LegalSection[] = [
       'Section 24 — Computation of fees payable in certain suits:\n\n(a) In a suit for a declaratory decree with consequential relief of possession of immovable property, the fee shall be computed on the market value of the property.\n\n(b) In a suit for a declaratory decree with consequential relief by way of injunction relating to immovable property, the fee shall be computed on half the market value of the property.\n\n(c) [Omitted]\n\n(d) In other suits for declaratory decrees, the fee shall be computed on the amount or value of the subject matter as set forth in the plaint.\n\nProvided that in each of the above cases the minimum value for computation of fees shall not be less than Rs. 1,000.',
     summary:
       'Prescribes fee computation for declaratory suits: full market value for possession, half market value for injunction (immovable), plaint value for others. Minimum Rs. 1,000.',
-    externalUrl: 'https://kla.kar.nic.in/assembly/acts.htm',
   },
   {
     id: `${ACT_ID}/section-25`,

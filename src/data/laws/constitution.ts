@@ -13,7 +13,7 @@ export const CONSTITUTION_SECTIONS: readonly LegalSection[] = [
       '(1) An appeal shall lie to the Supreme Court from any judgment, decree or final order of a High Court in the territory of India, whether in a civil, criminal or other proceeding, if the High Court certifies under Article 134A that the case involves a substantial question of law as to the interpretation of this Constitution.\n\n(2) [Omitted]\n\n(3) Where such a certificate is given, any party in the case may appeal to the Supreme Court on the ground that any such question as aforesaid has been wrongly decided.',
     summary:
       'Provides for appeal to the Supreme Court from High Court judgments involving substantial questions of law on constitutional interpretation.',
-    externalUrl: 'https://indiankanoon.org/doc/872855/',
+    externalUrl: 'https://indiankanoon.org/doc/783690/',
   },
   {
     id: `${ACT_ID}/article-133`,
@@ -25,7 +25,7 @@ export const CONSTITUTION_SECTIONS: readonly LegalSection[] = [
       '(1) An appeal shall lie to the Supreme Court from any judgment, decree or final order in a civil proceeding of a High Court in the territory of India if the High Court certifies under article 134A—\n(a) that the case involves a substantial question of law of general importance; and\n(b) that in the opinion of the High Court the said question needs to be decided by the Supreme Court.\n\n(2) Notwithstanding anything in article 132, any party appealing to the Supreme Court under clause (1) may urge as one of the grounds in such appeal that a substantial question of law as to the interpretation of this Constitution has been wrongly decided.\n\n(3) Notwithstanding anything in this article, no appeal shall, unless Parliament by law otherwise provides, lie to the Supreme Court from the judgment, decree or final order of one Judge of a High Court.',
     summary:
       'Provides for appeal to the Supreme Court from High Court civil proceedings involving substantial questions of law of general importance.',
-    externalUrl: 'https://indiankanoon.org/doc/785987/',
+    externalUrl: 'https://indiankanoon.org/doc/1325025/',
   },
   {
     id: `${ACT_ID}/article-134`,
@@ -37,7 +37,7 @@ export const CONSTITUTION_SECTIONS: readonly LegalSection[] = [
       '(1) An appeal shall lie to the Supreme Court from any judgment, final order or sentence in a criminal proceeding of a High Court in the territory of India if the High Court—\n(a) has on appeal reversed an order of acquittal of an accused person and sentenced him to death; or\n(b) has withdrawn for trial before itself any case from any Court subordinate to its authority and has in such trial convicted the accused person and sentenced him to death; or\n(c) certifies under article 134A that the case is a fit one for appeal to the Supreme Court.\n\n(2) Parliament may by law confer on the Supreme Court any further powers to entertain and hear appeals from any judgment, final order or sentence in a criminal proceeding of a High Court in the territory of India subject to such conditions and limitations as may be specified in such law.',
     summary:
       'Provides for criminal appeals to the Supreme Court from High Court, including where the High Court reverses an acquittal and sentences to death.',
-    externalUrl: 'https://indiankanoon.org/doc/1502827/',
+    externalUrl: 'https://indiankanoon.org/doc/1446285/',
   },
   {
     id: `${ACT_ID}/article-136`,
@@ -73,6 +73,6 @@ export const CONSTITUTION_SECTIONS: readonly LegalSection[] = [
       '(1) Every High Court shall have superintendence over all courts and tribunals throughout the territories in relation to which it exercises jurisdiction.\n\n(2) Without prejudice to the generality of the foregoing provision, the High Court may—\n(a) call for returns from such courts;\n(b) make and issue general rules and prescribe forms for regulating the practice and proceedings of such courts; and\n(c) prescribe forms in which books, entries and accounts shall be kept by the officers of any such courts.\n\n(3) The High Court may also settle tables of fees to be allowed to the sheriff and all clerks and officers of such courts and to attorneys, advocates and pleaders practising therein:\nProvided that any rules made, forms prescribed or tables settled under clause (2) or clause (3) shall not be inconsistent with the provision of any law for the time being in force, and shall require the previous approval of the Governor.\n\n(4) Nothing in this article shall be deemed to confer on a High Court powers of superintendence over any court or tribunal constituted by or under any law relating to the Armed Forces.',
     summary:
       'Confers the power of superintendence on High Courts over all courts and tribunals within their jurisdiction.',
-    externalUrl: 'https://indiankanoon.org/doc/1331730/',
+    externalUrl: 'https://indiankanoon.org/doc/1331149/',
   },
 ] as const;

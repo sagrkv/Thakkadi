@@ -6,23 +6,36 @@ import { CRPC_SECTIONS } from './crpc-1973';
 import { CONSTITUTION_SECTIONS } from './constitution';
 import { SC_RULES_SECTIONS } from './sc-rules-2013';
 import { KARNATAKA_COURT_FEES_SECTIONS } from './karnataka-court-fees-1958';
+import { BNSS_SECTIONS } from './bnss-2023';
+import { COMMERCIAL_COURTS_SECTIONS } from './commercial-courts-act-2015';
+import { CONSUMER_PROTECTION_SECTIONS } from './consumer-protection-act-2019';
+import { FAMILY_COURTS_SECTIONS } from './family-courts-act-1984';
 
 export { LEGAL_ACTS } from './acts';
 export { LIMITATION_ACT_SECTIONS } from './limitation-act-1963';
 export { CPC_SECTIONS } from './cpc-1908';
 export { CRPC_SECTIONS } from './crpc-1973';
+export { BNSS_SECTIONS } from './bnss-2023';
 export { CONSTITUTION_SECTIONS } from './constitution';
 export { SC_RULES_SECTIONS } from './sc-rules-2013';
 export { KARNATAKA_COURT_FEES_SECTIONS } from './karnataka-court-fees-1958';
+export { COMMERCIAL_COURTS_SECTIONS } from './commercial-courts-act-2015';
+export { CONSUMER_PROTECTION_SECTIONS } from './consumer-protection-act-2019';
+export { FAMILY_COURTS_SECTIONS } from './family-courts-act-1984';
+export { DOCUMENT_MANIFEST, getDocumentsForAct } from './documents-manifest';
 
 /** All sections across all acts */
 export const ALL_SECTIONS: readonly LegalSection[] = [
   ...LIMITATION_ACT_SECTIONS,
   ...CPC_SECTIONS,
   ...CRPC_SECTIONS,
+  ...BNSS_SECTIONS,
   ...CONSTITUTION_SECTIONS,
   ...SC_RULES_SECTIONS,
   ...KARNATAKA_COURT_FEES_SECTIONS,
+  ...COMMERCIAL_COURTS_SECTIONS,
+  ...CONSUMER_PROTECTION_SECTIONS,
+  ...FAMILY_COURTS_SECTIONS,
 ] as const;
 
 /** Map of actId → LegalAct */
