@@ -25,42 +25,15 @@ export default function CourtFeeCalculatorPage() {
   return (
     <div className="max-w-3xl mx-auto w-full px-4 py-6">
       <div className="mb-6">
-        <div className="flex items-center gap-3 mb-2">
-          <div
-            className="w-10 h-10 rounded-lg flex items-center justify-center text-xl"
-            style={{
-              background: 'var(--color-surface-muted)',
-              color: 'var(--color-accent)',
-            }}
-          >
-            {'\u20B9'}
-          </div>
-          <h1
-            className="text-2xl font-bold"
-            style={{ fontFamily: 'var(--font-display)', color: 'var(--color-text-primary)', letterSpacing: '-0.01em' }}
-          >
-            Karnataka Court Fee Calculator
-          </h1>
-        </div>
-        <div className="flex items-center gap-2 flex-wrap">
-          <p className="text-sm" style={{ color: 'var(--color-text-secondary)' }}>
-            Under the Karnataka Court Fees &amp; Suits Valuation Act, 1958
-          </p>
-          <div className="flex gap-1.5">
-            <span
-              className="text-xs font-semibold px-2 py-0.5 rounded"
-              style={{ background: 'rgba(212, 175, 55, 0.1)', color: 'var(--color-accent)', border: '1px solid rgba(212, 175, 55, 0.2)' }}
-            >
-              Karnataka
-            </span>
-            <span
-              className="text-xs font-semibold px-2 py-0.5 rounded"
-              style={{ background: 'rgba(212, 175, 55, 0.1)', color: 'var(--color-accent)', border: '1px solid rgba(212, 175, 55, 0.2)' }}
-            >
-              1958 Act
-            </span>
-          </div>
-        </div>
+        <h1
+          className="text-2xl font-bold"
+          style={{ fontFamily: 'var(--font-display)', color: 'var(--color-text-primary)', letterSpacing: '-0.01em' }}
+        >
+          Karnataka Court Fee Calculator
+        </h1>
+        <p className="text-sm mt-1" style={{ color: 'var(--color-text-secondary)' }}>
+          Under the <Link href="/laws/karnataka-court-fees-act-1958" style={{ color: 'var(--color-accent)', textDecoration: 'underline', textUnderlineOffset: '2px' }}>Karnataka Court Fees &amp; Suits Valuation Act, 1958</Link>
+        </p>
         <div className="mt-3">
           <Link href="/court-fee-calculator/rules" className="rules-link rules-link-teal">
             {'\u{1F4CB}'} View All Rules

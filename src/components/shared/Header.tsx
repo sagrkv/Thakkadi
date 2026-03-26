@@ -10,26 +10,21 @@ interface NavItem {
   readonly description?: string;
 }
 
-const NAV_ITEMS: readonly NavItem[] = [
-  { href: '/limitation-calculator', label: 'Limitation', description: 'Calculate filing deadlines' },
+const CALCULATOR_ITEMS: readonly NavItem[] = [
+  { href: '/limitation-calculator', label: 'Limitation Period', description: 'Calculate filing deadlines' },
   { href: '/court-fee-calculator', label: 'Court Fee', description: 'Ad valorem & fixed fees' },
   { href: '/stamp-duty-calculator', label: 'Stamp Duty', description: 'Duty, surcharge & cess' },
-  { href: '/laws', label: 'Laws', description: 'Browse legal provisions' },
+];
+
+const NAV_ITEMS: readonly NavItem[] = [
+  { href: '/laws', label: 'Legal Library' },
+  { href: '/blog', label: 'Blog' },
   { href: '/about', label: 'About' },
 ];
 
 function HamburgerIcon() {
   return (
-    <svg
-      width="22"
-      height="22"
-      viewBox="0 0 22 22"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      aria-hidden="true"
-    >
+    <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
       <line x1="3" y1="6" x2="19" y2="6" />
       <line x1="3" y1="11" x2="19" y2="11" />
       <line x1="3" y1="16" x2="19" y2="16" />
@@ -39,16 +34,7 @@ function HamburgerIcon() {
 
 function CloseIcon() {
   return (
-    <svg
-      width="22"
-      height="22"
-      viewBox="0 0 22 22"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      aria-hidden="true"
-    >
+    <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
       <line x1="5" y1="5" x2="17" y2="17" />
       <line x1="17" y1="5" x2="5" y2="17" />
     </svg>
@@ -65,54 +51,56 @@ export default function Header() {
 
   useEffect(() => {
     function handleEscape(e: KeyboardEvent) {
-      if (e.key === 'Escape' && mobileOpen) {
-        closeMobile();
-      }
+      if (e.key === 'Escape' && mobileOpen) closeMobile();
     }
     document.addEventListener('keydown', handleEscape);
     return () => document.removeEventListener('keydown', handleEscape);
   }, [mobileOpen, closeMobile]);
 
   useEffect(() => {
-    if (mobileOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
-    }
-    return () => {
-      document.body.style.overflow = '';
-    };
+    document.body.style.overflow = mobileOpen ? 'hidden' : '';
+    return () => { document.body.style.overflow = ''; };
   }, [mobileOpen]);
 
-  useEffect(() => {
-    closeMobile();
-  }, [pathname, closeMobile]);
+  useEffect(() => { closeMobile(); }, [pathname, closeMobile]);
+
+  const isCalculator = pathname.includes('-calculator');
 
   return (
     <header className="site-header no-print">
-      <div className="max-w-5xl mx-auto px-4 py-4">
+      <div className="max-w-5xl mx-auto px-4 py-4 relative z-10">
         <div className="flex items-center justify-between">
-          {/* Wordmark */}
-          <Link
-            href="/"
-            className="text-decoration-none"
-            style={{ textDecoration: 'none' }}
-          >
+          {/* Logo + Wordmark */}
+          <Link href="/" className="flex items-center gap-2.5" style={{ textDecoration: 'none' }}>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/logo.svg"
+              alt=""
+              aria-hidden="true"
+              className="header-logo-img"
+            />
             <span
               style={{
                 fontFamily: 'var(--font-display)',
-                fontSize: '1.625rem',
-                color: 'var(--color-accent)',
+                fontSize: '1.375rem',
+                color: '#FFFFFF',
                 letterSpacing: '-0.01em',
                 lineHeight: 1,
+                fontWeight: 700,
               }}
             >
               Thakkadi
             </span>
           </Link>
 
-          {/* Desktop Navigation — flat links */}
+          {/* Desktop Navigation */}
           <nav className="nav-desktop" aria-label="Main navigation">
+            <Link
+              href="/"
+              className={`nav-link ${isCalculator || pathname === '/' ? 'active' : ''}`}
+            >
+              Calculators
+            </Link>
             {NAV_ITEMS.map((item) => (
               <Link
                 key={item.href}
@@ -144,7 +132,8 @@ export default function Header() {
       >
         <nav className="mobile-menu-content" aria-label="Mobile navigation">
           <div className="mobile-menu-section">
-            {NAV_ITEMS.map((item) => (
+            <p className="mobile-menu-section-heading">Calculators</p>
+            {CALCULATOR_ITEMS.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
@@ -154,10 +143,21 @@ export default function Header() {
               >
                 <span className="mobile-menu-link-label">{item.label}</span>
                 {item.description && (
-                  <span className="mobile-menu-link-desc">
-                    {item.description}
-                  </span>
+                  <span className="mobile-menu-link-desc">{item.description}</span>
                 )}
+              </Link>
+            ))}
+          </div>
+          <div className="mobile-menu-section">
+            {NAV_ITEMS.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                className={`mobile-menu-link ${pathname.startsWith(item.href) ? 'active' : ''}`}
+                onClick={closeMobile}
+                tabIndex={mobileOpen ? 0 : -1}
+              >
+                <span className="mobile-menu-link-label">{item.label}</span>
               </Link>
             ))}
           </div>

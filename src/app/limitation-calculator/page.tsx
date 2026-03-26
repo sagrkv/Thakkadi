@@ -61,29 +61,20 @@ function LimitationCalculatorInner() {
     <div className="py-8 px-4 md:py-12 md:px-8">
       <div className="max-w-4xl mx-auto">
         {/* Header */}
-        <div className="text-center mb-10 animate-fade-in">
-          <div
-            className="inline-flex items-center justify-center w-16 h-16 rounded-2xl text-3xl mb-4 shadow-lg"
-            style={{ background: 'var(--color-surface-muted)', color: 'var(--color-accent)' }}
-          >
-            {'\u2696'}
-          </div>
+        <div className="mb-8 animate-fade-in">
           <h1
-            className="text-4xl md:text-5xl font-bold mb-3"
+            className="text-2xl md:text-3xl font-bold mb-1"
             style={{ color: 'var(--color-text-primary)', fontFamily: 'var(--font-display)', letterSpacing: '-0.02em' }}
           >
-            India Limitation Calculator
+            Limitation Period Calculator
           </h1>
-          <p className="text-lg max-w-xl mx-auto" style={{ color: 'var(--color-text-secondary)' }}>
-            Post-Judgment Legal Options Tool for India
+          <p className="text-sm" style={{ color: 'var(--color-text-secondary)' }}>
+            Under the <Link href="/laws/limitation-act-1963" style={{ color: 'var(--color-accent)', textDecoration: 'underline', textUnderlineOffset: '2px' }}>Limitation Act, 1963</Link> read with{' '}
+            <Link href="/laws/cpc-1908" style={{ color: 'var(--color-accent)', textDecoration: 'underline', textUnderlineOffset: '2px' }}>CPC</Link>,{' '}
+            <Link href="/laws/bnss-2023" style={{ color: 'var(--color-accent)', textDecoration: 'underline', textUnderlineOffset: '2px' }}>BNSS 2023</Link>,{' '}
+            and <Link href="/laws/constitution" style={{ color: 'var(--color-accent)', textDecoration: 'underline', textUnderlineOffset: '2px' }}>Constitution of India</Link>
           </p>
-          <div className="flex flex-wrap justify-center gap-2 mt-4">
-            <span className="badge badge-success">Appeals</span>
-            <span className="badge badge-success">Review</span>
-            <span className="badge badge-success">SLP</span>
-            <span className="badge badge-success">Execution</span>
-          </div>
-          <div className="mt-4">
+          <div className="mt-3">
             <Link href="/limitation-calculator/rules" className="rules-link">
               {'\u{1F4CB}'} View All Rules
             </Link>

@@ -8,42 +8,16 @@ export default function StampDutyCalculatorPage() {
   return (
     <div className="max-w-3xl mx-auto w-full px-4 py-6">
       <div className="mb-6">
-        <div className="flex items-center gap-3 mb-2">
-          <div
-            className="w-10 h-10 rounded-lg flex items-center justify-center text-xl"
-            style={{
-              background: 'var(--color-surface-muted)',
-              color: 'var(--color-accent)',
-            }}
-          >
-            {'\u{1F4C3}'}
-          </div>
-          <h1
-            className="text-2xl font-bold"
-            style={{ fontFamily: 'var(--font-display)', color: 'var(--color-text-primary)', letterSpacing: '-0.01em' }}
-          >
-            Stamp Duty Calculator
-          </h1>
-        </div>
-        <div className="flex items-center gap-2 flex-wrap">
-          <p className="text-sm" style={{ fontSize: '0.875rem', color: 'var(--color-text-secondary)' }}>
-            Under the Karnataka Stamp Act, 1957 &amp; Registration Act, 1908
-          </p>
-          <div className="flex gap-1.5">
-            <span
-              className="text-xs font-semibold px-2 py-0.5 rounded"
-              style={{ background: 'var(--color-surface-muted)', color: 'var(--color-accent)', border: '1px solid var(--color-border)' }}
-            >
-              Karnataka
-            </span>
-            <span
-              className="text-xs font-semibold px-2 py-0.5 rounded"
-              style={{ background: 'var(--color-surface-muted)', color: 'var(--color-text-secondary)', border: '1px solid var(--color-border)' }}
-            >
-              1957 Act
-            </span>
-          </div>
-        </div>
+        <h1
+          className="text-2xl font-bold"
+          style={{ fontFamily: 'var(--font-display)', color: 'var(--color-text-primary)', letterSpacing: '-0.01em' }}
+        >
+          Stamp Duty Calculator
+        </h1>
+        <p className="text-sm mt-1" style={{ color: 'var(--color-text-secondary)' }}>
+          Under the <Link href="/laws/karnataka-stamp-act-1957" style={{ color: 'var(--color-accent)', textDecoration: 'underline', textUnderlineOffset: '2px' }}>Karnataka Stamp Act, 1957</Link> &amp;{' '}
+          <Link href="/laws/registration-act-1908" style={{ color: 'var(--color-accent)', textDecoration: 'underline', textUnderlineOffset: '2px' }}>Registration Act, 1908</Link>
+        </p>
       </div>
 
       {/* Intro */}
