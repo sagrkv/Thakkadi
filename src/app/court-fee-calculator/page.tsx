@@ -23,8 +23,8 @@ export default function CourtFeeCalculatorPage() {
   const [mode, setMode] = useState<CalculatorMode>('calculator');
 
   return (
-    <div className="max-w-3xl mx-auto w-full px-4 py-6">
-      <div className="mb-6">
+    <div className="max-w-3xl mx-auto w-full px-4 pb-6">
+      <div className="mb-4">
         <h1
           className="text-2xl font-bold"
           style={{ fontFamily: 'var(--font-display)', color: 'var(--color-text-primary)', letterSpacing: '-0.01em' }}
@@ -36,7 +36,7 @@ export default function CourtFeeCalculatorPage() {
         </p>
         <div className="mt-3">
           <Link href="/court-fee-calculator/rules" className="rules-link rules-link-teal">
-            {'\u{1F4CB}'} View All Rules
+            View All Rules
           </Link>
         </div>
       </div>

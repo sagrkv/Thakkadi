@@ -3,18 +3,6 @@
 import type { SuitGroup } from '@/types/court-fee';
 import { SUIT_GROUPS } from '@/lib/court-fee/constants/suit-categories';
 
-const GROUP_ICONS: Record<string, string> = {
-  A: '\u20B9', // ₹
-  B: '\u2302', // ⌂
-  C: '\u2261', // ≡
-  D: '\u2611', // ☑
-  E: '\u2605', // ★
-  F: '\u00A7', // §
-  G: '\u2696', // ⚖
-  H: '\u2706', // ✆ (substitute for scroll)
-  I: '\u2694', // ⚔
-};
-
 interface CategorySelectorProps {
   readonly selectedGroup: SuitGroup | null;
   readonly onSelect: (group: SuitGroup) => void;
@@ -44,22 +32,18 @@ export default function CategorySelector({
             className={`category-card animate-in stagger-${Math.min(i + 1, 9)} text-left ${selectedGroup === group.id ? 'selected' : ''}`}
             onClick={() => onSelect(group.id)}
           >
-            <div className="category-icon">
-              {GROUP_ICONS[group.id] ?? group.id}
+            <div
+              className="category-icon"
+              style={{
+                fontFamily: 'var(--font-body)',
+                fontWeight: 700,
+                fontSize: '0.875rem',
+              }}
+            >
+              {group.id}
             </div>
             <div className="category-label">{group.label}</div>
             <div className="category-desc">{group.description}</div>
-            <div className="mt-2">
-              <span
-                className="inline-block text-xs font-semibold px-1.5 py-0.5 rounded"
-                style={{
-                  background: 'var(--color-surface-muted)',
-                  color: 'var(--color-text-secondary)',
-                }}
-              >
-                Group {group.id}
-              </span>
-            </div>
           </button>
         ))}
       </div>

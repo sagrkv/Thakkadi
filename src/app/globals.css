@@ -1033,9 +1033,10 @@ main {
 .laws-search-input {
   width: 100%;
   font-family: var(--font-body);
-  font-size: 1rem;
+  font-size: 0.9375rem;
   color: var(--color-text-primary);
   background: var(--color-surface);
+  box-shadow: var(--shadow-sm);
   border: 1px solid var(--color-border);
   border-radius: 0.5rem;
   padding: 0.75rem 1rem 0.75rem 2.75rem;
@@ -1983,78 +1984,3 @@ main {
   box-shadow: var(--shadow-md);
 }
 
-/* ═══════════════════════════════════════════════════════════════════════════
-   Homepage — Stats Bar
-   ═══════════════════════════════════════════════════════════════════════════ */
-
-.stats-bar {
-  display: flex;
-  justify-content: center;
-  gap: 2rem;
-  flex-wrap: wrap;
-}
-
-.stat-item {
-  text-align: center;
-}
-
-.stat-number {
-  font-family: var(--font-mono);
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: var(--color-accent);
-  display: block;
-}
-
-.stat-label {
-  font-size: 0.8125rem;
-  color: var(--color-text-tertiary);
-  margin-top: 0.125rem;
-}
-
-/* ═══════════════════════════════════════════════════════════════════════════
-   Homepage — How It Works
-   ═══════════════════════════════════════════════════════════════════════════ */
-
-.steps-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1.5rem;
-}
-
-@media (min-width: 768px) {
-  .steps-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-.step-item {
-  text-align: center;
-}
-
-.step-number {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 2.5rem;
-  height: 2.5rem;
-  border-radius: 50%;
-  background: var(--color-accent);
-  color: #ffffff;
-  font-weight: 700;
-  font-size: 1rem;
-  margin-bottom: 0.75rem;
-}
-
-.step-title {
-  font-weight: 700;
-  font-size: 1rem;
-  color: var(--color-text-primary);
-  margin-bottom: 0.25rem;
-}
-
-.step-desc {
-  font-size: 0.875rem;
-  color: var(--color-text-secondary);
-  line-height: 1.5;
-}

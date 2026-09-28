@@ -58,10 +58,10 @@ function LimitationCalculatorInner() {
   };
 
   return (
-    <div className="py-8 px-4 md:py-12 md:px-8">
+    <div className="px-4 pb-8">
       <div className="max-w-4xl mx-auto">
         {/* Header */}
-        <div className="mb-8 animate-fade-in">
+        <div className="mb-6 animate-fade-in">
           <h1
             className="text-2xl md:text-3xl font-bold mb-1"
             style={{ color: 'var(--color-text-primary)', fontFamily: 'var(--font-display)', letterSpacing: '-0.02em' }}
@@ -69,14 +69,11 @@ function LimitationCalculatorInner() {
             Limitation Period Calculator
           </h1>
           <p className="text-sm" style={{ color: 'var(--color-text-secondary)' }}>
-            Under the <Link href="/laws/limitation-act-1963" style={{ color: 'var(--color-accent)', textDecoration: 'underline', textUnderlineOffset: '2px' }}>Limitation Act, 1963</Link> read with{' '}
-            <Link href="/laws/cpc-1908" style={{ color: 'var(--color-accent)', textDecoration: 'underline', textUnderlineOffset: '2px' }}>CPC</Link>,{' '}
-            <Link href="/laws/bnss-2023" style={{ color: 'var(--color-accent)', textDecoration: 'underline', textUnderlineOffset: '2px' }}>BNSS 2023</Link>,{' '}
-            and <Link href="/laws/constitution" style={{ color: 'var(--color-accent)', textDecoration: 'underline', textUnderlineOffset: '2px' }}>Constitution of India</Link>
+            Under the <Link href="/laws/limitation-act-1963" style={{ color: 'var(--color-accent)', textDecoration: 'underline', textUnderlineOffset: '2px' }}>Limitation Act, 1963</Link>
           </p>
           <div className="mt-3">
             <Link href="/limitation-calculator/rules" className="rules-link">
-              {'\u{1F4CB}'} View All Rules
+              View All Rules
             </Link>
           </div>
         </div>
@@ -128,83 +125,16 @@ function LimitationCalculatorInner() {
           <InputForm onSubmit={handleSubmit} isLoading={isLoading} />
         )}
 
-        {/* How it works + Disclaimer */}
-        <footer className="mt-12 animate-fade-in" style={{ animationDelay: '0.3s', animationFillMode: 'both' }}>
-          <div className="card p-6 mb-6">
-            <h3 className="font-bold mb-4 flex items-center gap-2" style={{ color: 'var(--color-text-primary)' }}>
-              <span>How This Tool Works</span>
-            </h3>
-            <div className="grid md:grid-cols-2 gap-4">
-              <div className="flex items-start gap-3">
-                <div
-                  className="w-8 h-8 rounded-lg flex items-center justify-center font-bold text-sm flex-shrink-0"
-                  style={{ background: 'var(--color-surface-muted)', color: 'var(--color-accent)' }}
-                >
-                  1
-                </div>
-                <div>
-                  <p className="font-medium" style={{ color: 'var(--color-text-primary)' }}>Rule-Based Calculations</p>
-                  <p className="text-sm" style={{ color: 'var(--color-text-secondary)' }}>Uses the Limitation Act, 1963 and procedural laws</p>
-                </div>
-              </div>
-              <div className="flex items-start gap-3">
-                <div
-                  className="w-8 h-8 rounded-lg flex items-center justify-center font-bold text-sm flex-shrink-0"
-                  style={{ background: 'var(--color-surface-muted)', color: 'var(--color-accent)' }}
-                >
-                  2
-                </div>
-                <div>
-                  <p className="font-medium" style={{ color: 'var(--color-text-primary)' }}>Deterministic Engine</p>
-                  <p className="text-sm" style={{ color: 'var(--color-text-secondary)' }}>No AI/ML in date calculations — fully predictable</p>
-                </div>
-              </div>
-              <div className="flex items-start gap-3">
-                <div
-                  className="w-8 h-8 rounded-lg flex items-center justify-center font-bold text-sm flex-shrink-0"
-                  style={{ background: 'var(--color-surface-muted)', color: 'var(--color-accent)' }}
-                >
-                  3
-                </div>
-                <div>
-                  <p className="font-medium" style={{ color: 'var(--color-text-primary)' }}>Copy Exclusion</p>
-                  <p className="text-sm" style={{ color: 'var(--color-text-secondary)' }}>Accounts for certified copy period (Section 12)</p>
-                </div>
-              </div>
-              <div className="flex items-start gap-3">
-                <div
-                  className="w-8 h-8 rounded-lg flex items-center justify-center font-bold text-sm flex-shrink-0"
-                  style={{ background: 'var(--color-surface-muted)', color: 'var(--color-accent)' }}
-                >
-                  4
-                </div>
-                <div>
-                  <p className="font-medium" style={{ color: 'var(--color-text-primary)' }}>Holiday Adjustment</p>
-                  <p className="text-sm" style={{ color: 'var(--color-text-secondary)' }}>Adjusts for court holidays (Section 4)</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="mb-6">
-            <Disclaimer />
-            <div className="mt-3 text-center">
-              <Link
-                href="/feedback?calculator=limitation"
-                className="feedback-issue-link"
-              >
-                {'\u{1F6A9}'} Report an issue with these rules
-              </Link>
-            </div>
-          </div>
-
-          <div className="text-center text-sm" style={{ color: 'var(--color-text-secondary)' }}>
-            <p className="mb-2">
-              <span className="font-medium">Sources:</span> The Limitation Act, 1963 {'\u2022'} CPC {'\u2022'} CrPC {'\u2022'} Supreme Court Rules
-            </p>
-            <p className="text-xs" style={{ color: 'var(--color-text-tertiary)' }}>
-              For indicative purposes only. This is not legal advice.
-            </p>
+        {/* Disclaimer */}
+        <footer className="mt-10">
+          <Disclaimer />
+          <div className="mt-3 text-center">
+            <Link
+              href="/feedback?calculator=limitation"
+              className="feedback-issue-link"
+            >
+              Report an issue with these rules
+            </Link>
           </div>
         </footer>
       </div>

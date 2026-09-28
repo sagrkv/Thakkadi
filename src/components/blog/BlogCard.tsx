@@ -3,14 +3,38 @@ import type { BlogPostMeta } from '@/lib/blog/parser';
 
 interface BlogCardProps {
   readonly post: BlogPostMeta;
+  readonly compact?: boolean;
 }
 
-export default function BlogCard({ post }: BlogCardProps) {
+export default function BlogCard({ post, compact }: BlogCardProps) {
   const formattedDate = new Date(post.date).toLocaleDateString('en-IN', {
     year: 'numeric',
     month: 'long',
     day: 'numeric',
   });
+
+  if (compact) {
+    return (
+      <Link href={`/blog/${post.slug}`} className="blog-card group">
+        <time
+          dateTime={post.date}
+          className="text-xs font-mono"
+          style={{ color: 'var(--color-text-tertiary)' }}
+        >
+          {formattedDate}
+        </time>
+        <h3
+          className="text-sm font-bold mt-1 leading-snug"
+          style={{
+            fontFamily: 'var(--font-display)',
+            color: 'var(--color-text-primary)',
+          }}
+        >
+          {post.title}
+        </h3>
+      </Link>
+    );
+  }
 
   return (
     <Link href={`/blog/${post.slug}`} className="blog-card group">

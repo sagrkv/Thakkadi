@@ -29,7 +29,7 @@ export default function LimitationCalculatorLayout({
       />
       <JsonLd data={buildFAQSchema([...LIMITATION_FAQS])} />
       <div className="max-w-4xl mx-auto px-4">
-        <div className="pt-6">
+        <div className="pt-4 mb-1">
           <Breadcrumbs
             items={[
               { label: 'Home', href: '/' },

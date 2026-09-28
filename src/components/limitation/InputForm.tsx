@@ -203,13 +203,13 @@ export default function InputForm({ onSubmit, isLoading }: InputFormProps) {
       {/* Step 1: Case Type */}
       {step === 1 && (
         <div className="animate-fade-in">
-          <div className="text-center mb-8">
-            <h2 className="text-2xl font-extrabold mb-2" style={{ color: 'var(--color-text-primary)', fontFamily: 'var(--font-display)', letterSpacing: '-0.01em' }}>
+          <div className="text-center mb-6">
+            <h2 className="text-xl font-bold mb-1" style={{ color: 'var(--color-text-primary)', fontFamily: 'var(--font-display)' }}>
               What type of case is this?
             </h2>
-            <p style={{ color: 'var(--color-text-secondary)' }}>Select the nature of your legal matter</p>
+            <p className="text-sm" style={{ color: 'var(--color-text-secondary)' }}>Select the nature of your legal matter</p>
           </div>
-          <div className="space-y-4">
+          <div className="max-w-lg mx-auto space-y-3">
             {CASE_TYPES.map((type, index) => (
               <button
                 key={type.value}
@@ -217,11 +217,11 @@ export default function InputForm({ onSubmit, isLoading }: InputFormProps) {
                 onClick={() => { setCaseType(type.value); setCourtLevel(''); setErrors({}); }}
                 className={`selection-card ${caseType === type.value ? 'selected' : ''} stagger-${index + 1}`}
               >
-                <div className="flex items-start gap-4">
-                  <span className="text-2xl">{type.icon}</span>
-                  <div className="flex-1 pr-8">
-                    <div className="font-semibold text-lg" style={{ color: 'var(--color-text-primary)' }}>{type.label}</div>
-                    <div className="text-sm mt-1" style={{ color: 'var(--color-text-secondary)' }}>{type.description}</div>
+                <div className="flex items-center gap-3">
+                  <span className="text-lg">{type.icon}</span>
+                  <div>
+                    <div className="font-semibold" style={{ color: 'var(--color-text-primary)' }}>{type.label}</div>
+                    <div className="text-xs" style={{ color: 'var(--color-text-secondary)' }}>{type.description}</div>
                   </div>
                 </div>
               </button>
@@ -234,8 +234,8 @@ export default function InputForm({ onSubmit, isLoading }: InputFormProps) {
       {/* Step 2: Court Level */}
       {step === 2 && caseType && (
         <div className="animate-fade-in">
-          <div className="text-center mb-8">
-            <h2 className="text-2xl font-extrabold mb-2" style={{ color: 'var(--color-text-primary)', fontFamily: 'var(--font-display)', letterSpacing: '-0.01em' }}>
+          <div className="text-center mb-6">
+            <h2 className="text-xl font-bold mb-1" style={{ color: 'var(--color-text-primary)', fontFamily: 'var(--font-display)' }}>
               Which court passed the judgment?
             </h2>
             <p style={{ color: 'var(--color-text-secondary)' }}>Select the court that delivered the order</p>
@@ -285,8 +285,8 @@ export default function InputForm({ onSubmit, isLoading }: InputFormProps) {
       {/* Step 3: Judgment Type */}
       {step === 3 && (
         <div className="animate-fade-in">
-          <div className="text-center mb-8">
-            <h2 className="text-2xl font-extrabold mb-2" style={{ color: 'var(--color-text-primary)', fontFamily: 'var(--font-display)', letterSpacing: '-0.01em' }}>
+          <div className="text-center mb-6">
+            <h2 className="text-xl font-bold mb-1" style={{ color: 'var(--color-text-primary)', fontFamily: 'var(--font-display)' }}>
               What type of order is this?
             </h2>
             <p style={{ color: 'var(--color-text-secondary)' }}>Is it a final judgment or an interim order?</p>
@@ -316,8 +316,8 @@ export default function InputForm({ onSubmit, isLoading }: InputFormProps) {
       {/* Step 4: Dates */}
       {step === 4 && (
         <div className="animate-fade-in">
-          <div className="text-center mb-8">
-            <h2 className="text-2xl font-extrabold mb-2" style={{ color: 'var(--color-text-primary)', fontFamily: 'var(--font-display)', letterSpacing: '-0.01em' }}>
+          <div className="text-center mb-6">
+            <h2 className="text-xl font-bold mb-1" style={{ color: 'var(--color-text-primary)', fontFamily: 'var(--font-display)' }}>
               When was the judgment delivered?
             </h2>
             <p style={{ color: 'var(--color-text-secondary)' }}>Enter the date of the order/judgment</p>
@@ -366,8 +366,8 @@ export default function InputForm({ onSubmit, isLoading }: InputFormProps) {
       {/* Step 5: Review & Submit */}
       {step === 5 && (
         <div className="animate-fade-in">
-          <div className="text-center mb-8">
-            <h2 className="text-2xl font-extrabold mb-2" style={{ color: 'var(--color-text-primary)', fontFamily: 'var(--font-display)', letterSpacing: '-0.01em' }}>
+          <div className="text-center mb-6">
+            <h2 className="text-xl font-bold mb-1" style={{ color: 'var(--color-text-primary)', fontFamily: 'var(--font-display)' }}>
               Review Your Information
             </h2>
             <p style={{ color: 'var(--color-text-secondary)' }}>Please verify the details before calculating</p>
