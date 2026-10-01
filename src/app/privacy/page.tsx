@@ -117,8 +117,8 @@ export default function PrivacyPage() {
         <PolicySection heading="No Cookies">
           <p>
             Thakkadi does not set any cookies — no tracking cookies, no session
-            cookies, no cookies of any kind. Our analytics provider, Umami, is
-            privacy-respecting and operates without cookies.
+            cookies, no cookies of any kind. Cloudflare Web Analytics and
+            Umami operate without cookies.
           </p>
         </PolicySection>
 
@@ -146,11 +146,11 @@ export default function PrivacyPage() {
 
         <PolicySection heading="Third-Party Services">
           <p>
-            The only third-party service used is{' '}
-            <strong style={{ color: 'var(--color-text-primary)' }}>Umami</strong>{' '}
-            for privacy-respecting analytics. Umami does not use cookies, does
-            not collect personal data, and is fully GDPR compliant. It provides
-            only aggregate page-view counts.
+            We use Cloudflare Web Analytics to measure page visits and site
+            performance without cookies. Umami also measures page visits during
+            the transition to Cloudflare. Calculator inputs and results are not
+            included in analytics events. Your browser loads the analytics
+            scripts and sends usage metrics to these providers.
           </p>
         </PolicySection>
 
