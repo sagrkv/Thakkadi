@@ -15,6 +15,20 @@ const securityHeaders = [
 ];
 
 const nextConfig: NextConfig = {
+  async rewrites() {
+    // Keep existing feedback submissions in Netlify Forms after moving hosting.
+    // Limit this rewrite to Vercel so Netlify never proxies back to itself.
+    if (process.env.VERCEL !== '1') return [];
+
+    return {
+      beforeFiles: [
+        {
+          source: '/__forms.html',
+          destination: 'https://thakkadi.netlify.app/__forms.html',
+        },
+      ],
+    };
+  },
   async headers() {
     return [
       {
