@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { getPostBySlug, getAllSlugs } from '@/lib/blog/parser';
 import Breadcrumbs from '@/components/shared/Breadcrumbs';
+import JsonLd from '@/components/seo/JsonLd';
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -21,6 +22,15 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     title: `${post.title} — Thakkadi Blog`,
     description: post.excerpt,
     alternates: { canonical: `/blog/${slug}` },
+    openGraph: {
+      type: 'article',
+      title: post.title,
+      description: post.excerpt,
+      url: `/blog/${slug}`,
+      publishedTime: post.date,
+      modifiedTime: post.updated ?? post.date,
+      images: ['/opengraph-image'],
+    },
   };
 }
 
@@ -37,6 +47,18 @@ export default async function BlogPostPage({ params }: PageProps) {
 
   return (
     <div className="max-w-3xl mx-auto px-4 py-8 md:py-12">
+      <JsonLd data={{
+        '@context': 'https://schema.org',
+        '@type': 'BlogPosting',
+        headline: post.title,
+        description: post.excerpt,
+        datePublished: post.date,
+        dateModified: post.updated ?? post.date,
+        author: { '@type': 'Organization', name: post.author, url: 'https://thakkadi.in/about' },
+        publisher: { '@id': 'https://thakkadi.in/#organization' },
+        mainEntityOfPage: `https://thakkadi.in/blog/${slug}`,
+        image: 'https://thakkadi.in/opengraph-image',
+      }} />
       <Breadcrumbs
         items={[
           { label: 'Home', href: '/' },
@@ -85,6 +107,10 @@ export default async function BlogPostPage({ params }: PageProps) {
             style={{ color: 'var(--color-text-secondary)', lineHeight: '1.6' }}
           >
             {post.excerpt}
+          </p>
+          <p className="text-xs mt-3" style={{ color: 'var(--color-text-tertiary)' }}>
+            By {post.author}
+            {post.updated && <> · Updated <time dateTime={post.updated}>{new Date(post.updated).toLocaleDateString('en-IN', { year: 'numeric', month: 'long', day: 'numeric' })}</time></>}
           </p>
         </header>
 

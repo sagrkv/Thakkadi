@@ -1,4 +1,5 @@
 import type { LegalSection } from '@/types/legal-reference';
+import { AD_VALOREM_SLABS } from '@/lib/court-fee/constants/slabs';
 
 const ACT_ID = 'karnataka-court-fees-act-1958';
 
@@ -10,10 +11,23 @@ export const KARNATAKA_COURT_FEES_SECTIONS: readonly LegalSection[] = [
     sectionType: 'schedule',
     number: 'Schedule I, Art. 1',
     title: 'Ad Valorem Fees on Plaints',
-    fullText:
-      'Schedule I — Table of Fees\n\nArticle 1: In suits for money (including suits for damages or compensation, or arrears of maintenance, of annuities or of other sums payable periodically) — ad valorem on the amount claimed.\n\nThe fee shall be computed on the value of the subject matter of the suit as set forth in the plaint, according to the following scale:\n\n(i) Up to Rs. 15,000 — 2.5%\n(ii) Rs. 15,001 to Rs. 30,000 — 3.0% (base Rs. 375)\n(iii) Rs. 30,001 to Rs. 50,000 — 3.5% (base Rs. 825)\n(iv) Rs. 50,001 to Rs. 1,00,000 — 4.0% (base Rs. 1,525)\n(v) Rs. 1,00,001 to Rs. 2,00,000 — 4.5% (base Rs. 3,525)\n(vi) Rs. 2,00,001 to Rs. 3,00,000 — 5.0% (base Rs. 8,025)\n(vii) Rs. 3,00,001 to Rs. 5,00,000 — 5.5% (base Rs. 13,025)\n(viii) Rs. 5,00,001 to Rs. 10,00,000 — 6.0% (base Rs. 24,025)\n(ix) Rs. 10,00,001 to Rs. 15,00,000 — 6.5% (base Rs. 54,025)\n(x) Rs. 15,00,001 to Rs. 20,00,000 — 7.0% (base Rs. 86,525)\n(xi) Rs. 20,00,001 to Rs. 30,00,000 — 7.5% (base Rs. 121,525)\n(xii) Rs. 30,00,001 to Rs. 40,00,000 — 7.5% (base Rs. 202,125)\n(xiii) Rs. 40,00,001 to Rs. 50,00,000 — 7.5% (base Rs. 202,125)\n(xiv) Rs. 50,00,001 to Rs. 75,00,000 — 7.5% (base Rs. 222,125)\n(xv) Rs. 75,00,001 to Rs. 1,00,00,000 — 7.5% (base Rs. 222,125)\n(xvi) Above Rs. 1,00,00,000 — 7.5% (base Rs. 222,125)\n\nNote: As amended by Act 2 of 1993.',
+    fullText: [
+      'Schedule I, Article 1 — summary of the ad valorem table. This is a reading aid, not a verbatim transcription of the Act.',
+      'Select the row containing the subject-matter value. Fee = base fee + rate × (value − threshold).',
+      ...AD_VALOREM_SLABS.map((slab) => {
+        const money = (amount: number) => `₹${amount.toLocaleString('en-IN')}`;
+        const range = slab.max === null
+          ? `Above ${money(slab.threshold)}`
+          : slab.threshold === 0
+            ? `Up to ${money(slab.max)}`
+            : `Above ${money(slab.threshold)} to ${money(slab.max)}`;
+        return `(${slab.label}) ${range}: ${money(slab.baseFee)} + ${Number((slab.rate * 100).toFixed(2))}% of the amount above ${money(slab.threshold)}.`;
+      }),
+      'Table checked against India Code, printed pages 37–38, on 1 October 2026. Substituted by Act 2 of 1993 with effect from 29 January 1993. Read the linked official Act for the complete provision.',
+    ].join('\n\n'),
     summary:
-      'Prescribes 16 slab-based ad valorem fee rates ranging from 2.5% to 7.5% on the value of subject matter in suits for money.',
+      'The 16-row Article 1 schedule uses the stated base fee and a rate on the amount above the threshold. The valuation basis depends on the proceeding.',
+
   },
 
   // ── Sections on specific suit types ────────────────────────────────────────

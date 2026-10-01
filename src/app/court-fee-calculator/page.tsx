@@ -34,9 +34,17 @@ export default function CourtFeeCalculatorPage() {
         <p className="text-sm mt-1" style={{ color: 'var(--color-text-secondary)' }}>
           Under the <Link href="/laws/karnataka-court-fees-act-1958" style={{ color: 'var(--color-accent)', textDecoration: 'underline', textUnderlineOffset: '2px' }}>Karnataka Court Fees &amp; Suits Valuation Act, 1958</Link>
         </p>
+        <p className="text-sm mt-3" style={{ color: 'var(--color-text-secondary)' }}>
+          For a money claim, find its row in Schedule I and apply the base fee plus the rate on
+          the amount above the threshold. A ₹1,00,000 claim gives ₹6,625 under Article 1.
+          Other proceedings can use different valuation rules or fixed fees.
+        </p>
         <div className="mt-3">
           <Link href="/court-fee-calculator/rules" className="rules-link rules-link-teal">
             {'\u{1F4CB}'} View All Rules
+          </Link>
+          <Link href="/blog/karnataka-court-fees-explained" className="rules-link ml-3">
+            Slab table and worked examples
           </Link>
         </div>
       </div>
@@ -47,11 +55,11 @@ export default function CourtFeeCalculatorPage() {
         <div className="intro-content">
           <p>
             This calculator computes court fees payable under the Karnataka Court Fees and Suits Valuation Act, 1958
-            (as amended by Act 2 of 1993). Select from over 50 suit types across 9 categories — property suits, money
+            (as amended by Act 2 of 1993). Select from 48 suit types across 9 categories — property suits, money
             suits, matrimonial petitions, succession matters, appeals, execution applications, and more.
           </p>
           <p>
-            The engine applies the 14-tier ad valorem slab table for value-based suits and fixed-fee schedules for
+            The engine applies the 16-row ad valorem slab table for value-based suits and fixed-fee schedules for
             specific petition types. It also includes a Refund Estimator that calculates refund amounts based on the
             stage at which a suit is settled or withdrawn. All calculations are deterministic and run entirely in your
             browser — this tool is specific to Karnataka courts.

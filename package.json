@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "hash-documents": "npx tsx scripts/compute-document-hashes.ts"
+    "hash-documents": "npx tsx scripts/compute-document-hashes.ts",
+    "test": "node --import tsx --test tests/**/*.test.ts"
   },
   "dependencies": {
     "@tailwindcss/postcss": "^4.1.18",
@@ -23,5 +24,8 @@
     "tailwindcss": "^4.1.18",
     "typescript": "^5.9.3",
     "zod": "^3.25.3"
+  },
+  "devDependencies": {
+    "tsx": "^4.23.15"
   }
 }

@@ -20,9 +20,9 @@ export const AD_VALOREM_SLABS: readonly SlabDefinition[] = [
   { number: 9,  label: 'ix',   min: 20_00_001, max: 25_00_000,  threshold: 20_00_000, rate: 0.04,   baseFee: 1_09_625 },
   { number: 10, label: 'x',    min: 25_00_001, max: 30_00_000,  threshold: 25_00_000, rate: 0.035,  baseFee: 1_29_625 },
   { number: 11, label: 'xi',   min: 30_00_001, max: 40_00_000,  threshold: 30_00_000, rate: 0.03,   baseFee: 1_47_125 },
-  { number: 12, label: 'xii',  min: 40_00_001, max: 50_00_000,  threshold: 40_00_000, rate: 0.02,   baseFee: 1_77_125 },
+  { number: 12, label: 'xii',  min: 40_00_001, max: 50_00_000,  threshold: 40_00_000, rate: 0.025,  baseFee: 1_77_125 },
   { number: 13, label: 'xiii', min: 50_00_001, max: 60_00_000,  threshold: 50_00_000, rate: 0.02,   baseFee: 2_02_125 },
-  { number: 14, label: 'xiv',  min: 60_00_001, max: 70_00_000,  threshold: 60_00_000, rate: 0.01,   baseFee: 2_22_125 },
+  { number: 14, label: 'xiv',  min: 60_00_001, max: 70_00_000,  threshold: 60_00_000, rate: 0.015,  baseFee: 2_22_125 },
   { number: 15, label: 'xv',   min: 70_00_001, max: 80_00_000,  threshold: 70_00_000, rate: 0.01,   baseFee: 2_37_125 },
-  { number: 16, label: 'xvi',  min: 80_00_001, max: null,        threshold: 80_00_000, rate: 0.01,   baseFee: 2_47_125 },
+  { number: 16, label: 'xvi',  min: 80_00_001, max: null,        threshold: 80_00_000, rate: 0.005,  baseFee: 2_47_125 },
 ] as const;

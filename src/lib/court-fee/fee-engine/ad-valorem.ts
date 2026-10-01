@@ -6,7 +6,7 @@ import { AD_VALOREM_SLABS } from '@/lib/court-fee/constants/slabs';
  * Schedule I, Article 1 — Karnataka Court Fees & Suits Valuation Act, 1958
  *
  * Formula per the Act: fee = baseFee + rate * (value - threshold)
- * Always rounds UP (Math.ceil) as is court practice.
+ * Rounds the displayed fee up to whole rupees.
  */
 export function computeAdValoremFee(value: number): {
   fee: number;

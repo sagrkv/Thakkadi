@@ -17,7 +17,7 @@ export const metadata: Metadata = {
 
 const STATS = [
   { number: '13', label: 'Acts Archived' },
-  { number: '50+', label: 'Suit Types' },
+  { number: '48', label: 'Suit Types' },
   { number: '11', label: 'Court Levels' },
   { number: '24', label: 'Stamp Instruments' },
 ] as const;
@@ -91,7 +91,7 @@ export default function HomePage() {
               icon={'\uD83D\uDCB0'}
               title="Court Fee"
               attribution="Under the Karnataka Court Fees Act, 1958"
-              description="Compute court fees for 50+ suit types across 9 categories. Includes ad valorem slabs and refund estimation."
+              description="Compute court fees for 48 suit types across 9 categories. Includes ad valorem slabs and refund estimation."
               linkText="Open Calculator"
             />
             <ToolCard

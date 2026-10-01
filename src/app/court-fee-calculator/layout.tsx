@@ -6,9 +6,9 @@ import { buildWebApplicationSchema, buildFAQSchema } from '@/lib/seo/json-ld';
 import { COURT_FEE_FAQS } from '@/data/faqs';
 
 export const metadata: Metadata = {
-  title: 'Karnataka Court Fee Calculator — 50+ Suit Types, Ad Valorem & Fixed Fees',
+  title: 'Karnataka Court Fee Calculator — 48 Suit Types, Ad Valorem & Fixed Fees',
   description:
-    'Compute court fees under the Karnataka Court Fees & Suits Valuation Act, 1958. Supports 50+ suit types across 9 categories including property suits, money suits, appeals, execution, and matrimonial petitions. Includes refund estimator.',
+    'Compute court fees under the Karnataka Court Fees & Suits Valuation Act, 1958. Supports 48 suit types across 9 categories including property suits, money suits, appeals, execution, and matrimonial petitions. Includes refund estimator.',
   alternates: {
     canonical: '/court-fee-calculator',
   },
@@ -24,7 +24,7 @@ export default function CourtFeeCalculatorLayout({
           name: 'Karnataka Court Fee Calculator',
           url: '/court-fee-calculator',
           description:
-            'Compute court fees under the Karnataka Court Fees & Suits Valuation Act, 1958 for 50+ suit types.',
+            'Compute court fees under the Karnataka Court Fees & Suits Valuation Act, 1958 for 48 suit types.',
         })}
       />
       <JsonLd data={buildFAQSchema([...COURT_FEE_FAQS])} />

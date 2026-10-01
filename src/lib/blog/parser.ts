@@ -7,6 +7,7 @@ export interface BlogPost {
   readonly slug: string;
   readonly title: string;
   readonly date: string;
+  readonly updated?: string;
   readonly excerpt: string;
   readonly author: string;
   readonly tags: readonly string[];
@@ -17,6 +18,7 @@ export interface BlogPostMeta {
   readonly slug: string;
   readonly title: string;
   readonly date: string;
+  readonly updated?: string;
   readonly excerpt: string;
   readonly author: string;
   readonly tags: readonly string[];
@@ -32,6 +34,7 @@ function parsePost(slug: string, raw: string): BlogPost {
     slug,
     title: data.title ?? slug,
     date: data.date ?? '',
+    updated: data.updated,
     excerpt: data.excerpt ?? '',
     author: data.author ?? 'Thakkadi',
     tags: data.tags ?? [],
@@ -51,6 +54,7 @@ export function getAllPosts(): readonly BlogPostMeta[] {
         slug,
         title: data.title ?? slug,
         date: data.date ?? '',
+        updated: data.updated,
         excerpt: data.excerpt ?? '',
         author: data.author ?? 'Thakkadi',
         tags: data.tags ?? [],

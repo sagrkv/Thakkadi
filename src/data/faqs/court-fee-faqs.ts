@@ -20,9 +20,9 @@ export const COURT_FEE_FAQS = [
       'Appeal fees depend on the type of appeal. First appeals from original suits typically require the same ad valorem fee as the original suit. Second appeals and certain miscellaneous appeals may have fixed fees or reduced ad valorem rates. The calculator handles all these variations automatically based on the suit type you select.',
   },
   {
-    question: 'Is there a minimum court fee?',
+    question: 'What is the court fee for a suit valued up to ₹15,000?',
     answer:
-      'Yes. The minimum ad valorem court fee under the Karnataka Act is \u20B9100 for suits valued up to \u20B9500. For most practical suit values, the fee is determined by the 14-tier slab table. Certain petition types (interlocutory applications, caveats, etc.) have separate fixed fees specified in the Act.',
+      'Schedule I, Article 1 applies 2.5% to a subject-matter value up to ₹15,000. For example, ₹10,000 gives ₹250 and ₹15,000 gives ₹375. Higher values use the relevant row of the 16-row schedule. The valuation basis and any fixed fee depend on the type of proceeding.',
   },
   {
     question: 'Which act governs court fees in Karnataka?',

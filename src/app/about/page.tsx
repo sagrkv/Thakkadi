@@ -149,10 +149,27 @@ export default function AboutPage() {
               lineHeight: 1.8,
             }}
           >
-            Every calculation on Thakkadi is deterministic — no AI, no
-            hallucinations, just statute-based computation. We build pure
-            rule-based engines that compute directly from the text of enacted
-            legislation, so every result is verifiable and reproducible.
+            Thakkadi uses rules and formulas to calculate fees and deadlines in
+            your browser. The tools show their workings and link to legal
+            sources so you can check the assumptions for your proceeding.
+          </p>
+        </section>
+
+        <RuleDivider />
+
+        <section>
+          <SectionHeading>Who builds Thakkadi?</SectionHeading>
+          <p className="text-sm" style={{ color: 'var(--color-text-secondary)', lineHeight: 1.7 }}>
+            Thakkadi is maintained by Sagar, an independent developer at{' '}
+            <a href="https://filtercoffee.dev" style={{ color: 'var(--color-accent)' }}>filtercoffee.dev</a>.
+            The project is open source. Its guides and calculators provide reference
+            information; they are not a substitute for a lawyer reviewing a specific matter.
+          </p>
+          <p className="text-sm mt-3" style={{ color: 'var(--color-text-secondary)', lineHeight: 1.7 }}>
+            The Article 1 court-fee table was checked against India Code on 1 October 2026.
+            The <Link href="/blog/karnataka-court-fees-explained" style={{ color: 'var(--color-accent)' }}>court-fee guide</Link>{' '}
+            records its source, examples, and corrections. This check does not establish that every rule
+            in the site has been professionally reviewed.
           </p>
         </section>
 
