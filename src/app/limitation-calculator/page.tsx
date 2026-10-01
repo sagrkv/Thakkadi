@@ -58,10 +58,11 @@ function LimitationCalculatorInner() {
   };
 
   return (
-    <div className="py-8 px-4 md:py-12 md:px-8">
+    <div className="calculator-page py-8 px-4 md:py-12 md:px-8">
       <div className="max-w-4xl mx-auto">
         {/* Header */}
-        <div className="mb-8 animate-fade-in">
+        <div className="calculator-heading mb-8 animate-fade-in">
+          <p className="eyebrow calculator-kicker"><span>01 / FILING DEADLINES</span><span className="jurisdiction-pill">India</span></p>
           <h1
             className="text-2xl md:text-3xl font-bold mb-1"
             style={{ color: 'var(--color-text-primary)', fontFamily: 'var(--font-display)', letterSpacing: '-0.02em' }}
@@ -76,7 +77,7 @@ function LimitationCalculatorInner() {
           </p>
           <div className="mt-3">
             <Link href="/limitation-calculator/rules" className="rules-link">
-              {'\u{1F4CB}'} View All Rules
+              View All Rules
             </Link>
           </div>
         </div>

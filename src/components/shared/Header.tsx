@@ -18,7 +18,7 @@ const CALCULATOR_ITEMS: readonly NavItem[] = [
 
 const NAV_ITEMS: readonly NavItem[] = [
   { href: '/laws', label: 'Legal Library' },
-  { href: '/blog', label: 'Blog' },
+  { href: '/blog', label: 'Explainers' },
   { href: '/about', label: 'About' },
 ];
 
@@ -68,7 +68,7 @@ export default function Header() {
 
   return (
     <header className="site-header no-print">
-      <div className="max-w-5xl mx-auto px-4 py-4 relative z-10">
+      <div className="header-inner max-w-5xl mx-auto px-4 py-4 relative z-10">
         <div className="flex items-center justify-between">
           {/* Logo + Wordmark */}
           <Link href="/" className="flex items-center gap-2.5" style={{ textDecoration: 'none' }}>

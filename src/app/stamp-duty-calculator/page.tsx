@@ -6,8 +6,9 @@ import Disclaimer from '@/components/shared/Disclaimer';
 
 export default function StampDutyCalculatorPage() {
   return (
-    <div className="max-w-3xl mx-auto w-full px-4 py-6">
-      <div className="mb-6">
+    <div className="calculator-page max-w-3xl mx-auto w-full px-4 py-6">
+      <div className="calculator-heading mb-6">
+        <p className="eyebrow calculator-kicker"><span>03 / STAMP DUTY</span><span className="jurisdiction-pill">Karnataka</span></p>
         <h1
           className="text-2xl font-bold"
           style={{ fontFamily: 'var(--font-display)', color: 'var(--color-text-primary)', letterSpacing: '-0.01em' }}

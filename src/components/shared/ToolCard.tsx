@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import ToolIcon from './ToolIcon';
 
 interface ToolCardProps {
   readonly href: string;
@@ -6,40 +7,20 @@ interface ToolCardProps {
   readonly attribution: string;
   readonly description: string;
   readonly linkText: string;
-  readonly icon?: string;
+  readonly number: string;
+  readonly jurisdiction: string;
+  readonly kind: 'deadline' | 'fee' | 'document';
 }
 
-export default function ToolCard({
-  href,
-  title,
-  attribution,
-  description,
-  linkText,
-  icon,
-}: ToolCardProps) {
+export default function ToolCard({ href, title, attribution, description, linkText, number, jurisdiction, kind }: ToolCardProps) {
   return (
-    <Link href={href} className="tool-card group">
-      {icon && (
-        <div
-          className="w-10 h-10 rounded-lg flex items-center justify-center text-xl mb-3"
-          style={{
-            background: 'var(--color-accent-light)',
-            color: 'var(--color-accent)',
-          }}
-        >
-          {icon}
-        </div>
-      )}
-
+    <Link href={href} className={`tool-card tool-card-${kind}`}>
+      <div className="tool-card-top"><span className="tool-symbol"><ToolIcon kind={kind} /></span><span className="tool-number">{number}</span></div>
+      <p className="tool-jurisdiction">{jurisdiction}</p>
       <h3 className="tool-card-title">{title}</h3>
-
-      <p className="tool-card-attribution">{attribution}</p>
-
       <p className="tool-card-description">{description}</p>
-
-      <span className="tool-card-link">
-        {linkText} &rarr;
-      </span>
+      <p className="tool-card-attribution">{attribution}</p>
+      <span className="tool-card-link">{linkText}<span className="tool-card-arrow" aria-hidden="true">↗</span></span>
     </Link>
   );
 }
