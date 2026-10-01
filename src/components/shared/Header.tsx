@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
+import BrandMark from './BrandMark';
 import { usePathname } from 'next/navigation';
 
 interface NavItem {
@@ -72,18 +73,12 @@ export default function Header() {
         <div className="flex items-center justify-between">
           {/* Logo + Wordmark */}
           <Link href="/" className="flex items-center gap-2.5" style={{ textDecoration: 'none' }}>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="/logo.svg"
-              alt=""
-              aria-hidden="true"
-              className="header-logo-img"
-            />
+            <BrandMark className="header-logo-img" />
             <span
               style={{
                 fontFamily: 'var(--font-display)',
                 fontSize: '1.375rem',
-                color: '#FFFFFF',
+                color: '#FFFCF6',
                 letterSpacing: '-0.01em',
                 lineHeight: 1,
                 fontWeight: 700,

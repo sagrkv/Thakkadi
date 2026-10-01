@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import BrandMark from './BrandMark';
 
 const TOOLS = [
   { label: 'Limitation Calculator', href: '/limitation-calculator' },
@@ -47,7 +48,7 @@ export default function Footer() {
       <div className="footer-inner">
         {/* Brand */}
         <div className="footer-brand">
-          <span className="footer-brand-name">Thakkadi</span>
+          <Link href="/" className="footer-brand-lockup"><BrandMark size={32} /><span className="footer-brand-name">Thakkadi</span></Link>
           <span className="footer-brand-tagline">
             Free legal calculators for the Indian legal community
           </span>

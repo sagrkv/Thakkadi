@@ -1,4 +1,5 @@
 import { ImageResponse } from 'next/og';
+import BrandMark from '@/components/shared/BrandMark';
 
 export const runtime = 'edge';
 export const alt = 'Thakkadi — Free Legal Calculators for Indian Lawyers';
@@ -16,17 +17,18 @@ export default function OgImage() {
           flexDirection: 'column',
           justifyContent: 'center',
           alignItems: 'center',
-          background: '#FAFAF8',
+          background: '#FFFCF6',
           fontFamily: 'system-ui, sans-serif',
           position: 'relative',
         }}
       >
+        <div style={{ display: 'flex', marginBottom: 24 }}><BrandMark size={88} /></div>
         {/* Brand name */}
         <div
           style={{
             fontSize: 80,
             fontWeight: 700,
-            color: '#0D9488',
+            color: '#1D3558',
             letterSpacing: '-2px',
             marginBottom: 12,
             display: 'flex',
@@ -39,7 +41,7 @@ export default function OgImage() {
         <div
           style={{
             fontSize: 28,
-            color: '#4B5563',
+            color: '#4D5E73',
             fontWeight: 500,
             marginBottom: 48,
             display: 'flex',
@@ -61,9 +63,9 @@ export default function OgImage() {
               style={{
                 padding: '12px 28px',
                 borderRadius: 8,
-                background: '#CCFBF1',
-                border: '1px solid #99F6E4',
-                color: '#0F766E',
+                background: '#FFF1D5',
+                border: '1px solid #EED9AC',
+                color: '#245AA0',
                 fontSize: 20,
                 fontWeight: 600,
                 display: 'flex',
@@ -80,7 +82,7 @@ export default function OgImage() {
             position: 'absolute',
             bottom: 28,
             fontSize: 16,
-            color: '#9CA3AF',
+            color: '#657185',
             display: 'flex',
           }}
         >

@@ -38,14 +38,14 @@ export const metadata: Metadata = {
     title: 'Thakkadi — Free Legal Calculators for Indian Lawyers',
     description:
       'Calculate limitation periods, Karnataka court fees, and stamp duty. Free, open-source, no login, no data stored.',
-    images: [{ url: '/opengraph-image.png', width: 1200, height: 630 }],
+    images: [{ url: '/opengraph-image', width: 1200, height: 630 }],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Thakkadi — Free Legal Calculators for Indian Lawyers',
     description:
       'Calculate limitation periods, Karnataka court fees, and stamp duty. Free, open-source, no login, no data stored.',
-    images: ['/opengraph-image.png'],
+    images: ['/opengraph-image'],
   },
   robots: {
     index: true,

@@ -8,8 +8,8 @@ export default function manifest(): MetadataRoute.Manifest {
       'Free, open-source legal calculators for Indian lawyers. Limitation periods, Karnataka court fees, stamp duty — no login, no data stored.',
     start_url: '/',
     display: 'standalone',
-    theme_color: '#0D9488',
-    background_color: '#FAFAF8',
+    theme_color: '#1D3558',
+    background_color: '#FFFCF6',
     icons: [
       {
         src: '/icon-192.png',
