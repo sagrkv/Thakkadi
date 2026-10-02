@@ -27,6 +27,11 @@ export default function HomePage() {
             <p className="eyebrow"><span className="status-dot" /> Free legal tools · India</p>
             <h1>Legal calculations,<br /><em>with a clear trail.</em></h1>
             <p className="hero-description">Work out filing deadlines, Karnataka court fees, and stamp duty. See the breakdown. Follow the legal references.</p>
+            <nav className="hero-tools" aria-label="Choose a calculator">
+              <Link href="/limitation-calculator">Filing deadlines <span aria-hidden="true">→</span></Link>
+              <Link href="/court-fee-calculator">Karnataka court fees <span aria-hidden="true">→</span></Link>
+              <Link href="/stamp-duty-calculator">Karnataka stamp duty <span aria-hidden="true">→</span></Link>
+            </nav>
             <div className="hero-actions">
               <a href="#calculators" className="btn btn-primary">Find your calculator <span aria-hidden="true">↓</span></a>
               <Link href="/laws" className="hero-text-link">Explore the legal library <span aria-hidden="true">↗</span></Link>

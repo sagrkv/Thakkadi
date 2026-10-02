@@ -40,7 +40,7 @@ const UrgencyIndicator = ({ daysRemaining, isExpired }: { daysRemaining: number;
         <span className="text-2xl">{'\u26D4'}</span>
         <div>
           <span className="font-bold text-lg">EXPIRED</span>
-          <p className="text-xs opacity-80">Limitation period has ended</p>
+          <p className="text-sm">Limitation period has ended</p>
         </div>
       </div>
     );
@@ -52,7 +52,7 @@ const UrgencyIndicator = ({ daysRemaining, isExpired }: { daysRemaining: number;
         <span className="text-2xl">{'\uD83D\uDEA8'}</span>
         <div>
           <span className="font-bold text-lg">{daysRemaining} days left</span>
-          <p className="text-xs opacity-80">Urgent - Act immediately</p>
+          <p className="text-sm">Urgent - Act immediately</p>
         </div>
       </div>
     );
@@ -64,7 +64,7 @@ const UrgencyIndicator = ({ daysRemaining, isExpired }: { daysRemaining: number;
         <span className="text-2xl">{'\u23F0'}</span>
         <div>
           <span className="font-bold text-lg">{daysRemaining} days left</span>
-          <p className="text-xs opacity-80">Time is limited</p>
+          <p className="text-sm">Time is limited</p>
         </div>
       </div>
     );
@@ -75,7 +75,7 @@ const UrgencyIndicator = ({ daysRemaining, isExpired }: { daysRemaining: number;
       <span className="text-2xl">{'\u2713'}</span>
       <div>
         <span className="font-bold text-lg">{daysRemaining} days left</span>
-        <p className="text-xs opacity-80">Sufficient time available</p>
+        <p className="text-sm">Sufficient time available</p>
       </div>
     </div>
   );

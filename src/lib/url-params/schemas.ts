@@ -20,6 +20,7 @@ export const limitationParamsSchema = z.object({
   jt: z.enum(['final', 'interim']).optional(),
   jd: z.string().optional(), // judgment date ISO
   ca: z.string().optional(), // certified copy applied date
+  cb: z.string().optional(), // certified copy ready date
   cr: z.string().optional(), // certified copy received date
 });
 
@@ -42,6 +43,8 @@ export const stampDutyParamsSchema = z.object({
   loc: z.enum(['bbmp', 'bmrda', 'municipal', 'rural']).optional(),
   fam: z.enum(['1', '0']).optional(),  // is family
   scst: z.enum(['1', '0']).optional(), // SC/ST
+  ly: z.string().optional(), // lease years
+  sh: z.string().optional(), // share count
   fp: z.enum(['1', '0']).optional(),   // first property
 });
 

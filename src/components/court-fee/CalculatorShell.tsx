@@ -1,11 +1,13 @@
 'use client';
 
-import { useReducer, useCallback } from 'react';
+import { useReducer, useCallback, useEffect, useRef } from 'react';
 import type { CalculatorState, CalculatorAction, SuitGroup } from '@/types/court-fee';
 import { getSuitTypeById, SUIT_GROUPS } from '@/lib/court-fee/constants/suit-categories';
 import { calculateCourtFee } from '@/lib/court-fee/fee-engine/calculator';
 import { useUrlSync } from '@/lib/url-params/use-url-sync';
 import { courtFeeParamsSchema } from '@/lib/url-params/schemas';
+
+import { restoreCourtFee } from '@/lib/url-params/restore-court-fee';
 
 import CategorySelector from './CategorySelector';
 import SuitTypeSelector from './SuitTypeSelector';
@@ -25,6 +27,7 @@ const initialState: CalculatorState = {
 
 function reducer(state: CalculatorState, action: CalculatorAction): CalculatorState {
   switch (action.type) {
+    case 'RESTORE': return action.state;
     case 'SELECT_GROUP':
       return {
         ...state,
@@ -76,7 +79,23 @@ function reducer(state: CalculatorState, action: CalculatorAction): CalculatorSt
 
 export default function CalculatorShell() {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const { updateUrl } = useUrlSync(courtFeeParamsSchema);
+  const { parsed, updateUrl } = useUrlSync(courtFeeParamsSchema);
+
+  const contentRef = useRef<HTMLDivElement>(null);
+  const previousStep = useRef(state.step);
+  useEffect(() => {
+    const restored = restoreCourtFee(parsed);
+    if (restored) dispatch({ type: 'RESTORE', state: restored });
+  }, [parsed]);
+  useEffect(() => {
+    if (previousStep.current !== state.step) {
+      const region = contentRef.current?.querySelector<HTMLElement>('[role="region"]');
+      region?.setAttribute('tabindex', '-1');
+      region?.focus();
+      previousStep.current = state.step;
+    }
+  }, [state.step]);
+  const reset = () => { dispatch({ type: 'RESET' }); updateUrl({ g: undefined, s: undefined, v: undefined }); };
 
   const handleCalculate = useCallback(() => {
     if (!state.selectedSuitTypeId) return;
@@ -112,13 +131,13 @@ export default function CalculatorShell() {
     : null;
 
   return (
-    <div>
+    <div ref={contentRef}>
       {/* Breadcrumb */}
       <nav className="breadcrumb no-print" role="navigation" aria-label="Calculator steps">
         <button
           type="button"
           className={`breadcrumb-item ${state.step === 'category' ? 'breadcrumb-active' : ''}`}
-          onClick={() => dispatch({ type: 'RESET' })}
+          onClick={reset}
           aria-current={state.step === 'category' ? 'step' : undefined}
         >
           Categories
@@ -192,7 +211,7 @@ export default function CalculatorShell() {
         <div role="region" aria-label="Results">
           <ResultDisplay
             result={state.result}
-            onReset={() => dispatch({ type: 'RESET' })}
+            onReset={reset}
             onBack={() => dispatch({ type: 'GO_BACK' })}
           />
         </div>

@@ -152,6 +152,7 @@ export interface CalculatorState {
 }
 
 export type CalculatorAction =
+  | { type: 'RESTORE'; state: CalculatorState }
   | { type: 'SELECT_GROUP'; group: SuitGroup }
   | { type: 'SELECT_SUIT_TYPE'; suitTypeId: string }
   | { type: 'SET_INPUT'; field: string; value: number }

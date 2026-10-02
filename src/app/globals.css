@@ -2245,3 +2245,43 @@ main {
 
 .footer-brand-lockup { display: inline-flex; align-items: center; gap: 10px; margin-bottom: 8px; text-decoration: none; }
 .footer-brand-lockup .footer-brand-name { margin-bottom: 0; color: var(--color-text-primary); }
+
+/* Audit improvements: direct tasks, visible controls and readable supporting text. */
+.hero-tools { display: grid; gap: 8px; margin: 20px 0; }
+.hero-tools a { display: flex; justify-content: space-between; gap: 12px; min-height: 44px; padding: 10px 14px; border: 1px solid #c8bda9; border-radius: 8px; background: #fffefa; font-weight: 600; text-decoration: none; }
+.hero-tools a:hover { background: #f7e5be; border-color: var(--color-accent); }
+.hero-grid { padding-block: 40px; }
+.hero-description { margin-block: 16px; }
+.hero-assurances { font-size: .8125rem; }
+.calculator-switcher { position: relative; }
+.calculator-switcher summary { cursor: pointer; list-style: none; }
+.calculator-switcher summary::-webkit-details-marker { display: none; }
+.calculator-switcher-list { position: absolute; top: calc(100% + 12px); right: 0; width: 260px; padding: 8px; border: 1px solid var(--color-border); border-radius: 10px; background: #fffefa; box-shadow: 0 12px 32px #192d4b30; z-index: 50; }
+.calculator-switcher-list a { display: block; min-height: 44px; padding: 10px; color: var(--color-text-primary); text-decoration: none; border-radius: 6px; }
+.calculator-switcher-list a:hover { background: #f7e5be; }
+.calculator-switcher-list small { display: block; color: var(--color-text-secondary); margin-top: 3px; }
+dialog.mobile-menu-overlay { width: 100%; height: 100dvh; max-width: none; max-height: none; margin: 0; border: 0; padding-top: 24px; color: var(--color-text-primary); }
+dialog.mobile-menu-overlay::backdrop { background: #192d4b80; }
+.mobile-dialog-close { display: flex; align-items: center; justify-content: flex-end; gap: 10px; margin: 0 0 24px auto; min-height: 44px; padding: 8px 12px; cursor: pointer; font-weight: 600; border: 1px solid var(--color-border); border-radius: 8px; }
+.calculator-page { padding-top: 24px; }
+.calculator-heading { padding-bottom: 16px; margin-bottom: 16px; }
+.intro-section summary { min-height: 44px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.intro-section summary::after { content: '+'; font-size: 22px; }
+.intro-section[open] summary::after { content: '−'; }
+.category-desc { font-size: 13px; }
+.breadcrumb-item { font-size: 13px; min-height: 32px; }
+.wizard-progress { margin-bottom: 16px; font-size: 14px; font-weight: 600; color: var(--color-text-secondary); }
+.site-footer .footer-brand-tagline, .site-footer .footer-disclaimer, .site-footer .footer-copyright { color: #536174; }
+@media (max-width: 640px) {
+  .hero-grid { padding-block: 24px; }
+  .hero-copy h1 { font-size: 2rem; }
+  .hero-copy .eyebrow { margin-bottom: 14px; }
+  .hero-description { margin-block: 12px; }
+  .example-sheet { display: none; }
+  .hero-actions > .btn { display: none; }
+  .hero-assurances { gap: 6px 12px; margin-top: 14px; }
+  .calculator-heading h1 { font-size: 1.65rem; }
+  .calculator-page { padding-top: 20px; }
+}
+
+.hero-text-link, .reference-link, .feedback-issue-link { min-height: 44px; display: inline-flex; align-items: center; }

@@ -1,6 +1,6 @@
 'use client';
 
-import { useReducer, useCallback } from 'react';
+import { useReducer, useCallback, useEffect } from 'react';
 import type {
   StampDutyState,
   StampDutyAction,
@@ -32,6 +32,7 @@ const initialState: StampDutyState = {
 
 function reducer(state: StampDutyState, action: StampDutyAction): StampDutyState {
   switch (action.type) {
+    case 'RESTORE': return action.state;
     case 'SELECT_CATEGORY':
       return {
         ...state,
@@ -90,7 +91,22 @@ function reducer(state: StampDutyState, action: StampDutyAction): StampDutyState
 
 export default function StampDutyShell() {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const { updateUrl } = useUrlSync(stampDutyParamsSchema);
+  const { parsed, updateUrl } = useUrlSync(stampDutyParamsSchema);
+
+  useEffect(() => {
+    if (!parsed?.i || !parsed.c) return;
+    const instrument = getInstrumentById(parsed.i);
+    if (!instrument || instrument.category !== parsed.c) return;
+    const input: StampDutyInput = { instrumentId: parsed.i,
+      propertyValue: parsed.pv ? Number(parsed.pv) : undefined,
+      location: parsed.loc === 'bmrda' ? 'municipal' : parsed.loc,
+      isFamilyRelation: parsed.fam === '1', isScSt: parsed.scst === '1', isFirstProperty: parsed.fp === '1',
+      leaseTermYears: parsed.ly ? Number(parsed.ly) : undefined, shareCount: parsed.sh ? Number(parsed.sh) : undefined };
+    if (!validateStampDutyInput(input, instrument).success) return;
+    try { dispatch({ type: 'RESTORE', state: { step: 'result', selectedCategory: instrument.category,
+      selectedInstrumentId: instrument.id, input, result: calculateStampDuty(input), error: null } }); } catch { /* Ignore malformed shared inputs. */ }
+  }, [parsed]);
+  const reset = () => { dispatch({ type: 'RESET' }); updateUrl({ c: undefined, i: undefined, pv: undefined, loc: undefined, fam: undefined, scst: undefined, fp: undefined, ly: undefined, sh: undefined }); };
 
   const handleCalculate = useCallback(() => {
     if (!state.selectedInstrumentId) return;
@@ -118,6 +134,8 @@ export default function StampDutyShell() {
         loc: state.input.location,
         fam: state.input.isFamilyRelation ? '1' : undefined,
         scst: state.input.isScSt ? '1' : undefined,
+        ly: state.input.leaseTermYears?.toString(),
+        sh: state.input.shareCount?.toString(),
         fp: state.input.isFirstProperty ? '1' : undefined,
       });
     } catch (err) {
@@ -143,7 +161,7 @@ export default function StampDutyShell() {
         <button
           type="button"
           className={`breadcrumb-item ${state.step === 'category' ? 'breadcrumb-active' : ''}`}
-          onClick={() => dispatch({ type: 'RESET' })}
+          onClick={reset}
           aria-current={state.step === 'category' ? 'step' : undefined}
         >
           Categories
@@ -216,7 +234,7 @@ export default function StampDutyShell() {
         <div role="region" aria-label="Results">
           <StampResultDisplay
             result={state.result}
-            onReset={() => dispatch({ type: 'RESET' })}
+            onReset={reset}
             onBack={() => dispatch({ type: 'GO_BACK' })}
           />
         </div>

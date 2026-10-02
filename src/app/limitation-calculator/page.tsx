@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, Suspense } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import Link from 'next/link';
 import InputForm from '@/components/limitation/InputForm';
 import ResultsDisplay from '@/components/limitation/ResultsDisplay';
@@ -22,10 +22,21 @@ interface CalculationResponse {
 }
 
 function LimitationCalculatorInner() {
-  const { updateUrl } = useUrlSync(limitationParamsSchema);
+  const { parsed, updateUrl } = useUrlSync(limitationParamsSchema);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [data, setData] = useState<CalculationResponse | null>(null);
+
+  useEffect(() => {
+    if (!parsed?.ct || !parsed.cl || !parsed.jt || !parsed.jd) return;
+    try {
+      const input: CaseInput = { caseType: parsed.ct, courtLevel: parsed.cl, judgmentType: parsed.jt,
+        judgmentDate: parsed.jd, certifiedCopy: parsed.ca || parsed.cr || parsed.cb
+          ? { appliedDate: parsed.ca, readyDate: parsed.cb, receivedDate: parsed.cr } : undefined };
+      const result = calculateLimitation(input);
+      setData({ result, summary: getResultsSummary(result) });
+    } catch { setError('This saved calculation contains invalid dates. Please check the inputs.'); }
+  }, [parsed]);
 
   const handleSubmit = (input: CaseInput) => {
     setIsLoading(true);
@@ -42,6 +53,7 @@ function LimitationCalculatorInner() {
         jt: input.judgmentType,
         jd: input.judgmentDate,
         ca: input.certifiedCopy?.appliedDate,
+        cb: input.certifiedCopy?.readyDate,
         cr: input.certifiedCopy?.receivedDate,
       });
     } catch (err) {
@@ -54,7 +66,7 @@ function LimitationCalculatorInner() {
   const handleReset = () => {
     setData(null);
     setError(null);
-    updateUrl({ ct: undefined, cl: undefined, jt: undefined, jd: undefined, ca: undefined, cr: undefined });
+    updateUrl({ ct: undefined, cl: undefined, jt: undefined, jd: undefined, ca: undefined, cb: undefined, cr: undefined });
   };
 
   return (

@@ -54,10 +54,12 @@ export default function CurrencyInput({
           value={displayValue}
           onChange={handleChange}
           autoComplete="off"
+          aria-invalid={error ? true : undefined}
+          aria-describedby={[helpText ? `${id}-help` : null, error ? `${id}-error` : null].filter(Boolean).join(' ') || undefined}
         />
       </div>
-      {helpText && <p className="form-help">{helpText}</p>}
-      {error && <p className="form-error">{error}</p>}
+      {helpText && <p id={`${id}-help`} className="form-help">{helpText}</p>}
+      {error && <p id={`${id}-error`} className="form-error">{error}</p>}
     </div>
   );
 }

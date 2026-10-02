@@ -87,6 +87,8 @@ const JUDGMENT_TYPES: { value: JudgmentType; label: string; description: string 
 const AUTO_ADVANCE_DELAY_MS = 300;
 
 export default function InputForm({ onSubmit, isLoading }: InputFormProps) {
+  const formRef = useRef<HTMLDivElement>(null);
+  const previousStep = useRef(1);
   const [step, setStep] = useState(1);
   const [caseType, setCaseType] = useState<CaseType | ''>('');
   const [courtLevel, setCourtLevel] = useState<CourtLevel | ''>('');
@@ -143,6 +145,15 @@ export default function InputForm({ onSubmit, isLoading }: InputFormProps) {
     }
   }, [judgmentType, step]);
 
+  useEffect(() => {
+    if (previousStep.current !== step) {
+      const heading = formRef.current?.querySelector('h2');
+      heading?.setAttribute('tabindex', '-1');
+      heading?.focus();
+      previousStep.current = step;
+    }
+  }, [step]);
+
   const validateStep = (currentStep: number): boolean => {
     const newErrors: Record<string, string> = {};
 
@@ -159,7 +170,14 @@ export default function InputForm({ onSubmit, isLoading }: InputFormProps) {
       newErrors.judgmentDate = 'Please enter the judgment date';
     }
 
+    if (currentStep === 4) {
+      for (const field of formRef.current?.querySelectorAll<HTMLInputElement>('input[type="date"]') ?? []) {
+        if (field.value && !field.validity.valid) newErrors[field.id === 'judgment-date' ? 'judgmentDate' : field.id] = field.validationMessage;
+      }
+    }
     setErrors(newErrors);
+    const firstError = Object.keys(newErrors)[0];
+    if (firstError) document.getElementById(firstError === 'judgmentDate' ? 'judgment-date' : firstError)?.focus();
     return Object.keys(newErrors).length === 0;
   };
 
@@ -199,7 +217,8 @@ export default function InputForm({ onSubmit, isLoading }: InputFormProps) {
   const today = new Date().toISOString().split('T')[0];
 
   return (
-    <div className="card p-6 md:p-8">
+    <div ref={formRef} className="card p-6 md:p-8">
+      <p className="wizard-progress" role="status">Step {step} of 5</p>
       {/* Step 1: Case Type */}
       {step === 1 && (
         <div className="animate-fade-in">
@@ -324,36 +343,39 @@ export default function InputForm({ onSubmit, isLoading }: InputFormProps) {
           </div>
           <div className="max-w-md mx-auto">
             <div className="mb-6">
-              <label className="input-label">
+              <label htmlFor="judgment-date" className="input-label">
                 <span className="flex items-center gap-2">Judgment Date <span style={{ color: 'var(--color-accent)' }}>*</span></span>
               </label>
-              <input type="date" value={judgmentDate} max={today} onChange={(e) => { setJudgmentDate(e.target.value); setErrors({}); }} className="input" />
-              {errors.judgmentDate && <p className="text-sm mt-2 flex items-center gap-1" style={{ color: 'var(--color-accent)' }}>{errors.judgmentDate}</p>}
+              <input id="judgment-date" aria-required="true" aria-invalid={errors.judgmentDate ? true : undefined} aria-describedby={errors.judgmentDate ? 'judgment-date-error' : undefined} type="date" value={judgmentDate} max={today} onChange={(e) => { setJudgmentDate(e.target.value); setErrors({}); }} className="input" />
+              {errors.judgmentDate && <p id="judgment-date-error" role="alert" className="text-sm mt-2 flex items-center gap-1" style={{ color: 'var(--color-accent)' }}>{errors.judgmentDate}</p>}
             </div>
             <div style={{ borderTop: '1px solid var(--color-border)', paddingTop: '1.5rem' }}>
-              <button type="button" onClick={() => setShowCertifiedCopy(!showCertifiedCopy)} className="flex items-center gap-2 font-medium transition-colors" style={{ color: 'var(--color-text-secondary)' }}>
+              <button type="button" aria-expanded={showCertifiedCopy} aria-controls="certified-copy-fields" onClick={() => setShowCertifiedCopy(!showCertifiedCopy)} className="flex items-center gap-2 font-medium transition-colors" style={{ color: 'var(--color-text-secondary)' }}>
                 <span className={`transform transition-transform ${showCertifiedCopy ? 'rotate-90' : ''}`}>{'\u25B6'}</span>
                 <span>Add certified copy dates</span>
                 <span className="badge badge-success text-xs">Optional</span>
               </button>
               {showCertifiedCopy && (
-                <div className="mt-4 p-5 rounded-xl border animate-fade-in-scale" style={{ background: 'var(--color-surface-muted)', borderColor: 'var(--color-border)' }}>
+                <div id="certified-copy-fields" className="mt-4 p-5 rounded-xl border animate-fade-in-scale" style={{ background: 'var(--color-surface-muted)', borderColor: 'var(--color-border)' }}>
                   <div className="alert alert-info mb-4">
                     <span>i</span>
                     <span className="text-sm">Time taken to obtain certified copy may be excluded from limitation period (Section 12(2), Limitation Act)</span>
                   </div>
                   <div className="space-y-4">
                     <div>
-                      <label className="input-label">Date Applied for Copy</label>
-                      <input type="date" value={certifiedCopy.appliedDate || ''} max={today} min={judgmentDate} onChange={(e) => setCertifiedCopy({ ...certifiedCopy, appliedDate: e.target.value })} className="input" />
+                      <label htmlFor="copy-appliedDate" className="input-label">Date Applied for Copy</label>
+                      <input aria-invalid={errors['copy-appliedDate'] ? true : undefined} aria-describedby={errors['copy-appliedDate'] ? 'copy-appliedDate-error' : undefined} id="copy-appliedDate" type="date" value={certifiedCopy.appliedDate || ''} max={today} min={judgmentDate} onChange={(e) => { setCertifiedCopy({ ...certifiedCopy, appliedDate: e.target.value }); setErrors({}); }} className="input" />
+                      {errors['copy-appliedDate'] && <p id="copy-appliedDate-error" role="alert" className="form-error">{errors['copy-appliedDate']}</p>}
                     </div>
                     <div>
-                      <label className="input-label">Date Copy Was Ready</label>
-                      <input type="date" value={certifiedCopy.readyDate || ''} max={today} min={certifiedCopy.appliedDate || judgmentDate} onChange={(e) => setCertifiedCopy({ ...certifiedCopy, readyDate: e.target.value })} className="input" />
+                      <label htmlFor="copy-readyDate" className="input-label">Date Copy Was Ready</label>
+                      <input aria-invalid={errors['copy-readyDate'] ? true : undefined} aria-describedby={errors['copy-readyDate'] ? 'copy-readyDate-error' : undefined} id="copy-readyDate" type="date" value={certifiedCopy.readyDate || ''} max={today} min={certifiedCopy.appliedDate || judgmentDate} onChange={(e) => { setCertifiedCopy({ ...certifiedCopy, readyDate: e.target.value }); setErrors({}); }} className="input" />
+                      {errors['copy-readyDate'] && <p id="copy-readyDate-error" role="alert" className="form-error">{errors['copy-readyDate']}</p>}
                     </div>
                     <div>
-                      <label className="input-label">Date Copy Received</label>
-                      <input type="date" value={certifiedCopy.receivedDate || ''} max={today} min={certifiedCopy.appliedDate || judgmentDate} onChange={(e) => setCertifiedCopy({ ...certifiedCopy, receivedDate: e.target.value })} className="input" />
+                      <label htmlFor="copy-receivedDate" className="input-label">Date Copy Received</label>
+                      <input aria-invalid={errors['copy-receivedDate'] ? true : undefined} aria-describedby={errors['copy-receivedDate'] ? 'copy-receivedDate-error' : undefined} id="copy-receivedDate" type="date" value={certifiedCopy.receivedDate || ''} max={today} min={certifiedCopy.appliedDate || judgmentDate} onChange={(e) => { setCertifiedCopy({ ...certifiedCopy, receivedDate: e.target.value }); setErrors({}); }} className="input" />
+                      {errors['copy-receivedDate'] && <p id="copy-receivedDate-error" role="alert" className="form-error">{errors['copy-receivedDate']}</p>}
                     </div>
                   </div>
                 </div>

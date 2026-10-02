@@ -1,7 +1,8 @@
 'use client';
 
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
 import type { InstrumentDefinition, StampDutyInput, LocationType } from '@/types/stamp-duty';
+import { validateStampDutyInput } from '@/lib/stamp-duty/utils/validation';
 import CurrencyInput from '@/components/ui/CurrencyInput';
 import { LOCATION_LABELS } from '@/lib/stamp-duty/constants/rates';
 
@@ -28,12 +29,28 @@ export default function StampInputForm({
   onBack,
   error,
 }: StampInputFormProps) {
+  const [localError, setLocalError] = useState<string | null>(null);
+  const displayError = localError ?? error;
+  const errorField = displayError?.toLowerCase().includes('property value') || displayError?.toLowerCase().includes('value exceeds') ? 'propertyValue'
+    : displayError?.toLowerCase().includes('location') ? 'location'
+    : displayError?.toLowerCase().includes('lease') ? 'leaseTermYears'
+    : displayError?.toLowerCase().includes('shares') ? 'shareCount' : null;
   const handleSubmit = useCallback(
     (e: React.FormEvent) => {
       e.preventDefault();
+      const validation = validateStampDutyInput(input, instrument);
+      if (!validation.success) {
+        setLocalError(validation.error);
+        const message = validation.error.toLowerCase();
+        const id = message.includes('property value') || message.includes('value exceeds') ? 'propertyValue'
+          : message.includes('location') ? 'location-bbmp' : message.includes('lease') ? 'leaseTermYears' : 'shareCount';
+        document.getElementById(id)?.focus();
+        return;
+      }
+      setLocalError(null);
       onCalculate();
     },
-    [onCalculate],
+    [onCalculate, input, instrument],
   );
 
   return (
@@ -61,7 +78,7 @@ export default function StampInputForm({
         {instrument.description}
       </p>
 
-      <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+      <form onChangeCapture={() => setLocalError(null)} onSubmit={handleSubmit} className="flex flex-col gap-4">
         {/* Property Value */}
         {instrument.requiresValue && (
           <CurrencyInput
@@ -69,6 +86,7 @@ export default function StampInputForm({
             label="Property / Consideration Value"
             placeholder="e.g. 50,00,000"
             helpText="Enter the market value or consideration amount"
+            error={errorField === 'propertyValue' ? displayError ?? undefined : undefined}
             value={input.propertyValue}
             onChange={(val) => onChangeInput({ propertyValue: val })}
           />
@@ -85,6 +103,9 @@ export default function StampInputForm({
                   className={`stamp-location-option ${input.location === opt.id ? 'selected' : ''}`}
                 >
                   <input
+                    id={`location-${opt.id}`}
+                    aria-invalid={errorField === 'location' ? true : undefined}
+                    aria-describedby={errorField === 'location' ? 'stamp-input-error' : undefined}
                     type="radio"
                     name="location"
                     value={opt.id}
@@ -162,6 +183,8 @@ export default function StampInputForm({
               Lease Term (years)
             </label>
             <input
+              aria-invalid={errorField === 'leaseTermYears' ? true : undefined}
+              aria-describedby={errorField === 'leaseTermYears' ? 'stamp-input-error' : undefined}
               id="leaseTermYears"
               type="number"
               min="1"
@@ -183,6 +206,8 @@ export default function StampInputForm({
               Number of Shares / Parties
             </label>
             <input
+              aria-invalid={errorField === 'shareCount' ? true : undefined}
+              aria-describedby={errorField === 'shareCount' ? 'stamp-input-error' : undefined}
               id="shareCount"
               type="number"
               min="1"
@@ -249,9 +274,9 @@ export default function StampInputForm({
         )}
 
         {/* Error */}
-        {error && (
-          <div className="alert-danger">
-            {error}
+        {displayError && (
+          <div id="stamp-input-error" role="alert" className="alert-danger">
+            {displayError}
           </div>
         )}
 

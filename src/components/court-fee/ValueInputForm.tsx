@@ -23,6 +23,7 @@ export default function ValueInputForm({
   onBack,
   error,
 }: ValueInputFormProps) {
+  const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
   const [localError, setLocalError] = useState<string | null>(null);
 
   const handleSubmit = useCallback(
@@ -37,10 +38,14 @@ export default function ValueInputForm({
 
       const validationError = validateSuitInputs(values, suitType.inputFields);
       if (validationError) {
+        const invalid = Object.fromEntries(suitType.inputFields.map(field => [field.id, validateSuitInputs(values, [field])]).filter(([, message]) => message)) as Record<string, string>;
+        setFieldErrors(invalid);
         setLocalError(validationError);
+        document.getElementById(Object.keys(invalid)[0])?.focus();
         return;
       }
 
+      setFieldErrors({});
       setLocalError(null);
       onCalculate();
     },
@@ -116,13 +121,14 @@ export default function ValueInputForm({
               placeholder={field.placeholder}
               helpText={field.helpText}
               value={values[field.id]}
-              onChange={(val) => onChangeField(field.id, val)}
+              error={fieldErrors[field.id]}
+              onChange={(val) => { onChangeField(field.id, val); setLocalError(null); setFieldErrors(previous => { const next = { ...previous }; delete next[field.id]; return next; }); }}
             />
           ))
         )}
 
         {displayError && (
-          <div className="form-error mb-3">{displayError}</div>
+          <div role="alert" className="form-error mb-3">{displayError}</div>
         )}
 
         <button type="submit" className="btn btn-primary w-full mt-2">

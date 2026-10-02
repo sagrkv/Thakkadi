@@ -160,6 +160,7 @@ export interface StampDutyState {
 }
 
 export type StampDutyAction =
+  | { type: 'RESTORE'; state: StampDutyState }
   | { type: 'SELECT_CATEGORY'; category: StampCategory }
   | { type: 'SELECT_INSTRUMENT'; instrumentId: string }
   | { type: 'SET_INPUT'; input: Partial<StampDutyInput> }

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import Link from 'next/link';
 import BrandMark from './BrandMark';
 import { usePathname } from 'next/navigation';
@@ -43,6 +43,8 @@ function CloseIcon() {
 }
 
 export default function Header() {
+  const dialogRef = useRef<HTMLDialogElement>(null);
+  const switcherRef = useRef<HTMLDetailsElement>(null);
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -64,6 +66,16 @@ export default function Header() {
   }, [mobileOpen]);
 
   useEffect(() => { closeMobile(); }, [pathname, closeMobile]);
+
+  useEffect(() => {
+    const dialog = dialogRef.current;
+    if (mobileOpen && !dialog?.open) dialog?.showModal();
+    if (!mobileOpen && dialog?.open) dialog.close();
+  }, [mobileOpen]);
+
+  useEffect(() => {
+    if (switcherRef.current) switcherRef.current.open = false;
+  }, [pathname]);
 
   const isCalculator = pathname.includes('-calculator');
 
@@ -90,12 +102,14 @@ export default function Header() {
 
           {/* Desktop Navigation */}
           <nav className="nav-desktop" aria-label="Main navigation">
-            <Link
-              href="/"
-              className={`nav-link ${isCalculator || pathname === '/' ? 'active' : ''}`}
-            >
-              Calculators
-            </Link>
+            <details ref={switcherRef} className="calculator-switcher" onKeyDown={event => {
+              if (event.key === 'Escape') { event.currentTarget.open = false; event.currentTarget.querySelector('summary')?.focus(); }
+            }}>
+              <summary className={`nav-link ${isCalculator || pathname === '/' ? 'active' : ''}`}>Calculators <span aria-hidden="true">▾</span></summary>
+              <div className="calculator-switcher-list">
+                {CALCULATOR_ITEMS.map(item => <Link key={item.href} href={item.href} aria-current={pathname === item.href ? 'page' : undefined}>{item.label}<small>{item.description}</small></Link>)}
+              </div>
+            </details>
             {NAV_ITEMS.map((item) => (
               <Link
                 key={item.href}
@@ -121,10 +135,21 @@ export default function Header() {
       </div>
 
       {/* Mobile Menu Overlay */}
-      <div
+      <dialog
+        ref={dialogRef}
+        aria-label="Navigation menu"
+        onKeyDown={event => {
+          if (event.key !== 'Tab') return;
+          const controls = Array.from(event.currentTarget.querySelectorAll<HTMLElement>('button, a[href]'));
+          const first = controls[0], last = controls[controls.length - 1];
+          if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last?.focus(); }
+          else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first?.focus(); }
+        }}
+        onCancel={closeMobile}
+        onClose={closeMobile}
         className={`mobile-menu-overlay ${mobileOpen ? 'open' : ''}`}
-        aria-hidden={!mobileOpen}
       >
+        <button type="button" className="mobile-dialog-close" onClick={closeMobile}>Close menu <CloseIcon /></button>
         <nav className="mobile-menu-content" aria-label="Mobile navigation">
           <div className="mobile-menu-section">
             <p className="mobile-menu-section-heading">Calculators</p>
@@ -157,7 +182,7 @@ export default function Header() {
             ))}
           </div>
         </nav>
-      </div>
+      </dialog>
     </header>
   );
 }
