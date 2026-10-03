@@ -247,7 +247,7 @@ function MobileRuleCard({ rule }: { rule: LimitationRule }) {
         </div>
       </div>
       <div className="flex items-center gap-2 flex-wrap mb-2">
-        <LawReferenceLink reference={rule.lawReference} fontSize="0.65rem" />
+        <LawReferenceLink reference={rule.lawReference} />
         <span className="flex items-center gap-1 text-xs" style={{ color: 'var(--color-text-tertiary)' }}>
           Copy Excl: <CopyExclusionIcon allowed={rule.copyExclusionAllowed} />
         </span>

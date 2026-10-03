@@ -77,8 +77,8 @@ export default function LawsSearch() {
                   e.currentTarget.style.background = 'transparent';
                 }}
               >
-                <div className="flex items-center gap-2 mb-0.5">
-                  <span className="section-badge" style={{ fontSize: '0.6rem' }}>
+                <div className="flex items-center flex-wrap gap-2 mb-0.5">
+                  <span className="section-badge">
                     {sectionTypeAbbrev(section.sectionType)} {section.number}
                   </span>
                   <span

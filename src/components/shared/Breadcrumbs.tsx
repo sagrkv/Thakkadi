@@ -22,13 +22,13 @@ export default function Breadcrumbs({ items }: BreadcrumbsProps) {
       <nav className="breadcrumb mb-6 no-print" aria-label="Breadcrumb">
         {items.map((item, i) => (
           <span key={i}>
-            {i > 0 && <span className="breadcrumb-sep">{'\u203A'}</span>}
+            {i > 0 && <span className="breadcrumb-sep" aria-hidden="true">{'\u203A'}</span>}
             {item.href ? (
               <Link href={item.href} className="breadcrumb-item">
                 {item.label}
               </Link>
             ) : (
-              <span className="breadcrumb-active">{item.label}</span>
+              <span className="breadcrumb-active" aria-current="page">{item.label}</span>
             )}
           </span>
         ))}

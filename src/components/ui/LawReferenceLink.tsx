@@ -9,21 +9,19 @@ interface LawReferenceLinkProps {
   readonly reference: string;
   /** Optional act context for resolving ambiguous references (e.g., "karnataka-court-fees-act-1958") */
   readonly actContext?: string;
-  /** Optional inline style override for font-size */
-  readonly fontSize?: string;
 }
 
 /**
  * Renders a law reference as a clickable badge linking to /laws/[act]#[section].
  * Falls back to a plain section-badge for unmatched references (e.g., case law citations).
  */
-export default function LawReferenceLink({ reference, actContext, fontSize }: LawReferenceLinkProps) {
+export default function LawReferenceLink({ reference, actContext }: LawReferenceLinkProps) {
   const matches = parseLawReference(reference, actContext);
 
   // No match — render plain badge (same as original behavior)
   if (matches.length === 0) {
     return (
-      <span className="section-badge" style={fontSize ? { fontSize } : undefined}>
+      <span className="section-badge">
         {reference}
       </span>
     );
@@ -35,7 +33,6 @@ export default function LawReferenceLink({ reference, actContext, fontSize }: La
     <Link
       href={url}
       className="section-badge-link"
-      style={fontSize ? { fontSize } : undefined}
       title={`View legal text: ${reference}`}
     >
       {reference}

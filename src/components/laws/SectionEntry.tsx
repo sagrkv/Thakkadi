@@ -8,6 +8,9 @@ interface SectionEntryProps {
 
 export default function SectionEntry({ section }: SectionEntryProps) {
   const anchor = sectionAnchor(section.id);
+  const typeLabel = sectionTypeLabel(section.sectionType);
+  const label = section.number.toLowerCase().startsWith(typeLabel.toLowerCase())
+    ? section.number : `${typeLabel} ${section.number}`;
 
   return (
     <details
@@ -24,7 +27,7 @@ export default function SectionEntry({ section }: SectionEntryProps) {
             textTransform: 'uppercase',
           }}
         >
-          {sectionTypeLabel(section.sectionType)} {section.number}
+          {label}
         </span>
         <span
           className="law-section-summary-title text-sm font-bold"

@@ -290,7 +290,7 @@ function SuitGroupAccordion({
                   </span>
                 </div>
                 <div className="flex items-center gap-2 mb-1">
-                  <LawReferenceLink reference={st.section} actContext="karnataka-court-fees-act-1958" fontSize="0.65rem" />
+                  <LawReferenceLink reference={st.section} actContext="karnataka-court-fees-act-1958" />
                 </div>
                 <p className="text-xs" style={{ color: 'var(--color-text-tertiary)' }}>
                   {st.valueBasis}
@@ -343,7 +343,7 @@ function SuitTypesSection() {
             description={group.description}
             icon={group.icon}
             suitTypes={types}
-            defaultOpen={true}
+            defaultOpen={group.id === 'A'}
           />
         );
       })}
