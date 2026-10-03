@@ -1,9 +1,6 @@
 import type { Metadata } from 'next';
 import JsonLd from '@/components/seo/JsonLd';
-import Breadcrumbs from '@/components/shared/Breadcrumbs';
-import FAQSection from '@/components/shared/FAQSection';
-import { buildWebApplicationSchema, buildFAQSchema } from '@/lib/seo/json-ld';
-import { STAMP_DUTY_FAQS } from '@/data/faqs';
+import { buildWebApplicationSchema } from '@/lib/seo/json-ld';
 
 export const metadata: Metadata = {
   title: 'Karnataka Stamp Duty Calculator — Sale Deed, Gift, Mortgage & More',
@@ -27,21 +24,7 @@ export default function StampDutyCalculatorLayout({
             'Calculate stamp duty, registration fees, surcharge & cess under the Karnataka Stamp Act, 1957 for 24 instrument types.',
         })}
       />
-      <JsonLd data={buildFAQSchema([...STAMP_DUTY_FAQS])} />
-      <div className="max-w-3xl mx-auto px-4">
-        <div className="pt-6">
-          <Breadcrumbs
-            items={[
-              { label: 'Home', href: '/' },
-              { label: 'Stamp Duty Calculator' },
-            ]}
-          />
-        </div>
-      </div>
       {children}
-      <div className="max-w-3xl mx-auto px-4 pb-8">
-        <FAQSection items={[...STAMP_DUTY_FAQS]} />
-      </div>
     </>
   );
 }

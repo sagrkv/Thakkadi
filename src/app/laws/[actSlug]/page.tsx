@@ -46,7 +46,7 @@ export default async function ActPage({ params }: PageProps) {
   };
 
   return (
-    <div className="py-10 px-4 md:py-14 md:px-8">
+    <div className="content-page reference-page">
       <div className="max-w-4xl mx-auto">
         <Breadcrumbs
           items={[
@@ -57,7 +57,7 @@ export default async function ActPage({ params }: PageProps) {
         />
 
         {/* Act Header */}
-        <div className="mb-8 animate-fade-in">
+        <div className="content-heading">
           <div className="flex items-center gap-2 mb-2 flex-wrap">
             <span
               className="text-xs font-bold px-2 py-0.5 rounded uppercase tracking-wider"
@@ -115,8 +115,7 @@ export default async function ActPage({ params }: PageProps) {
             </div>
           )}
 
-          {/* Archived documents */}
-          <DocumentLinks documents={documents} />
+
         </div>
 
         {/* Section count header */}
@@ -124,7 +123,7 @@ export default async function ActPage({ params }: PageProps) {
           className="text-xs font-bold uppercase tracking-wider mb-3"
           style={{ color: 'var(--color-accent)' }}
         >
-          {sections.length} {sections.length === 1 ? 'provision' : 'provisions'}
+          {sections.length > 0 ? `${sections.length} ${sections.length === 1 ? 'provision' : 'provisions'}` : 'Full text available below'}
         </p>
 
         {/* Sections (collapsible — each section IS a TOC entry) */}
@@ -135,6 +134,7 @@ export default async function ActPage({ params }: PageProps) {
         </div>
 
         <HashAutoExpand />
+        <DocumentLinks documents={documents} />
 
         {/* Disclaimer */}
         <LawsDisclaimer />

@@ -1,9 +1,6 @@
 import type { Metadata } from 'next';
 import JsonLd from '@/components/seo/JsonLd';
-import Breadcrumbs from '@/components/shared/Breadcrumbs';
-import FAQSection from '@/components/shared/FAQSection';
-import { buildWebApplicationSchema, buildFAQSchema } from '@/lib/seo/json-ld';
-import { COURT_FEE_FAQS } from '@/data/faqs';
+import { buildWebApplicationSchema } from '@/lib/seo/json-ld';
 
 export const metadata: Metadata = {
   title: 'Karnataka Court Fee Calculator — 48 Suit Types, Ad Valorem & Fixed Fees',
@@ -27,21 +24,7 @@ export default function CourtFeeCalculatorLayout({
             'Compute court fees under the Karnataka Court Fees & Suits Valuation Act, 1958 for 48 suit types.',
         })}
       />
-      <JsonLd data={buildFAQSchema([...COURT_FEE_FAQS])} />
-      <div className="max-w-3xl mx-auto px-4">
-        <div className="pt-6">
-          <Breadcrumbs
-            items={[
-              { label: 'Home', href: '/' },
-              { label: 'Court Fee Calculator' },
-            ]}
-          />
-        </div>
-      </div>
       {children}
-      <div className="max-w-3xl mx-auto px-4 pb-8">
-        <FAQSection items={[...COURT_FEE_FAQS]} />
-      </div>
     </>
   );
 }

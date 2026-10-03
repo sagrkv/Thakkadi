@@ -1,18 +1,12 @@
 'use client';
 
+import ToolIcon, { type ToolKind } from '@/components/shared/ToolIcon';
 import type { SuitGroup } from '@/types/court-fee';
 import { SUIT_GROUPS } from '@/lib/court-fee/constants/suit-categories';
 
-const GROUP_ICONS: Record<string, string> = {
-  A: '\u20B9', // ₹
-  B: '\u2302', // ⌂
-  C: '\u2261', // ≡
-  D: '\u2611', // ☑
-  E: '\u2605', // ★
-  F: '\u00A7', // §
-  G: '\u2696', // ⚖
-  H: '\u2706', // ✆ (substitute for scroll)
-  I: '\u2694', // ⚔
+const GROUP_ICONS: Record<string, ToolKind> = {
+  A: 'fee', B: 'home', C: 'document', D: 'check', E: 'shield',
+  F: 'library', G: 'scales', H: 'document', I: 'court',
 };
 
 interface CategorySelectorProps {
@@ -36,7 +30,7 @@ export default function CategorySelector({
         Choose the type of suit or petition to calculate the court fee
       </p>
 
-      <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+      <div className="category-choice-grid">
         {SUIT_GROUPS.map((group, i) => (
           <button
             key={group.id}
@@ -45,7 +39,7 @@ export default function CategorySelector({
             onClick={() => onSelect(group.id)}
           >
             <div className="category-icon">
-              {GROUP_ICONS[group.id] ?? group.id}
+              <ToolIcon kind={GROUP_ICONS[group.id] ?? 'document'} />
             </div>
             <div className="category-label">{group.label}</div>
             <div className="category-desc">{group.description}</div>

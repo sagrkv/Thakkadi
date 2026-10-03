@@ -1,5 +1,8 @@
 'use client';
 
+import CalculatorFrame from '@/components/shared/CalculatorFrame';
+
+
 import { useState } from 'react';
 import Link from 'next/link';
 import CalculatorShell from '@/components/court-fee/CalculatorShell';
@@ -23,6 +26,7 @@ export default function CourtFeeCalculatorPage() {
   const [mode, setMode] = useState<CalculatorMode>('calculator');
 
   return (
+    <CalculatorFrame kind="court-fee">
     <div className="calculator-page max-w-3xl mx-auto w-full px-4 py-6">
       <div className="calculator-heading mb-6">
         <p className="eyebrow calculator-kicker"><span>02 / COURT FEES</span><span className="jurisdiction-pill">Karnataka</span></p>
@@ -119,5 +123,6 @@ export default function CourtFeeCalculatorPage() {
         </div>
       </div>
     </div>
+    </CalculatorFrame>
   );
 }

@@ -1,9 +1,6 @@
 import type { Metadata } from 'next';
 import JsonLd from '@/components/seo/JsonLd';
-import Breadcrumbs from '@/components/shared/Breadcrumbs';
-import FAQSection from '@/components/shared/FAQSection';
-import { buildWebApplicationSchema, buildFAQSchema } from '@/lib/seo/json-ld';
-import { LIMITATION_FAQS } from '@/data/faqs';
+import { buildWebApplicationSchema } from '@/lib/seo/json-ld';
 
 export const metadata: Metadata = {
   title: 'Limitation Period Calculator — Indian Appeals, SLP & Execution Deadlines',
@@ -27,21 +24,7 @@ export default function LimitationCalculatorLayout({
             'Calculate post-judgment limitation periods under the Limitation Act, 1963 for appeals, SLP, review, and execution.',
         })}
       />
-      <JsonLd data={buildFAQSchema([...LIMITATION_FAQS])} />
-      <div className="max-w-4xl mx-auto px-4">
-        <div className="pt-6">
-          <Breadcrumbs
-            items={[
-              { label: 'Home', href: '/' },
-              { label: 'Limitation Calculator' },
-            ]}
-          />
-        </div>
-      </div>
       {children}
-      <div className="max-w-4xl mx-auto px-4 pb-8">
-        <FAQSection items={[...LIMITATION_FAQS]} />
-      </div>
     </>
   );
 }

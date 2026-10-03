@@ -131,7 +131,7 @@ export default function CalculatorShell() {
     : null;
 
   return (
-    <div ref={contentRef}>
+    <div ref={contentRef} className="calculator-workspace">
       {/* Breadcrumb */}
       <nav className="breadcrumb no-print" role="navigation" aria-label="Calculator steps">
         <button

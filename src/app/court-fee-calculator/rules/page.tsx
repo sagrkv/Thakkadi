@@ -1,3 +1,4 @@
+import ToolIcon from '@/components/shared/ToolIcon';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import CourtFeeRulesView from '@/components/court-fee/RulesView';
@@ -14,7 +15,7 @@ export const metadata: Metadata = {
 
 export default function CourtFeeRulesPage() {
   return (
-    <div className="py-8 px-4 md:py-12 md:px-8">
+    <div className="content-page reference-page">
       <div className="max-w-5xl mx-auto">
         <Breadcrumbs
           items={[
@@ -25,7 +26,7 @@ export default function CourtFeeRulesPage() {
         />
 
         {/* Page header */}
-        <div className="mb-8 animate-fade-in">
+        <div className="content-heading">
           <div className="flex items-center gap-3 mb-2">
             <div
               className="w-12 h-12 rounded-xl flex items-center justify-center text-2xl shadow-md"
@@ -34,7 +35,7 @@ export default function CourtFeeRulesPage() {
                 color: 'var(--color-bg)',
               }}
             >
-              {'\u20B9'}
+              <ToolIcon kind="fee" />
             </div>
             <div>
               <h1

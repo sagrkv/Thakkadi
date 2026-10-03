@@ -1,5 +1,6 @@
 'use client';
 
+import ToolIcon, { type ToolKind } from '@/components/shared/ToolIcon';
 import { useState, useEffect, useRef } from 'react';
 import type { CaseInput, CaseType, CourtLevel, JudgmentType, CertifiedCopyDates } from '@/types/limitation';
 
@@ -8,10 +9,10 @@ interface InputFormProps {
   isLoading: boolean;
 }
 
-const CASE_TYPES: { value: CaseType; label: string; description: string; icon: string }[] = [
-  { value: 'civil', label: 'Civil Case', description: 'Money suits, property disputes, contracts, family matters', icon: '\u2696' },
-  { value: 'criminal', label: 'Criminal Case', description: 'Criminal trials, bail matters, appeals against conviction', icon: '\uD83D\uDD12' },
-  { value: 'writ', label: 'Writ Petition', description: 'Constitutional remedies under Article 226/32', icon: '\u00A7' },
+const CASE_TYPES: { value: CaseType; label: string; description: string; icon: ToolKind }[] = [
+  { value: 'civil', label: 'Civil Case', description: 'Money suits, property disputes, contracts, family matters', icon: 'scales' },
+  { value: 'criminal', label: 'Criminal Case', description: 'Criminal trials, bail matters, appeals against conviction', icon: 'shield' },
+  { value: 'writ', label: 'Writ Petition', description: 'Constitutional remedies under Article 226/32', icon: 'document' },
 ];
 
 interface CourtOption {
@@ -217,16 +218,19 @@ export default function InputForm({ onSubmit, isLoading }: InputFormProps) {
   const today = new Date().toISOString().split('T')[0];
 
   return (
-    <div ref={formRef} className="card p-6 md:p-8">
-      <p className="wizard-progress" role="status">Step {step} of 5</p>
+    <div ref={formRef} className="card limitation-wizard">
+      <div className="wizard-progress" role="status">
+        <span>Step {step} of 5 · {['Case type', 'Court', 'Order', 'Dates', 'Review'][step - 1]}</span>
+        <div className="wizard-progress-track" aria-hidden="true">{[1, 2, 3, 4, 5].map((item) => <span key={item} data-complete={item <= step} />)}</div>
+      </div>
       {/* Step 1: Case Type */}
       {step === 1 && (
         <div className="animate-fade-in">
-          <div className="text-center mb-8">
+          <div className="wizard-heading">
             <h2 className="text-2xl font-extrabold mb-2" style={{ color: 'var(--color-text-primary)', fontFamily: 'var(--font-display)', letterSpacing: '-0.01em' }}>
               What type of case is this?
             </h2>
-            <p style={{ color: 'var(--color-text-secondary)' }}>Select the nature of your legal matter</p>
+            <p style={{ color: 'var(--color-text-secondary)' }}>Choose a case type to continue</p>
           </div>
           <div className="space-y-4">
             {CASE_TYPES.map((type, index) => (
@@ -237,8 +241,8 @@ export default function InputForm({ onSubmit, isLoading }: InputFormProps) {
                 className={`selection-card ${caseType === type.value ? 'selected' : ''} stagger-${index + 1}`}
               >
                 <div className="flex items-start gap-4">
-                  <span className="text-2xl">{type.icon}</span>
-                  <div className="flex-1 pr-8">
+                  <span className="choice-icon"><ToolIcon kind={type.icon} /></span>
+                  <div className="flex-1 min-w-0">
                     <div className="font-semibold text-lg" style={{ color: 'var(--color-text-primary)' }}>{type.label}</div>
                     <div className="text-sm mt-1" style={{ color: 'var(--color-text-secondary)' }}>{type.description}</div>
                   </div>
@@ -253,7 +257,7 @@ export default function InputForm({ onSubmit, isLoading }: InputFormProps) {
       {/* Step 2: Court Level */}
       {step === 2 && caseType && (
         <div className="animate-fade-in">
-          <div className="text-center mb-8">
+          <div className="wizard-heading">
             <h2 className="text-2xl font-extrabold mb-2" style={{ color: 'var(--color-text-primary)', fontFamily: 'var(--font-display)', letterSpacing: '-0.01em' }}>
               Which court passed the judgment?
             </h2>
@@ -283,7 +287,7 @@ export default function InputForm({ onSubmit, isLoading }: InputFormProps) {
                       className={`selection-card ${courtLevel === court.value ? 'selected' : ''}`}
                     >
                       <div className="flex items-start gap-4">
-                        <span className="text-2xl mt-0.5">{'\uD83C\uDFDB'}</span>
+                        <span className="choice-icon"><ToolIcon kind="court" /></span>
                         <div className="flex-1 text-left">
                           <div className="font-semibold text-lg" style={{ color: 'var(--color-text-primary)' }}>{court.label}</div>
                           {court.subtitle && (
@@ -304,7 +308,7 @@ export default function InputForm({ onSubmit, isLoading }: InputFormProps) {
       {/* Step 3: Judgment Type */}
       {step === 3 && (
         <div className="animate-fade-in">
-          <div className="text-center mb-8">
+          <div className="wizard-heading">
             <h2 className="text-2xl font-extrabold mb-2" style={{ color: 'var(--color-text-primary)', fontFamily: 'var(--font-display)', letterSpacing: '-0.01em' }}>
               What type of order is this?
             </h2>
@@ -319,8 +323,8 @@ export default function InputForm({ onSubmit, isLoading }: InputFormProps) {
                 className={`selection-card ${judgmentType === type.value ? 'selected' : ''} stagger-${index + 1}`}
               >
                 <div className="flex items-start gap-4">
-                  <span className="text-2xl">{type.value === 'final' ? '\u2713' : '\u23F8'}</span>
-                  <div className="flex-1 pr-8">
+                  <span className="choice-icon"><ToolIcon kind={type.value === 'final' ? 'check' : 'pause'} /></span>
+                  <div className="flex-1 min-w-0">
                     <div className="font-semibold text-lg" style={{ color: 'var(--color-text-primary)' }}>{type.label}</div>
                     <div className="text-sm mt-1" style={{ color: 'var(--color-text-secondary)' }}>{type.description}</div>
                   </div>
@@ -335,7 +339,7 @@ export default function InputForm({ onSubmit, isLoading }: InputFormProps) {
       {/* Step 4: Dates */}
       {step === 4 && (
         <div className="animate-fade-in">
-          <div className="text-center mb-8">
+          <div className="wizard-heading">
             <h2 className="text-2xl font-extrabold mb-2" style={{ color: 'var(--color-text-primary)', fontFamily: 'var(--font-display)', letterSpacing: '-0.01em' }}>
               When was the judgment delivered?
             </h2>
@@ -388,7 +392,7 @@ export default function InputForm({ onSubmit, isLoading }: InputFormProps) {
       {/* Step 5: Review & Submit */}
       {step === 5 && (
         <div className="animate-fade-in">
-          <div className="text-center mb-8">
+          <div className="wizard-heading">
             <h2 className="text-2xl font-extrabold mb-2" style={{ color: 'var(--color-text-primary)', fontFamily: 'var(--font-display)', letterSpacing: '-0.01em' }}>
               Review Your Information
             </h2>
@@ -398,11 +402,11 @@ export default function InputForm({ onSubmit, isLoading }: InputFormProps) {
             <div className="rounded-xl p-6 border" style={{ background: 'var(--color-surface-muted)', borderColor: 'var(--color-border)' }}>
               <div className="space-y-4">
                 <div className="flex justify-between items-center py-3" style={{ borderBottom: '1px solid var(--color-border)' }}>
-                  <span className="flex items-center gap-2" style={{ color: 'var(--color-text-secondary)' }}>{'\u2696'} Case Type</span>
+                  <span className="flex items-center gap-2" style={{ color: 'var(--color-text-secondary)' }}>Case Type</span>
                   <span className="font-semibold" style={{ color: 'var(--color-text-primary)' }}>{CASE_TYPES.find((t) => t.value === caseType)?.label}</span>
                 </div>
                 <div className="flex justify-between items-center py-3" style={{ borderBottom: '1px solid var(--color-border)' }}>
-                  <span className="flex items-center gap-2" style={{ color: 'var(--color-text-secondary)' }}>{'\uD83C\uDFDB'} Court</span>
+                  <span className="flex items-center gap-2" style={{ color: 'var(--color-text-secondary)' }}>Court</span>
                   <span className="font-semibold" style={{ color: 'var(--color-text-primary)' }}>{caseType && COURT_LEVELS[caseType as CaseType].flatMap((g) => g.courts).find((c) => c.value === courtLevel)?.label}</span>
                 </div>
                 <div className="flex justify-between items-center py-3" style={{ borderBottom: '1px solid var(--color-border)' }}>
@@ -434,7 +438,7 @@ export default function InputForm({ onSubmit, isLoading }: InputFormProps) {
       )}
 
       {/* Navigation */}
-      <div className="mt-10 flex justify-between items-center">
+      <div className="wizard-actions flex justify-between items-center">
         {step > 1 ? <button onClick={handleBack} className="btn btn-ghost"><span>{'\u2190'}</span><span>Back</span></button> : <div />}
         {step === 4 ? (
           <button onClick={handleNext} className="btn btn-success"><span>Continue</span><span>{'\u2192'}</span></button>

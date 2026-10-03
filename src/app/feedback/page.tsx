@@ -1,3 +1,4 @@
+import ToolIcon from '@/components/shared/ToolIcon';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Suspense } from 'react';
@@ -15,7 +16,7 @@ export const metadata: Metadata = {
 
 export default function FeedbackPage() {
   return (
-    <div className="py-8 px-4 md:py-12 md:px-8">
+    <div className="content-page reading-page">
       <div className="max-w-lg mx-auto">
         <Breadcrumbs
           items={[
@@ -25,7 +26,7 @@ export default function FeedbackPage() {
         />
 
         {/* Header */}
-        <div className="text-center mb-8 animate-fade-in">
+        <div className="content-heading">
           <div
             className="inline-flex items-center justify-center w-14 h-14 rounded-2xl text-2xl mb-4 shadow-lg"
             style={{
@@ -33,7 +34,7 @@ export default function FeedbackPage() {
               color: 'var(--color-bg)',
             }}
           >
-            {'\u{1F4EC}'}
+            <ToolIcon kind="document" />
           </div>
           <h1
             className="text-3xl font-bold mb-2"
@@ -46,7 +47,7 @@ export default function FeedbackPage() {
             Send Feedback
           </h1>
           <p style={{ color: 'var(--color-text-secondary)', fontSize: '0.9rem' }}>
-            Found an issue? Have a suggestion? Let us know.
+            Report an issue or suggest an improvement. Prepare a draft, then review and submit it on GitHub.
           </p>
         </div>
 

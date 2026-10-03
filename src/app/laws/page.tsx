@@ -1,3 +1,4 @@
+import ToolIcon from '@/components/shared/ToolIcon';
 import type { Metadata } from 'next';
 import { LEGAL_ACTS, getSectionsForAct } from '@/data/laws';
 import ActCard from '@/components/laws/ActCard';
@@ -16,7 +17,7 @@ export const metadata: Metadata = {
 
 export default function LawsIndexPage() {
   return (
-    <div className="py-10 px-4 md:py-14 md:px-8">
+    <div className="content-page reference-page">
       <div className="max-w-4xl mx-auto">
         <Breadcrumbs
           items={[
@@ -26,7 +27,7 @@ export default function LawsIndexPage() {
         />
 
         {/* Header */}
-        <div className="mb-8 animate-fade-in">
+        <div className="content-heading">
           <div className="flex items-center gap-3 mb-3">
             <span
               className="w-10 h-10 rounded-lg flex items-center justify-center text-lg"
@@ -35,7 +36,7 @@ export default function LawsIndexPage() {
                 color: 'var(--color-accent)',
               }}
             >
-              {'\u{1F4DC}'}
+              <ToolIcon kind="library" />
             </span>
             <div>
               <h1

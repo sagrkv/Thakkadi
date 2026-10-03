@@ -155,7 +155,7 @@ export default function StampDutyShell() {
     : null;
 
   return (
-    <div>
+    <div className="calculator-workspace">
       {/* Breadcrumb */}
       <nav className="breadcrumb no-print" role="navigation" aria-label="Calculator steps">
         <button

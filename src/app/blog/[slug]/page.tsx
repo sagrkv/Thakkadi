@@ -46,7 +46,7 @@ export default async function BlogPostPage({ params }: PageProps) {
   });
 
   return (
-    <div className="max-w-3xl mx-auto px-4 py-8 md:py-12">
+    <div className="content-page reading-page">
       <JsonLd data={{
         '@context': 'https://schema.org',
         '@type': 'BlogPosting',

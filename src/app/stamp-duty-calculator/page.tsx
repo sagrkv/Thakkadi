@@ -1,11 +1,15 @@
 'use client';
 
+import CalculatorFrame from '@/components/shared/CalculatorFrame';
+
+
 import Link from 'next/link';
 import StampDutyShell from '@/components/stamp-duty/StampDutyShell';
 import Disclaimer from '@/components/shared/Disclaimer';
 
 export default function StampDutyCalculatorPage() {
   return (
+    <CalculatorFrame kind="stamp-duty">
     <div className="calculator-page max-w-3xl mx-auto w-full px-4 py-6">
       <div className="calculator-heading mb-6">
         <p className="eyebrow calculator-kicker"><span>03 / STAMP DUTY</span><span className="jurisdiction-pill">Karnataka</span></p>
@@ -54,5 +58,6 @@ export default function StampDutyCalculatorPage() {
         </div>
       </div>
     </div>
+    </CalculatorFrame>
   );
 }

@@ -55,7 +55,7 @@ function PolicySection({
 
 export default function PrivacyPage() {
   return (
-    <div className="py-8 px-4 md:py-16 md:px-8">
+    <div className="content-page reading-page">
       <div className="max-w-3xl mx-auto">
         <Breadcrumbs
           items={[
@@ -65,7 +65,7 @@ export default function PrivacyPage() {
         />
 
         {/* Hero */}
-        <div className="text-center mb-10 animate-fade-in">
+        <div className="content-heading">
           <h1
             style={{
               fontFamily: 'var(--font-display)',
@@ -91,7 +91,7 @@ export default function PrivacyPage() {
           </p>
         </div>
 
-        <RuleDivider />
+
 
         {/* TL;DR */}
         <div
@@ -140,6 +140,12 @@ export default function PrivacyPage() {
             This is by design — it allows you to share results with colleagues.
             No data beyond what is visible in the URL is transmitted.
           </p>
+        </PolicySection>
+
+        <RuleDivider />
+
+        <PolicySection heading="Feedback on GitHub">
+          <p>The feedback form prepares an issue draft in your browser. Opening the draft sends its contents to GitHub. A GitHub account is required to submit, and submitted issues are public. Do not include personal information or confidential case details.</p>
         </PolicySection>
 
         <RuleDivider />

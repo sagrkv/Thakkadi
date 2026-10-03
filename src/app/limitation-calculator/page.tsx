@@ -1,5 +1,8 @@
 'use client';
 
+import CalculatorFrame from '@/components/shared/CalculatorFrame';
+
+
 import { useState, useEffect, Suspense } from 'react';
 import Link from 'next/link';
 import InputForm from '@/components/limitation/InputForm';
@@ -70,8 +73,8 @@ function LimitationCalculatorInner() {
   };
 
   return (
-    <div className="calculator-page py-8 px-4 md:py-12 md:px-8">
-      <div className="max-w-4xl mx-auto">
+    <div className="calculator-page limitation-page">
+      <div className="calculator-inner">
         {/* Header */}
         <div className="calculator-heading mb-8 animate-fade-in">
           <p className="eyebrow calculator-kicker"><span>01 / FILING DEADLINES</span><span className="jurisdiction-pill">India</span></p>
@@ -227,8 +230,8 @@ function LimitationCalculatorInner() {
 
 export default function LimitationCalculatorPage() {
   return (
-    <Suspense>
+    <CalculatorFrame kind="limitation"><Suspense>
       <LimitationCalculatorInner />
-    </Suspense>
+    </Suspense></CalculatorFrame>
   );
 }

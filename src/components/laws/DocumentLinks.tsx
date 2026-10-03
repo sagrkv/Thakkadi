@@ -10,7 +10,7 @@ export default function DocumentLinks({ documents }: DocumentLinksProps) {
 
   return (
     <div
-      className="rounded-lg p-4 mt-4"
+      className="document-links rounded-lg p-4 mt-4"
       style={{
         background: 'var(--color-surface-muted)',
         border: '1px solid var(--color-border)',

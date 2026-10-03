@@ -14,7 +14,7 @@ export default function BlogListingPage() {
   const posts = getAllPosts();
 
   return (
-    <div className="max-w-3xl mx-auto px-4 py-8 md:py-12">
+    <div className="content-page reading-page">
       <Breadcrumbs items={[{ label: 'Home', href: '/' }, { label: 'Blog' }]} />
 
       <h1

@@ -28,7 +28,9 @@ const BLOG_DIR = path.join(process.cwd(), 'src', 'data', 'blog');
 
 function parsePost(slug: string, raw: string): BlogPost {
   const { data, content } = matter(raw);
-  const html = marked.parse(content, { async: false }) as string;
+  const html = (marked.parse(content, { async: false }) as string)
+    .replace(/<table>/g, '<div class="article-table-scroll" role="region" aria-label="Reference table" tabindex="0"><table>')
+    .replace(/<\/table>/g, '</table></div>');
 
   return {
     slug,

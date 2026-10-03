@@ -1,5 +1,6 @@
 'use client';
 
+import ToolIcon, { type ToolKind } from '@/components/shared/ToolIcon';
 import { useState } from 'react';
 import { AD_VALOREM_SLABS } from '@/lib/court-fee/constants/slabs';
 import { SUIT_GROUPS, SUIT_TYPES } from '@/lib/court-fee/constants/suit-categories';
@@ -45,17 +46,7 @@ function feeMethodBadgeClass(method: FeeMethod): string {
   return 'fee-badge-fraction';
 }
 
-const GROUP_ICONS: Record<string, string> = {
-  banknote: '\u20B9',
-  landmark: '\u{1F3DB}',
-  split: '\u2702',
-  'file-signature': '\u{1F4DD}',
-  gavel: '\u2696',
-  scroll: '\u{1F4DC}',
-  scale: '\u2696',
-  'book-open': '\u{1F4D6}',
-  shield: '\u{1F6E1}',
-};
+const GROUP_ICONS: Record<string, ToolKind> = { banknote: 'fee', landmark: 'court', split: 'home', 'file-signature': 'document', gavel: 'scales', scroll: 'document', scale: 'scales', 'book-open': 'library', shield: 'shield' };
 
 // ── Slab Row Gradient ─────────────────────────────────────────────────────────
 
@@ -201,7 +192,7 @@ function SuitGroupAccordion({
   const panelId = `accordion-panel-${groupId}`;
 
   return (
-    <div className="mb-3">
+    <div className="rules-accordion">
       <button
         className={`rules-accordion-trigger ${open ? 'open' : ''}`}
         onClick={() => setOpen(!open)}
@@ -217,7 +208,7 @@ function SuitGroupAccordion({
             transition: 'all 0.15s ease',
           }}
         >
-          {GROUP_ICONS[icon] || '\u{1F4CB}'}
+          <ToolIcon kind={GROUP_ICONS[icon] ?? 'document'} />
         </span>
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2">

@@ -1,7 +1,10 @@
 'use client';
 
+import ToolIcon, { type ToolKind } from '@/components/shared/ToolIcon';
 import type { StampCategory } from '@/types/stamp-duty';
 import { STAMP_CATEGORIES } from '@/lib/stamp-duty/constants/instruments';
+
+const CATEGORY_ICONS: Record<StampCategory, ToolKind> = { conveyance: 'home', gift_release: 'document', mortgage: 'court', lease: 'document', power_of_attorney: 'scales', partition: 'home', trust_will: 'library', miscellaneous: 'document' };
 
 interface StampCategorySelectorProps {
   readonly selectedCategory: StampCategory | null;
@@ -24,7 +27,7 @@ export default function StampCategorySelector({
         Choose the type of document to calculate stamp duty and registration fees
       </p>
 
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+      <div className="category-choice-grid">
         {STAMP_CATEGORIES.map((cat, i) => (
           <button
             key={cat.id}
@@ -34,7 +37,7 @@ export default function StampCategorySelector({
             }`}
             onClick={() => onSelect(cat.id)}
           >
-            <div className="stamp-category-icon">{cat.icon}</div>
+            <div className="stamp-category-icon"><ToolIcon kind={CATEGORY_ICONS[cat.id]} /></div>
             <div className="stamp-category-label">{cat.label}</div>
             <div className="stamp-category-desc">{cat.description}</div>
           </button>

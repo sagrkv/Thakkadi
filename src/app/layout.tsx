@@ -85,8 +85,9 @@ export default function RootLayout({
         strategy="afterInteractive"
       />
       <body className="antialiased min-h-screen flex flex-col">
+        <a href="#main-content" className="skip-link">Skip to content</a>
         <Header />
-        <main className="flex-1">{children}</main>
+        <main id="main-content" tabIndex={-1} className="flex-1">{children}</main>
         <Footer />
         <Script
           id="cloudflare-web-analytics"

@@ -296,6 +296,16 @@ export default function LimitationRulesView() {
           <button
             key={tab.id}
             role="tab"
+            id={`case-tab-${tab.id}`}
+            tabIndex={activeTab === tab.id ? 0 : -1}
+            onKeyDown={(event) => {
+              const index = TABS.findIndex((item) => item.id === activeTab);
+              const next = event.key === 'ArrowRight' ? (index + 1) % TABS.length : event.key === 'ArrowLeft' ? (index + TABS.length - 1) % TABS.length : event.key === 'Home' ? 0 : event.key === 'End' ? TABS.length - 1 : -1;
+              if (next < 0) return;
+              event.preventDefault();
+              setActiveTab(TABS[next].id);
+              document.getElementById(`case-tab-${TABS[next].id}`)?.focus();
+            }}
             aria-selected={activeTab === tab.id}
             aria-controls="rules-tabpanel"
             className={`rules-tab ${activeTab === tab.id ? 'active' : ''}`}
@@ -304,7 +314,7 @@ export default function LimitationRulesView() {
             {tab.label}
             <span
               className="ml-1.5 text-xs font-normal"
-              style={{ opacity: 0.6 }}
+              style={{ color: 'inherit' }}
             >
               ({TAB_COUNTS[tab.id]})
             </span>
@@ -313,7 +323,7 @@ export default function LimitationRulesView() {
       </div>
 
       {/* Rules content */}
-      <div id="rules-tabpanel" role="tabpanel" className="animate-in">
+      <div id="rules-tabpanel" role="tabpanel" aria-labelledby={`case-tab-${activeTab}`} className="animate-in">
         <RulesTable rules={filteredRules} />
       </div>
     </div>

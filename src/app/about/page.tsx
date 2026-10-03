@@ -101,7 +101,7 @@ const GOVERNING_LAWS = [
 
 export default function AboutPage() {
   return (
-    <div className="py-8 px-4 md:py-16 md:px-8">
+    <div className="content-page reading-page">
       <div className="max-w-3xl mx-auto">
         <Breadcrumbs
           items={[
@@ -111,7 +111,7 @@ export default function AboutPage() {
         />
 
         {/* Hero */}
-        <div className="text-center mb-10 animate-fade-in">
+        <div className="content-heading">
           <h1
             style={{
               fontFamily: 'var(--font-display)',
@@ -137,7 +137,7 @@ export default function AboutPage() {
           </p>
         </div>
 
-        <RuleDivider />
+
 
         {/* Mission */}
         <section>
