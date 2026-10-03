@@ -2437,3 +2437,5 @@ dialog.mobile-menu-overlay::backdrop { background: #192d4b80; }
 
 .section-badge, .section-badge-link { max-width: 100%; white-space: normal; overflow-wrap: anywhere; }
 .section-badge-link svg { flex-shrink: 0; }
+
+.content-page a.btn-primary { color: white; text-decoration: none; }
